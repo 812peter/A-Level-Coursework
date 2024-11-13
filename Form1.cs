@@ -28,5 +28,10 @@ namespace Coursework
             frmCustomersList frmCustomersList = new frmCustomersList();
             frmCustomersList.Show();
         }
+
+        private void viewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            lstOrders.Visible = true;
+        }
     }
 }
