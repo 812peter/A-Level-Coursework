@@ -1,4 +1,7 @@
-﻿namespace Coursework
+﻿using System;
+using System.Windows.Forms;
+
+namespace Coursework
 {
     partial class Main
     {
@@ -28,11 +31,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnViewOrders = new System.Windows.Forms.Button();
-            this.btnViewCustomers = new System.Windows.Forms.Button();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.ordersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lstOrders = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -41,56 +39,25 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.menuStrip1.SuspendLayout();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lstCustomers = new System.Windows.Forms.ListView();
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnViewOrders
-            // 
-            this.btnViewOrders.Location = new System.Drawing.Point(12, 105);
-            this.btnViewOrders.Name = "btnViewOrders";
-            this.btnViewOrders.Size = new System.Drawing.Size(75, 23);
-            this.btnViewOrders.TabIndex = 0;
-            this.btnViewOrders.Text = "Orders";
-            this.btnViewOrders.UseVisualStyleBackColor = true;
-            this.btnViewOrders.Click += new System.EventHandler(this.btnViewOrders_Click);
-            // 
-            // btnViewCustomers
-            // 
-            this.btnViewCustomers.Location = new System.Drawing.Point(106, 105);
-            this.btnViewCustomers.Name = "btnViewCustomers";
-            this.btnViewCustomers.Size = new System.Drawing.Size(75, 23);
-            this.btnViewCustomers.TabIndex = 1;
-            this.btnViewCustomers.Text = "Customers";
-            this.btnViewCustomers.UseVisualStyleBackColor = true;
-            this.btnViewCustomers.Click += new System.EventHandler(this.btnViewCustomers_Click);
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ordersToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1264, 24);
-            this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // ordersToolStripMenuItem
-            // 
-            this.ordersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.viewToolStripMenuItem});
-            this.ordersToolStripMenuItem.Name = "ordersToolStripMenuItem";
-            this.ordersToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
-            this.ordersToolStripMenuItem.Text = "Orders";
-            // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.viewToolStripMenuItem.Text = "View";
-            this.viewToolStripMenuItem.Click += new System.EventHandler(this.viewToolStripMenuItem_Click);
             // 
             // lstOrders
             // 
+            this.lstOrders.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lstOrders.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
@@ -99,15 +66,17 @@
             this.columnHeader5,
             this.columnHeader6,
             this.columnHeader7});
+            this.lstOrders.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lstOrders.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstOrders.FullRowSelect = true;
+            this.lstOrders.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstOrders.HideSelection = false;
-            this.lstOrders.Location = new System.Drawing.Point(352, 12);
+            this.lstOrders.Location = new System.Drawing.Point(0, 0);
             this.lstOrders.Name = "lstOrders";
-            this.lstOrders.Size = new System.Drawing.Size(560, 657);
+            this.lstOrders.Size = new System.Drawing.Size(1260, 656);
             this.lstOrders.TabIndex = 3;
             this.lstOrders.UseCompatibleStateImageBehavior = false;
             this.lstOrders.View = System.Windows.Forms.View.Details;
-            this.lstOrders.Visible = false;
             // 
             // columnHeader1
             // 
@@ -143,33 +112,119 @@
             this.columnHeader7.Text = "Address ID";
             this.columnHeader7.Width = 65;
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1268, 681);
+            this.tabControl1.TabIndex = 4;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.lstOrders);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1260, 652);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Orders";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.lstCustomers);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1260, 652);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Customers";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // lstCustomers
+            // 
+            this.lstCustomers.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lstCustomers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader8,
+            this.columnHeader9,
+            this.columnHeader10,
+            this.columnHeader11,
+            this.columnHeader12,
+            this.columnHeader13,
+            this.columnHeader14});
+            this.lstCustomers.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lstCustomers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstCustomers.FullRowSelect = true;
+            this.lstCustomers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lstCustomers.HideSelection = false;
+            this.lstCustomers.Location = new System.Drawing.Point(0, 0);
+            this.lstCustomers.Name = "lstCustomers";
+            this.lstCustomers.Size = new System.Drawing.Size(1264, 657);
+            this.lstCustomers.TabIndex = 5;
+            this.lstCustomers.UseCompatibleStateImageBehavior = false;
+            this.lstCustomers.View = System.Windows.Forms.View.Details;
+            this.lstCustomers.ColumnWidthChanged += new System.Windows.Forms.ColumnWidthChangedEventHandler(this.lstCustomers_ColumnWidthChanged);
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Customer ID";
+            this.columnHeader8.Width = 70;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "First Name";
+            this.columnHeader9.Width = 80;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Surname";
+            this.columnHeader10.Width = 80;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Email";
+            this.columnHeader11.Width = 200;
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "Phone Number";
+            this.columnHeader12.Width = 100;
+            // 
+            // columnHeader13
+            // 
+            this.columnHeader13.Text = "Company Name";
+            this.columnHeader13.Width = 115;
+            // 
+            // columnHeader14
+            // 
+            this.columnHeader14.Text = "Address ID";
+            this.columnHeader14.Width = 65;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1264, 681);
-            this.Controls.Add(this.lstOrders);
-            this.Controls.Add(this.btnViewCustomers);
-            this.Controls.Add(this.btnViewOrders);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.ClientSize = new System.Drawing.Size(1265, 681);
+            this.Controls.Add(this.tabControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.Load += new System.EventHandler(this.Main_Load);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnViewOrders;
-        private System.Windows.Forms.Button btnViewCustomers;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem ordersToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ListView lstOrders;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
@@ -178,6 +233,17 @@
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.ListView lstCustomers;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.ColumnHeader columnHeader12;
+        private System.Windows.Forms.ColumnHeader columnHeader13;
+        private System.Windows.Forms.ColumnHeader columnHeader14;
     }
 }
 
