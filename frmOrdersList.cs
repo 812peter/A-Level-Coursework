@@ -43,6 +43,5 @@ namespace Coursework
             }
             dbConnector.Close();
         }
-
     }
 }

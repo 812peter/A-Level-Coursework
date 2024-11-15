@@ -44,5 +44,11 @@ namespace Coursework
             }
             dbConnector.Close();
         }
+
+        private void btnManage_Click(object sender, EventArgs e)
+        {
+            frmManageCustomers frmManageCustomers = new frmManageCustomers();
+            frmManageCustomers.Show();
+        }
     }
 }

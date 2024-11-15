@@ -36,6 +36,7 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnManage = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lstCustomers
@@ -92,14 +93,24 @@
             this.columnHeader7.Text = "Address ID";
             this.columnHeader7.Width = 65;
             // 
+            // btnManage
+            // 
+            this.btnManage.Location = new System.Drawing.Point(733, 12);
+            this.btnManage.Name = "btnManage";
+            this.btnManage.Size = new System.Drawing.Size(75, 23);
+            this.btnManage.TabIndex = 1;
+            this.btnManage.Text = "Manage";
+            this.btnManage.UseVisualStyleBackColor = true;
+            this.btnManage.Click += new System.EventHandler(this.btnManage_Click);
+            // 
             // frmCustomersList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.btnManage);
             this.Controls.Add(this.lstCustomers);
             this.Name = "frmCustomersList";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmCustomersList";
             this.Load += new System.EventHandler(this.frmCustomersList_Load);
             this.ResumeLayout(false);
@@ -116,5 +127,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.Button btnManage;
     }
 }

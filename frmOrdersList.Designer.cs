@@ -98,7 +98,6 @@
             this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.lstOrders);
             this.Name = "frmOrdersList";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmOrdersList";
             this.Load += new System.EventHandler(this.frmOrdersList_Load);
             this.ResumeLayout(false);
