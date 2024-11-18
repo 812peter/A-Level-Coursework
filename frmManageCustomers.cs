@@ -31,11 +31,27 @@ namespace Coursework
             dbConnector.Connect();
             dbConnector.DoDML(cmdStr);
             dbConnector.Close();
-            (Application.OpenForms["frmCustomersList"] as frmCustomersList).DisplayData();
+            (Application.OpenForms["Main"] as Main).DisplayData();
             frmManageCustomers_Load(sender, e);
         }
 
         private void frmManageCustomers_Load(object sender, EventArgs e)
+        {
+            ClearFields();
+            cmbCustomerID.Text = "Select";
+        }
+
+        private void ClearFields()
+        {
+            string emptyStr = "";
+            txtFirstName.Text = emptyStr;
+            txtSurname.Text = emptyStr;
+            txtEmail.Text = emptyStr;
+            txtPhoneNumber.Text = emptyStr;
+            txtCompanyName.Text = emptyStr;
+        }
+
+        private void PopulateCombo()
         {
             List<CLsCustomer> customerList = new List<CLsCustomer>();
             clsDBConnector dbConnector = new clsDBConnector();
@@ -91,7 +107,7 @@ namespace Coursework
             dbConnector.Connect();
             dbConnector.DoDML(cmdStr);
             dbConnector.Close();
-            (Application.OpenForms["frmCustomersList"] as frmCustomersList).DisplayData();
+            (Application.OpenForms["Main"] as Main).DisplayData();
             frmManageCustomers_Load(sender, e);
         }
 
@@ -106,9 +122,22 @@ namespace Coursework
                 dbConnector.Connect();
                 dbConnector.DoDML(cmdStr);
                 dbConnector.Close();
-                (Application.OpenForms["frmCustomersList"] as frmCustomersList).DisplayData();
+                (Application.OpenForms["Main"] as Main).DisplayData();
                 frmManageCustomers_Load(sender, e);
             }
+        }
+
+        private void cmbCustomerID_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (cmbCustomerID.Text == "Select")
+            {
+                PopulateCombo();
+            }
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            frmManageCustomers_Load(sender, e);
         }
     }
 }

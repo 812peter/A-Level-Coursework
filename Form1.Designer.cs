@@ -31,6 +31,7 @@ namespace Coursework
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.lstOrders = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -50,9 +51,12 @@ namespace Coursework
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnManageCustomers = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // lstOrders
@@ -66,14 +70,14 @@ namespace Coursework
             this.columnHeader5,
             this.columnHeader6,
             this.columnHeader7});
-            this.lstOrders.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lstOrders.Cursor = System.Windows.Forms.Cursors.Default;
             this.lstOrders.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstOrders.FullRowSelect = true;
             this.lstOrders.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstOrders.HideSelection = false;
             this.lstOrders.Location = new System.Drawing.Point(0, 0);
             this.lstOrders.Name = "lstOrders";
-            this.lstOrders.Size = new System.Drawing.Size(1260, 656);
+            this.lstOrders.Size = new System.Drawing.Size(1164, 656);
             this.lstOrders.TabIndex = 3;
             this.lstOrders.UseCompatibleStateImageBehavior = false;
             this.lstOrders.View = System.Windows.Forms.View.Details;
@@ -120,7 +124,7 @@ namespace Coursework
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1268, 681);
+            this.tabControl1.Size = new System.Drawing.Size(1273, 684);
             this.tabControl1.TabIndex = 4;
             // 
             // tabPage1
@@ -129,18 +133,20 @@ namespace Coursework
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1260, 652);
+            this.tabPage1.Size = new System.Drawing.Size(1265, 655);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Orders";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnManageCustomers);
             this.tabPage2.Controls.Add(this.lstCustomers);
+            this.tabPage2.Controls.Add(this.pictureBox1);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1260, 652);
+            this.tabPage2.Size = new System.Drawing.Size(1265, 655);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Customers";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -156,14 +162,14 @@ namespace Coursework
             this.columnHeader12,
             this.columnHeader13,
             this.columnHeader14});
-            this.lstCustomers.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lstCustomers.Cursor = System.Windows.Forms.Cursors.Default;
             this.lstCustomers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstCustomers.FullRowSelect = true;
             this.lstCustomers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstCustomers.HideSelection = false;
             this.lstCustomers.Location = new System.Drawing.Point(0, 0);
             this.lstCustomers.Name = "lstCustomers";
-            this.lstCustomers.Size = new System.Drawing.Size(1264, 657);
+            this.lstCustomers.Size = new System.Drawing.Size(1164, 657);
             this.lstCustomers.TabIndex = 5;
             this.lstCustomers.UseCompatibleStateImageBehavior = false;
             this.lstCustomers.View = System.Windows.Forms.View.Details;
@@ -204,22 +210,44 @@ namespace Coursework
             this.columnHeader14.Text = "Address ID";
             this.columnHeader14.Width = 65;
             // 
+            // btnManageCustomers
+            // 
+            this.btnManageCustomers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnManageCustomers.Location = new System.Drawing.Point(1175, 1);
+            this.btnManageCustomers.Name = "btnManageCustomers";
+            this.btnManageCustomers.Size = new System.Drawing.Size(75, 21);
+            this.btnManageCustomers.TabIndex = 6;
+            this.btnManageCustomers.Text = "Manage";
+            this.btnManageCustomers.UseVisualStyleBackColor = true;
+            this.btnManageCustomers.Click += new System.EventHandler(this.btnManageCustomers_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureBox1.Location = new System.Drawing.Point(1132, -25);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(164, 695);
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1265, 681);
+            this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Reinforcements - Main Menu";
             this.Load += new System.EventHandler(this.Main_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -244,6 +272,8 @@ namespace Coursework
         private System.Windows.Forms.ColumnHeader columnHeader12;
         private System.Windows.Forms.ColumnHeader columnHeader13;
         private System.Windows.Forms.ColumnHeader columnHeader14;
+        private Button btnManageCustomers;
+        private PictureBox pictureBox1;
     }
 }
 

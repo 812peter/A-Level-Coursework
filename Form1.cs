@@ -30,7 +30,7 @@ namespace Coursework
           DisplayData();
         }
 
-        private void DisplayData()
+        public void DisplayData()
         {
             dbConnector.Connect();
             sqlStr = "SELECT OrderID, CustomerID, DateOfOrder, TotalPaid, Completed, DateOfCompletion, AddressID FROM tblOrder";
@@ -69,6 +69,12 @@ namespace Coursework
             {
                 lstCustomers.Columns[e.ColumnIndex].Width = MaxColumnWidth;
             }
+        }
+
+        private void btnManageCustomers_Click(object sender, EventArgs e)
+        {
+            frmManageCustomers frmManageCustomers = new frmManageCustomers();
+            frmManageCustomers.Show();
         }
     }
 }
