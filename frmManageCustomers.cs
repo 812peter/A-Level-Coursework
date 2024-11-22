@@ -27,7 +27,7 @@ namespace Coursework
         {
             clsDBConnector dbConnector = new clsDBConnector();
             string cmdStr = $"INSERT INTO tblCustomer (FirstName, Surname, Email, PhoneNumber, CompanyName) " +
-                $"VALUES ('{txtFirstName.Text}' , '{txtSurname.Text}', '{txtEmail.Text}', '{txtPhoneNumber.Text}', '{txtCompanyName.Text}')";
+                $"VALUES ('{txtFirstName.Text}', '{txtSurname.Text}', '{txtEmail.Text}', '{txtPhoneNumber.Text}', '{txtCompanyName.Text}')";
             dbConnector.Connect();
             dbConnector.DoDML(cmdStr);
             dbConnector.Close();
