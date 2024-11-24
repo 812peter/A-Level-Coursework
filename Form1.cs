@@ -30,7 +30,7 @@ namespace Coursework
           DisplayData();
         }
 
-        private void DisplayData()
+        public void DisplayData()
         {
             dbConnector.Connect();
             sqlStr = "SELECT OrderID, CustomerID, DateOfOrder, TotalPaid, Completed, DateOfCompletion, AddressID FROM tblOrder";
@@ -47,7 +47,7 @@ namespace Coursework
                 lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[6].ToString());
             }
 
-            sqlStr = "SELECT CustomerID, FirstName, Surname, Email, PhoneNumber, CompanyName, AddressID FROM tblCustomer";
+            sqlStr = "SELECT CustomerID, FirstName, Surname, Email, PhoneNumber, CompanyName FROM tblCustomer";
             dr = dbConnector.DoSQL(sqlStr);
             lstCustomers.Items.Clear();
             while (dr.Read())
@@ -58,7 +58,6 @@ namespace Coursework
                 lstCustomers.Items[lstCustomers.Items.Count - 1].SubItems.Add(dr[3].ToString());
                 lstCustomers.Items[lstCustomers.Items.Count - 1].SubItems.Add(dr[4].ToString());
                 lstCustomers.Items[lstCustomers.Items.Count - 1].SubItems.Add(dr[5].ToString());
-                lstCustomers.Items[lstCustomers.Items.Count - 1].SubItems.Add(dr[6].ToString());
             }
             dbConnector.Close();
         }
@@ -70,5 +69,19 @@ namespace Coursework
                 lstCustomers.Columns[e.ColumnIndex].Width = MaxColumnWidth;
             }
         }
+        private void lstOrders_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e)
+        {
+            if (lstOrders.Columns[e.ColumnIndex].Width > MaxColumnWidth)
+            {
+                lstOrders.Columns[e.ColumnIndex].Width = MaxColumnWidth;
+            }
+        }
+
+        private void btnManageCustomers_Click(object sender, EventArgs e)
+        {
+            frmManageCustomers frmManageCustomers = new frmManageCustomers();
+            frmManageCustomers.Show();
+        }
+
     }
 }
