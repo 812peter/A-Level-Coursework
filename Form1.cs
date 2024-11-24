@@ -83,5 +83,10 @@ namespace Coursework
             frmManageCustomers.Show();
         }
 
+        private void btnAddresses_Click(object sender, EventArgs e)
+        {
+            frmAddresses frmAddresses = new frmAddresses();
+            frmAddresses.Show();
+        }
     }
 }

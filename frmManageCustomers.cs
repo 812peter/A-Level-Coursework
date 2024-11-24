@@ -8,11 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Text.RegularExpressions;
 
 namespace Coursework
 {
     public partial class frmManageCustomers : Form
     {
+        frmAddresses frmAddresses = new frmAddresses();
+
         public frmManageCustomers()
         {
             InitializeComponent();
@@ -25,14 +28,59 @@ namespace Coursework
 
         private void btnAddCustomer_Click(object sender, EventArgs e)
         {
-            clsDBConnector dbConnector = new clsDBConnector();
-            string cmdStr = $"INSERT INTO tblCustomer (FirstName, Surname, Email, PhoneNumber, CompanyName) " +
-                $"VALUES ('{txtFirstName.Text}', '{txtSurname.Text}', '{txtEmail.Text}', '{txtPhoneNumber.Text}', '{txtCompanyName.Text}')";
-            dbConnector.Connect();
-            dbConnector.DoDML(cmdStr);
-            dbConnector.Close();
-            (Application.OpenForms["Main"] as Main).DisplayData();
-            frmManageCustomers_Load(sender, e);
+            if (CheckValid() == true)
+            {
+                clsDBConnector dbConnector = new clsDBConnector();
+                string cmdStr = $"INSERT INTO tblCustomer (FirstName, Surname, Email, PhoneNumber, CompanyName) " +
+                    $"VALUES ('{txtFirstName.Text}', '{txtSurname.Text}', '{txtEmail.Text}', '{txtPhoneNumber.Text}', '{txtCompanyName.Text}')";
+                dbConnector.Connect();
+                dbConnector.DoDML(cmdStr);
+                dbConnector.Close();
+                (Application.OpenForms["Main"] as Main).DisplayData();
+                DialogResult dialogResult = MessageBox.Show($"Do you want to associate an address with {txtFirstName.Text}?", "Adding Address", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    frmAddresses.Show();
+                }
+                frmManageCustomers_Load(sender, e);
+            }
+        }
+
+        private bool CheckValid()
+        {
+            if (txtFirstName.Text == "" || txtSurname.Text == "" || txtEmail.Text == "" || txtPhoneNumber.Text == "")
+            {
+                MessageBox.Show("You have not entered anything for one or many fields.");
+                return false;
+            }
+            string pattern = @"[A-Z][a-z]*";
+            Match tryToMatch = Regex.Match(txtFirstName.Text, pattern);
+            if (tryToMatch.Success == false)
+            {
+                MessageBox.Show("Invalid first name.");
+                return false;
+            }
+            pattern = @"[A-Z][a-z]*";
+            tryToMatch = Regex.Match(txtSurname.Text, pattern);
+            if (tryToMatch.Success == false)
+            {
+                MessageBox.Show("Invalid surname.");
+                return false;
+            }
+            pattern = @"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|""(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*"")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])";
+            tryToMatch = Regex.Match(txtEmail.Text, pattern);
+            if (tryToMatch.Success == false)
+            {
+                MessageBox.Show("Invalid email address.");
+                return false;
+            }
+            pattern = @"^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$";
+            if (tryToMatch.Success == false)
+            {
+                MessageBox.Show("Invalid phone number.");
+                return false;
+            }
+            return true;
         }
 
         private void frmManageCustomers_Load(object sender, EventArgs e)
@@ -96,19 +144,22 @@ namespace Coursework
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            clsDBConnector dbConnector = new clsDBConnector();
-            string cmdStr = "UPDATE tblCustomer " +
-                            $"SET FirstName = '{txtFirstName.Text}'," +
-                            $"Surname = '{txtSurname.Text}'," +
-                            $"Email ='{txtEmail.Text}'," +
-                            $"PhoneNumber ='{txtPhoneNumber.Text}'," +
-                            $"CompanyName ='{txtCompanyName.Text}'" +
-                            $"WHERE (CustomerID = {cmbCustomerID.SelectedValue})";
-            dbConnector.Connect();
-            dbConnector.DoDML(cmdStr);
-            dbConnector.Close();
-            (Application.OpenForms["Main"] as Main).DisplayData();
-            frmManageCustomers_Load(sender, e);
+            if (CheckValid() == true)
+            {
+                clsDBConnector dbConnector = new clsDBConnector();
+                string cmdStr = "UPDATE tblCustomer " +
+                                $"SET FirstName = '{txtFirstName.Text}'," +
+                                $"Surname = '{txtSurname.Text}'," +
+                                $"Email ='{txtEmail.Text}'," +
+                                $"PhoneNumber ='{txtPhoneNumber.Text}'," +
+                                $"CompanyName ='{txtCompanyName.Text}'" +
+                                $"WHERE (CustomerID = {cmbCustomerID.SelectedValue})";
+                dbConnector.Connect();
+                dbConnector.DoDML(cmdStr);
+                dbConnector.Close();
+                (Application.OpenForms["Main"] as Main).DisplayData();
+                frmManageCustomers_Load(sender, e);
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -138,6 +189,11 @@ namespace Coursework
         private void btnClear_Click(object sender, EventArgs e)
         {
             frmManageCustomers_Load(sender, e);
+        }
+
+        private void btnAddresses_Click(object sender, EventArgs e)
+        {
+            frmAddresses.Show();
         }
     }
 }
