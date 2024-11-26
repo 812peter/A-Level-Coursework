@@ -14,8 +14,6 @@ namespace Coursework
 {
     public partial class frmManageCustomers : Form
     {
-        frmAddresses frmAddresses = new frmAddresses();
-
         public frmManageCustomers()
         {
             InitializeComponent();
@@ -32,7 +30,7 @@ namespace Coursework
             {
                 clsDBConnector dbConnector = new clsDBConnector();
                 string cmdStr = $"INSERT INTO tblCustomer (FirstName, Surname, Email, PhoneNumber, CompanyName) " +
-                    $"VALUES ('{txtFirstName.Text}', '{txtSurname.Text}', '{txtEmail.Text}', '{txtPhoneNumber.Text}', '{txtCompanyName.Text}')";
+                                $"VALUES ('{txtFirstName.Text}', '{txtSurname.Text}', '{txtEmail.Text}', '{txtPhoneNumber.Text}', '{txtCompanyName.Text}')";
                 dbConnector.Connect();
                 dbConnector.DoDML(cmdStr);
                 dbConnector.Close();
@@ -40,6 +38,7 @@ namespace Coursework
                 DialogResult dialogResult = MessageBox.Show($"Do you want to associate an address with {txtFirstName.Text}?", "Adding Address", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
+                    frmAddresses frmAddresses = new frmAddresses();
                     frmAddresses.Show();
                 }
                 frmManageCustomers_Load(sender, e);
@@ -127,8 +126,8 @@ namespace Coursework
                 string sqlStr;
                 dbConnector.Connect();
                 sqlStr = "SELECT CustomerID, FirstName, Surname, Email, PhoneNumber, CompanyName" +
-                    " FROM tblCustomer" +
-                    " WHERE CustomerID = " + cmbCustomerID.SelectedValue;
+                         " FROM tblCustomer" +
+                         " WHERE CustomerID = " + cmbCustomerID.SelectedValue;
                 dr = dbConnector.DoSQL(sqlStr);
                 while (dr.Read())
                 {
@@ -169,7 +168,7 @@ namespace Coursework
             if (dialogResult == DialogResult.Yes)
             {
                 string cmdStr = "DELETE FROM tblCustomer " +
-                                    $"WHERE CustomerID = {cmbCustomerID.SelectedValue}";
+                                $"WHERE CustomerID = {cmbCustomerID.SelectedValue}";
                 dbConnector.Connect();
                 dbConnector.DoDML(cmdStr);
                 dbConnector.Close();
@@ -193,6 +192,7 @@ namespace Coursework
 
         private void btnAddresses_Click(object sender, EventArgs e)
         {
+            frmAddresses frmAddresses = new frmAddresses();
             frmAddresses.Show();
         }
     }
