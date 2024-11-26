@@ -54,37 +54,28 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmAddresses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddresses.Designer.cs">
+      <DependentUpon>frmAddresses.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmManageCustomers.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmManageCustomers.Designer.cs">
       <DependentUpon>frmManageCustomers.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmCustomersList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmCustomersList.Designer.cs">
-      <DependentUpon>frmCustomersList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmOrdersList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmOrdersList.Designer.cs">
-      <DependentUpon>frmOrdersList.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAddresses.resx">
+      <DependentUpon>frmAddresses.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmManageCustomers.resx">
       <DependentUpon>frmManageCustomers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmCustomersList.resx">
-      <DependentUpon>frmCustomersList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmOrdersList.resx">
-      <DependentUpon>frmOrdersList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
