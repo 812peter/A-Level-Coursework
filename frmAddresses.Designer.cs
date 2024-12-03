@@ -100,10 +100,10 @@
             // lblAddressManagement
             // 
             this.lblAddressManagement.AutoSize = true;
-            this.lblAddressManagement.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAddressManagement.Location = new System.Drawing.Point(136, 149);
+            this.lblAddressManagement.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAddressManagement.Location = new System.Drawing.Point(135, 141);
             this.lblAddressManagement.Name = "lblAddressManagement";
-            this.lblAddressManagement.Size = new System.Drawing.Size(158, 16);
+            this.lblAddressManagement.Size = new System.Drawing.Size(214, 24);
             this.lblAddressManagement.TabIndex = 33;
             this.lblAddressManagement.Text = "Address Management";
             // 
@@ -163,9 +163,9 @@
             this.lblSelectCustomer.AutoSize = true;
             this.lblSelectCustomer.Location = new System.Drawing.Point(136, 178);
             this.lblSelectCustomer.Name = "lblSelectCustomer";
-            this.lblSelectCustomer.Size = new System.Drawing.Size(84, 13);
+            this.lblSelectCustomer.Size = new System.Drawing.Size(62, 13);
             this.lblSelectCustomer.TabIndex = 37;
-            this.lblSelectCustomer.Text = "Select Customer";
+            this.lblSelectCustomer.Text = "Select User";
             // 
             // cmbCustomerID
             // 

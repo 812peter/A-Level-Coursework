@@ -29,7 +29,7 @@ namespace Coursework
             if (CheckValid() == true)
             {
                 clsDBConnector dbConnector = new clsDBConnector();
-                string cmdStr = $"INSERT INTO tblCustomer (FirstName, Surname, Email, PhoneNumber, CompanyName) " +
+                string cmdStr = $"INSERT INTO tblUser (FirstName, Surname, Email, PhoneNumber, CompanyName) " +
                                 $"VALUES ('{txtFirstName.Text}', '{txtSurname.Text}', '{txtEmail.Text}', '{txtPhoneNumber.Text}', '{txtCompanyName.Text}')";
                 dbConnector.Connect();
                 dbConnector.DoDML(cmdStr);
@@ -106,7 +106,7 @@ namespace Coursework
             OleDbDataReader dr;
             string sqlStr;
             dbConnector.Connect();
-            sqlStr = "SELECT CustomerID, (Surname & " + "', '" + "& FirstName) as customername FROM tblCustomer";
+            sqlStr = "SELECT UserID, (Surname & " + "', '" + "& FirstName) as customername FROM tblUser";
             dr = dbConnector.DoSQL(sqlStr);
             while (dr.Read())
             {
@@ -126,9 +126,9 @@ namespace Coursework
                 OleDbDataReader dr;
                 string sqlStr;
                 dbConnector.Connect();
-                sqlStr = "SELECT CustomerID, FirstName, Surname, Email, PhoneNumber, CompanyName" +
-                         " FROM tblCustomer" +
-                         " WHERE CustomerID = " + cmbCustomerID.SelectedValue;
+                sqlStr = "SELECT UserID, FirstName, Surname, Email, PhoneNumber, CompanyName" +
+                         " FROM tblUser" +
+                         " WHERE UserID = " + cmbCustomerID.SelectedValue;
                 dr = dbConnector.DoSQL(sqlStr);
                 while (dr.Read())
                 {
@@ -147,13 +147,13 @@ namespace Coursework
             if (CheckValid() == true)
             {
                 clsDBConnector dbConnector = new clsDBConnector();
-                string cmdStr = "UPDATE tblCustomer " +
+                string cmdStr = "UPDATE tblUser " +
                                 $"SET FirstName = '{txtFirstName.Text}'," +
                                 $"Surname = '{txtSurname.Text}'," +
                                 $"Email ='{txtEmail.Text}'," +
                                 $"PhoneNumber ='{txtPhoneNumber.Text}'," +
                                 $"CompanyName ='{txtCompanyName.Text}'" +
-                                $"WHERE (CustomerID = {cmbCustomerID.SelectedValue})";
+                                $"WHERE (UserID = {cmbCustomerID.SelectedValue})";
                 dbConnector.Connect();
                 dbConnector.DoDML(cmdStr);
                 dbConnector.Close();
@@ -174,8 +174,8 @@ namespace Coursework
                 DialogResult dialogResult = MessageBox.Show($"Are you sure that you want to delete {txtFirstName.Text}?", "Deleting Customer", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    string cmdStr = "DELETE FROM tblCustomer " +
-                                    $"WHERE CustomerID = {cmbCustomerID.SelectedValue}";
+                    string cmdStr = "DELETE FROM tblUser " +
+                                    $"WHERE UserID = {cmbCustomerID.SelectedValue}";
                     dbConnector.Connect();
                     dbConnector.DoDML(cmdStr);
                     dbConnector.Close();

@@ -190,9 +190,9 @@
             this.lblSelectCustomer.AutoSize = true;
             this.lblSelectCustomer.Location = new System.Drawing.Point(315, 132);
             this.lblSelectCustomer.Name = "lblSelectCustomer";
-            this.lblSelectCustomer.Size = new System.Drawing.Size(84, 13);
+            this.lblSelectCustomer.Size = new System.Drawing.Size(62, 13);
             this.lblSelectCustomer.TabIndex = 15;
-            this.lblSelectCustomer.Text = "Select Customer";
+            this.lblSelectCustomer.Text = "Select User";
             // 
             // lblStar
             // 
@@ -207,12 +207,12 @@
             // lblCustomerDetails
             // 
             this.lblCustomerDetails.AutoSize = true;
-            this.lblCustomerDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCustomerDetails.Location = new System.Drawing.Point(315, 103);
+            this.lblCustomerDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCustomerDetails.Location = new System.Drawing.Point(412, 94);
             this.lblCustomerDetails.Name = "lblCustomerDetails";
-            this.lblCustomerDetails.Size = new System.Drawing.Size(125, 16);
+            this.lblCustomerDetails.Size = new System.Drawing.Size(121, 24);
             this.lblCustomerDetails.TabIndex = 23;
-            this.lblCustomerDetails.Text = "Customer Details";
+            this.lblCustomerDetails.Text = "User Details";
             // 
             // btnAddresses
             // 
@@ -220,7 +220,7 @@
             this.btnAddresses.Name = "btnAddresses";
             this.btnAddresses.Size = new System.Drawing.Size(156, 23);
             this.btnAddresses.TabIndex = 27;
-            this.btnAddresses.Text = "Address Management";
+            this.btnAddresses.Text = "Address management";
             this.btnAddresses.UseVisualStyleBackColor = true;
             this.btnAddresses.Click += new System.EventHandler(this.btnAddresses_Click);
             // 

@@ -33,7 +33,7 @@ namespace Coursework
         public void DisplayData()
         {
             dbConnector.Connect();
-            sqlStr = "SELECT OrderID, CustomerID, DateOfOrder, TotalPaid, Completed, DateOfCompletion, AddressID FROM tblOrder";
+            sqlStr = "SELECT OrderID, UserID, DateOfOrder, TotalPaid, Completed, DateOfCompletion, AddressID FROM tblOrder";
             dr = dbConnector.DoSQL(sqlStr);
             lstOrders.Items.Clear();
             while (dr.Read())
@@ -47,7 +47,7 @@ namespace Coursework
                 lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[6].ToString());
             }
 
-            sqlStr = "SELECT CustomerID, FirstName, Surname, Email, PhoneNumber, CompanyName FROM tblCustomer";
+            sqlStr = "SELECT UserID, FirstName, Surname, Email, PhoneNumber, CompanyName FROM tblUser WHERE Manager = false";
             dr = dbConnector.DoSQL(sqlStr);
             lstCustomers.Items.Clear();
             while (dr.Read())
@@ -88,5 +88,6 @@ namespace Coursework
             frmAddresses frmAddresses = new frmAddresses();
             frmAddresses.Show();
         }
+
     }
 }

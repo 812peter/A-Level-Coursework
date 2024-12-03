@@ -54,6 +54,7 @@ namespace Coursework
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -92,7 +93,7 @@ namespace Coursework
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Customer ID";
+            this.columnHeader2.Text = "User ID";
             this.columnHeader2.Width = 70;
             // 
             // columnHeader3
@@ -153,6 +154,7 @@ namespace Coursework
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.checkBox1);
             this.tabPage2.Controls.Add(this.btnAddresses);
             this.tabPage2.Controls.Add(this.btnManageCustomers);
             this.tabPage2.Controls.Add(this.lstCustomers);
@@ -162,13 +164,13 @@ namespace Coursework
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(1265, 655);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Customers";
+            this.tabPage2.Text = "Users";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // btnAddresses
             // 
             this.btnAddresses.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddresses.Location = new System.Drawing.Point(1175, 23);
+            this.btnAddresses.Location = new System.Drawing.Point(1175, 43);
             this.btnAddresses.Name = "btnAddresses";
             this.btnAddresses.Size = new System.Drawing.Size(75, 21);
             this.btnAddresses.TabIndex = 7;
@@ -179,7 +181,7 @@ namespace Coursework
             // btnManageCustomers
             // 
             this.btnManageCustomers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnManageCustomers.Location = new System.Drawing.Point(1175, 1);
+            this.btnManageCustomers.Location = new System.Drawing.Point(1175, 21);
             this.btnManageCustomers.Name = "btnManageCustomers";
             this.btnManageCustomers.Size = new System.Drawing.Size(75, 21);
             this.btnManageCustomers.TabIndex = 6;
@@ -212,8 +214,8 @@ namespace Coursework
             // 
             // columnHeader8
             // 
-            this.columnHeader8.Text = "Customer ID";
-            this.columnHeader8.Width = 70;
+            this.columnHeader8.Text = "User ID";
+            this.columnHeader8.Width = 50;
             // 
             // columnHeader9
             // 
@@ -250,6 +252,17 @@ namespace Coursework
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.checkBox1.Location = new System.Drawing.Point(1178, 3);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(73, 17);
+            this.checkBox1.TabIndex = 8;
+            this.checkBox1.Text = "Managers";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -267,6 +280,7 @@ namespace Coursework
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -295,6 +309,7 @@ namespace Coursework
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
         private Button btnAddresses;
+        private CheckBox checkBox1;
     }
 }
 

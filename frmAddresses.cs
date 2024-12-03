@@ -53,7 +53,7 @@ namespace Coursework
             OleDbDataReader dr;
             string sqlStr;
             dbConnector.Connect();
-            sqlStr = "SELECT CustomerID, (Surname & " + "', '" + "& FirstName) as customername FROM tblCustomer";
+            sqlStr = "SELECT UserID, (Surname & " + "', '" + "& FirstName) as customername FROM tblUser";
             dr = dbConnector.DoSQL(sqlStr);
             while (dr.Read())
             {
@@ -75,7 +75,7 @@ namespace Coursework
                 dbConnector.Connect();
                 sqlStr = "SELECT AddressID, FirstLine, Town, Postcode" +
                          " FROM tblAddress" +
-                         " WHERE CustomerID = " + cmbCustomerID.SelectedValue;
+                         " WHERE UserID = " + cmbCustomerID.SelectedValue;
                 dr = dbConnector.DoSQL(sqlStr);
                 lstAddresses.Items.Clear();
                 while (dr.Read())
@@ -100,7 +100,7 @@ namespace Coursework
                 if (CheckValid() == true)
                 {
                     clsDBConnector dbConnector = new clsDBConnector();
-                    string cmdStr = $"INSERT INTO tblAddress (CustomerID, FirstLine, Town, Postcode) " +
+                    string cmdStr = $"INSERT INTO tblAddress (UserID, FirstLine, Town, Postcode) " +
                                     $"VALUES ('{cmbCustomerID.SelectedValue}', '{txtFirstLine.Text}', '{txtTown.Text}', '{txtPostcode.Text}')";
                     dbConnector.Connect();
                     dbConnector.DoDML(cmdStr);
