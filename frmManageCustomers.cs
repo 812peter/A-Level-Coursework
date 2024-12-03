@@ -39,6 +39,7 @@ namespace Coursework
                 if (dialogResult == DialogResult.Yes)
                 {
                     frmAddresses frmAddresses = new frmAddresses();
+                    frmAddresses.SetUpNewCustomer(txtEmail.Text);
                     frmAddresses.Show();
                 }
                 frmManageCustomers_Load(sender, e);
@@ -52,31 +53,31 @@ namespace Coursework
                 MessageBox.Show("You have not entered anything for one or many fields.");
                 return false;
             }
-            string pattern = @"[A-Z][a-z]*";
+            string pattern = @"[A-Z][a-z]+";
             Match tryToMatch = Regex.Match(txtFirstName.Text, pattern);
-            if (tryToMatch.Success == false)
+            if (!tryToMatch.Success)
             {
-                MessageBox.Show("Invalid first name.");
+                MessageBox.Show("Invalid first name (e.g., Charlie).");
                 return false;
             }
-            pattern = @"[A-Z][a-z]*";
+            pattern = @"[A-Z][a-z]+";
             tryToMatch = Regex.Match(txtSurname.Text, pattern);
-            if (tryToMatch.Success == false)
+            if (!tryToMatch.Success)
             {
-                MessageBox.Show("Invalid surname.");
+                MessageBox.Show("Invalid surname (e.g., Black).");
                 return false;
             }
             pattern = @"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|""(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*"")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])";
             tryToMatch = Regex.Match(txtEmail.Text, pattern);
-            if (tryToMatch.Success == false)
+            if (!tryToMatch.Success)
             {
-                MessageBox.Show("Invalid email address.");
+                MessageBox.Show("Invalid email address (e.g., charli3black999@gmail.com).");
                 return false;
             }
             pattern = @"^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$";
-            if (tryToMatch.Success == false)
+            if (!tryToMatch.Success)
             {
-                MessageBox.Show("Invalid phone number.");
+                MessageBox.Show("Invalid phone number. (e.g., 07635483912)");
                 return false;
             }
             return true;
@@ -163,17 +164,24 @@ namespace Coursework
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            clsDBConnector dbConnector = new clsDBConnector();
-            DialogResult dialogResult = MessageBox.Show($"Are you sure that you want to delete {txtFirstName.Text}?", "Deleting Customer", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
+            if (cmbCustomerID.Text == "Select")
             {
-                string cmdStr = "DELETE FROM tblCustomer " +
-                                $"WHERE CustomerID = {cmbCustomerID.SelectedValue}";
-                dbConnector.Connect();
-                dbConnector.DoDML(cmdStr);
-                dbConnector.Close();
-                (Application.OpenForms["Main"] as Main).DisplayData();
-                frmManageCustomers_Load(sender, e);
+                MessageBox.Show($"You have not selected a customer to delete.");
+            }
+            else
+            {
+                clsDBConnector dbConnector = new clsDBConnector();
+                DialogResult dialogResult = MessageBox.Show($"Are you sure that you want to delete {txtFirstName.Text}?", "Deleting Customer", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    string cmdStr = "DELETE FROM tblCustomer " +
+                                    $"WHERE CustomerID = {cmbCustomerID.SelectedValue}";
+                    dbConnector.Connect();
+                    dbConnector.DoDML(cmdStr);
+                    dbConnector.Close();
+                    (Application.OpenForms["Main"] as Main).DisplayData();
+                    frmManageCustomers_Load(sender, e);
+                }
             }
         }
 

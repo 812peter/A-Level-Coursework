@@ -14,6 +14,7 @@ namespace Coursework
 {
     public partial class frmAddresses : Form
     {
+
         public frmAddresses()
         {
             InitializeComponent();
@@ -112,11 +113,38 @@ namespace Coursework
 
         private bool CheckValid()
         {
-            //if (false)
-            //{
-            //   return false;
-            //}
+            if (txtFirstLine.Text == "" || txtTown.Text == "" || txtPostcode.Text == "")
+            {
+                MessageBox.Show("You have not entered anything for one or many fields.");
+                return false;
+            }
+            string pattern = @"^\d+[A-Za-z]?\s([A-Z][a-z]*)(\s([A-Z][a-z]*))*";
+            Match tryToMatch = Regex.Match(txtFirstLine.Text, pattern);
+            if (!tryToMatch.Success)
+            {
+                MessageBox.Show("Invalid first line of address (e.g., 1a Alexander Road).");
+                return false;
+            }
+            pattern = @"^[A-Z][a-z]+(?:[\s-][a-zA-Z]+)*$";
+            tryToMatch = Regex.Match(txtTown.Text, pattern);
+            if (!tryToMatch.Success)
+            {
+                MessageBox.Show("Invalid town (e.g., North London).");
+                return false;
+            }
+            pattern = @"^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$";
+            tryToMatch = Regex.Match(txtTown.Text, pattern);
+            if (!tryToMatch.Success)
+            {
+                MessageBox.Show("Invalid postcode (e.g., N85 8YU).");
+                return false;
+            }
             return true;
+        }
+
+        internal void SetUpNewCustomer(string previousEmail)
+        {
+            //
         }
     }
 }
