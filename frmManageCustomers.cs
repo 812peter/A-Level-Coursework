@@ -39,8 +39,8 @@ namespace Coursework
                 if (dialogResult == DialogResult.Yes)
                 {
                     frmAddresses frmAddresses = new frmAddresses();
-                    frmAddresses.SetUpNewCustomer(txtEmail.Text);
                     frmAddresses.Show();
+                    frmAddresses.SetUpNewCustomer();
                 }
                 frmManageCustomers_Load(sender, e);
             }

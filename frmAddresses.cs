@@ -132,19 +132,50 @@ namespace Coursework
                 MessageBox.Show("Invalid town (e.g., North London).");
                 return false;
             }
-            pattern = @"^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$";
-            tryToMatch = Regex.Match(txtTown.Text, pattern);
+            pattern = @"^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$";
+            tryToMatch = Regex.Match(txtPostcode.Text, pattern);
             if (!tryToMatch.Success)
             {
-                MessageBox.Show("Invalid postcode (e.g., N85 8YU).");
+                MessageBox.Show("Invalid postcode (e.g., BH2 7JP).");
                 return false;
             }
             return true;
         }
 
-        internal void SetUpNewCustomer(string previousEmail)
+        internal void SetUpNewCustomer()
         {
-            //
+            PopulateCombo();
+            int highestCustomerID = FindHighestID();
+            clsDBConnector dbConnector = new clsDBConnector();
+            OleDbDataReader dr;
+            string sqlStr;
+            string customername = "";
+            dbConnector.Connect();
+            sqlStr = "SELECT (Surname & " + "', '" + $"& FirstName) FROM tblCustomer WHERE CustomerID = {highestCustomerID}";
+            dr = dbConnector.DoSQL(sqlStr);
+            while (dr.Read())
+            {
+                customername = dr[0].ToString();
+            }
+            dbConnector.Close();
+            cmbCustomerID.Text = customername;
+            cmbCustomerID.SelectedValue = highestCustomerID;
+        }
+
+        private int FindHighestID()
+        {
+            clsDBConnector dbConnector = new clsDBConnector();
+            OleDbDataReader dr;
+            string sqlStr;
+            dbConnector.Connect();
+            sqlStr = "SELECT MAX(CustomerID) FROM tblCustomer";
+            dr = dbConnector.DoSQL(sqlStr);
+            while (dr.Read())
+            {
+                return Convert.ToInt32(dr[0]);
+            }
+            dbConnector.Close();
+            return 0;
         }
     }
 }
