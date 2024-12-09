@@ -27,7 +27,9 @@ namespace Coursework
         }
         private void Main_Load(object sender, EventArgs e)
         {
-          DisplayData();
+            DisplayData();
+            frmSignIn frmSignIn = new frmSignIn();
+            frmSignIn.Show();
         }
 
         public void DisplayData()
