@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.OleDb;
+using System.Text.RegularExpressions;
 
 namespace Coursework
 {
@@ -39,6 +41,7 @@ namespace Coursework
             txtPasswordReg2.Visible = v;
             lblPasswordReg2.Visible = v;
             btnRegister.Visible = v;
+            picViewPassword2.Visible = v;
         }
         private void btnSignIn_Click(object sender, EventArgs e)
         {
@@ -180,6 +183,112 @@ namespace Coursework
             {
                 lblPasswordReg2.Visible = false;
             }
+        }
+
+        private void picViewPassword_MouseUp(object sender, MouseEventArgs e)
+        {
+            txtPassword.PasswordChar = '*';
+            picViewPassword.Image = Image.FromFile("view_password.png");
+        }
+
+        private void picViewPassword_MouseDown(object sender, MouseEventArgs e)
+        {
+            txtPassword.PasswordChar = Convert.ToChar(0);
+            picViewPassword.Image = Image.FromFile("hide_password.png");
+        }
+
+        private void picViewPassword2_MouseUp(object sender, MouseEventArgs e)
+        {
+            txtPasswordReg1.PasswordChar = '*';
+            picViewPassword2.Image = Image.FromFile("view_password.png");
+        }
+
+        private void picViewPassword2_MouseDown(object sender, MouseEventArgs e)
+        {
+            txtPasswordReg1.PasswordChar = Convert.ToChar(0);
+            picViewPassword2.Image = Image.FromFile("hide_password.png");
+        }
+
+        private void btnRegister_Click(object sender, EventArgs e)
+        {
+            if (CheckValidReg() == true)
+            {
+                
+            }
+        }
+
+        private bool CheckValidReg()
+        {
+            if (txtFirstName.Text == "" || txtSurname.Text == "" || txtEmailReg.Text == "" || txtPhoneNumber.Text == "" || txtPasswordReg1.Text == "" || txtPasswordReg2.Text == "")
+            {
+                MessageBox.Show("You have not entered anything for one or many fields.");
+                return false;
+            }
+            string pattern = @"[A-Z][a-z]+";
+            Match tryToMatch = Regex.Match(txtFirstName.Text, pattern);
+            if (!tryToMatch.Success)
+            {
+                MessageBox.Show("Invalid first name (e.g., Charlie).");
+                return false;
+            }
+            pattern = @"[A-Z][a-z]+";
+            tryToMatch = Regex.Match(txtSurname.Text, pattern);
+            if (!tryToMatch.Success)
+            {
+                MessageBox.Show("Invalid surname (e.g., Black).");
+                return false;
+            }
+            pattern = @"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|""(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*"")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])";
+            tryToMatch = Regex.Match(txtEmailReg.Text, pattern);
+            if (!tryToMatch.Success)
+            {
+                MessageBox.Show("Invalid email address (e.g., charli3black999@gmail.com).");
+                return false;
+            }
+            pattern = @"^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$";
+            if (!tryToMatch.Success)
+            {
+                MessageBox.Show("Invalid phone number. (e.g., 07635483912)");
+                return false;
+            }
+            if (ExistingEmail() == true)
+            {
+                MessageBox.Show("This email address is already used, try to sign in.");
+                return false;
+            }
+            return true;
+        }
+
+        private bool ExistingEmail()
+        {
+            clsDBConnector dbConnector = new clsDBConnector();
+            OleDbDataReader dr;
+            string sqlStr;
+            int userExists = 0;
+            dbConnector.Connect();
+            sqlStr = $"SELECT CustomerID FROM tblCustomer WHERE Email = '{txtEmailReg.Text}'";
+            dr = dbConnector.DoSQL(sqlStr);
+            while (dr.Read())
+            {
+                if (dr[0] != DBNull.Value)
+                {
+                    userExists = 1;
+                }
+            }
+            dbConnector.Close();
+            if (userExists == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private void lblEmail_Click(object sender, EventArgs e)
+        {
+            txtEmail.Focus(); //add for every button
         }
     }
 }
