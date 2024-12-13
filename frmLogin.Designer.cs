@@ -110,6 +110,7 @@
             this.lblPassword.Size = new System.Drawing.Size(53, 13);
             this.lblPassword.TabIndex = 39;
             this.lblPassword.Text = "Password";
+            this.lblPassword.Click += new System.EventHandler(this.lblPassword_Click);
             // 
             // txtPassword
             // 
@@ -154,6 +155,7 @@
             this.lblCompanyName.Size = new System.Drawing.Size(80, 13);
             this.lblCompanyName.TabIndex = 51;
             this.lblCompanyName.Text = "Company name";
+            this.lblCompanyName.Click += new System.EventHandler(this.lblCompanyName_Click);
             // 
             // txtCompanyName
             // 
@@ -175,6 +177,7 @@
             this.lblPhoneNumber.Size = new System.Drawing.Size(76, 13);
             this.lblPhoneNumber.TabIndex = 49;
             this.lblPhoneNumber.Text = "Phone number";
+            this.lblPhoneNumber.Click += new System.EventHandler(this.lblPhoneNumber_Click);
             // 
             // txtPhoneNumber
             // 
@@ -196,6 +199,7 @@
             this.lblEmailReg.Size = new System.Drawing.Size(32, 13);
             this.lblEmailReg.TabIndex = 47;
             this.lblEmailReg.Text = "Email";
+            this.lblEmailReg.Click += new System.EventHandler(this.lblEmailReg_Click);
             // 
             // txtEmailReg
             // 
@@ -217,6 +221,7 @@
             this.lblSurname.Size = new System.Drawing.Size(49, 13);
             this.lblSurname.TabIndex = 45;
             this.lblSurname.Text = "Surname";
+            this.lblSurname.Click += new System.EventHandler(this.lblSurname_Click);
             // 
             // txtSurname
             // 
@@ -238,6 +243,7 @@
             this.lblFirstName.Size = new System.Drawing.Size(55, 13);
             this.lblFirstName.TabIndex = 43;
             this.lblFirstName.Text = "First name";
+            this.lblFirstName.Click += new System.EventHandler(this.lblFirstName_Click);
             // 
             // txtFirstName
             // 
@@ -259,6 +265,7 @@
             this.lblPasswordReg1.Size = new System.Drawing.Size(53, 13);
             this.lblPasswordReg1.TabIndex = 53;
             this.lblPasswordReg1.Text = "Password";
+            this.lblPasswordReg1.Click += new System.EventHandler(this.lblPasswordReg1_Click);
             // 
             // txtPasswordReg1
             // 
@@ -281,6 +288,7 @@
             this.lblPasswordReg2.Size = new System.Drawing.Size(90, 13);
             this.lblPasswordReg2.TabIndex = 55;
             this.lblPasswordReg2.Text = "Confirm password";
+            this.lblPasswordReg2.Click += new System.EventHandler(this.lblPasswordReg2_Click);
             // 
             // txtPasswordReg2
             // 

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography;
 
 namespace Coursework
 {
@@ -23,6 +24,20 @@ namespace Coursework
         {
             RegVisability(false);
         }
+
+        private string GetHashSHA256(string plainText)
+        {
+            string hashText = "";
+            Encoding enc = Encoding.UTF8;
+            SHA256Managed hash = new SHA256Managed();
+            byte[] result = hash.ComputeHash(enc.GetBytes(plainText));
+            foreach (Byte item in result)
+            {
+                hashText = hashText + item.ToString("X");
+            }
+            return hashText;
+        }
+
 
         private void RegVisability(bool v)
         {
@@ -58,16 +73,11 @@ namespace Coursework
                 MessageBox.Show("You have not entered anything for one or many fields.");
                 return false;
             }
-            if (CheckEmail() == false)
+            if (ExistingEmail(txtEmail.Text) == false)
             {
                 MessageBox.Show("We couldn't find an account with that email. Try creating an account.");
                 return false;
             }
-            return true;
-        }
-
-        private bool CheckEmail()
-        {
             return true;
         }
 
@@ -213,7 +223,14 @@ namespace Coursework
         {
             if (CheckValidReg() == true)
             {
-                
+                string hashedPassword = GetHashSHA256(txtPasswordReg1.Text);
+                clsDBConnector dbConnector = new clsDBConnector();
+                string cmdStr = $"INSERT INTO tblCustomer (FirstName, Surname, Email, PhoneNumber, CompanyName, Password) " +
+                                $"VALUES ('{txtFirstName.Text}', '{txtSurname.Text}', '{txtEmail.Text}', '{txtPhoneNumber.Text}', '{txtCompanyName.Text}', '{hashedPassword}')";
+                dbConnector.Connect();
+                dbConnector.DoDML(cmdStr);
+                dbConnector.Close();
+                MessageBox.Show("Account created successfully. You can sign in now.");
             }
         }
 
@@ -224,6 +241,11 @@ namespace Coursework
                 MessageBox.Show("You have not entered anything for one or many fields.");
                 return false;
             }
+            if (ExistingEmail(txtEmailReg.Text) == true)
+            {
+                MessageBox.Show("This email address is already used. Try to sign in.");
+                return false;
+            }
             string pattern = @"[A-Z][a-z]+";
             Match tryToMatch = Regex.Match(txtFirstName.Text, pattern);
             if (!tryToMatch.Success)
@@ -231,7 +253,6 @@ namespace Coursework
                 MessageBox.Show("Invalid first name (e.g., Charlie).");
                 return false;
             }
-            pattern = @"[A-Z][a-z]+";
             tryToMatch = Regex.Match(txtSurname.Text, pattern);
             if (!tryToMatch.Success)
             {
@@ -246,27 +267,28 @@ namespace Coursework
                 return false;
             }
             pattern = @"^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$";
+            tryToMatch = Regex.Match(txtPhoneNumber.Text, pattern);
             if (!tryToMatch.Success)
             {
                 MessageBox.Show("Invalid phone number. (e.g., 07635483912)");
                 return false;
             }
-            if (ExistingEmail() == true)
+            if (txtPasswordReg1.Text != txtPasswordReg2.Text)
             {
-                MessageBox.Show("This email address is already used, try to sign in.");
+                MessageBox.Show("The passwords you have entered do not match.");
                 return false;
             }
             return true;
         }
 
-        private bool ExistingEmail()
+        private bool ExistingEmail(string email)
         {
             clsDBConnector dbConnector = new clsDBConnector();
             OleDbDataReader dr;
             string sqlStr;
             int userExists = 0;
             dbConnector.Connect();
-            sqlStr = $"SELECT CustomerID FROM tblCustomer WHERE Email = '{txtEmailReg.Text}'";
+            sqlStr = $"SELECT CustomerID FROM tblCustomer WHERE Email = '{email}'";
             dr = dbConnector.DoSQL(sqlStr);
             while (dr.Read())
             {
@@ -288,7 +310,47 @@ namespace Coursework
 
         private void lblEmail_Click(object sender, EventArgs e)
         {
-            txtEmail.Focus(); //add for every button
+            txtEmail.Focus();
+        }
+
+        private void lblPassword_Click(object sender, EventArgs e)
+        {
+            txtPassword.Focus();
+        }
+
+        private void lblFirstName_Click(object sender, EventArgs e)
+        {
+            txtFirstName.Focus();
+        }
+
+        private void lblSurname_Click(object sender, EventArgs e)
+        {
+            txtSurname.Focus();
+        }
+
+        private void lblEmailReg_Click(object sender, EventArgs e)
+        {
+            txtEmailReg.Focus();
+        }
+
+        private void lblPhoneNumber_Click(object sender, EventArgs e)
+        {
+            txtPhoneNumber.Focus();
+        }
+
+        private void lblCompanyName_Click(object sender, EventArgs e)
+        {
+            txtCompanyName.Focus();
+        }
+
+        private void lblPasswordReg1_Click(object sender, EventArgs e)
+        {
+            txtPasswordReg1.Focus();
+        }
+
+        private void lblPasswordReg2_Click(object sender, EventArgs e)
+        {
+            txtPasswordReg2.Focus();
         }
     }
 }
