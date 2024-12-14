@@ -12,16 +12,16 @@ using System.Text.RegularExpressions;
 
 namespace Coursework
 {
-    public partial class frmManageCustomers : Form
+    public partial class frmManageUsers : Form
     {
-        public frmManageCustomers()
+        public frmManageUsers()
         {
             InitializeComponent();
         }
-        class CLsCustomer
+        class CLsUser
         {
-            public int customerid { get; set; }
-            public string customername { get; set; }
+            public int userid { get; set; }
+            public string username { get; set; }
         }
 
         private void btnAddCustomer_Click(object sender, EventArgs e)
@@ -34,13 +34,13 @@ namespace Coursework
                 dbConnector.Connect();
                 dbConnector.DoDML(cmdStr);
                 dbConnector.Close();
-                (Application.OpenForms["Main"] as Main).DisplayData();
+                (Application.OpenForms["Main"] as frmMain).DisplayData(false);
                 DialogResult dialogResult = MessageBox.Show($"Do you want to associate an address with {txtFirstName.Text}?", "Adding Address", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
                     frmAddresses frmAddresses = new frmAddresses();
-                    frmAddresses.SetUpNewCustomer(txtEmail.Text);
                     frmAddresses.Show();
+                    frmAddresses.SetUpNewCustomer();
                 }
                 frmManageCustomers_Load(sender, e);
             }
@@ -101,20 +101,20 @@ namespace Coursework
 
         private void PopulateCombo()
         {
-            List<CLsCustomer> customerList = new List<CLsCustomer>();
+            List<CLsUser> userList = new List<CLsUser>();
             clsDBConnector dbConnector = new clsDBConnector();
             OleDbDataReader dr;
             string sqlStr;
             dbConnector.Connect();
-            sqlStr = "SELECT UserID, (Surname & " + "', '" + "& FirstName) as customername FROM tblUser";
+            sqlStr = "SELECT UserID, (Surname & " + "', '" + "& FirstName) as username FROM tblUser";
             dr = dbConnector.DoSQL(sqlStr);
             while (dr.Read())
             {
-                customerList.Add(new CLsCustomer { customerid = Convert.ToInt32(dr[0]), customername = dr[1].ToString() });
+                userList.Add(new CLsUser { userid = Convert.ToInt32(dr[0]), username = dr[1].ToString() });
             }
-            cmbCustomerID.DisplayMember = "customername";
-            cmbCustomerID.ValueMember = "customerid";
-            cmbCustomerID.DataSource = customerList;
+            cmbCustomerID.DisplayMember = "username";
+            cmbCustomerID.ValueMember = "userid";
+            cmbCustomerID.DataSource = userList;
             dbConnector.Close();
         }
 
@@ -157,7 +157,7 @@ namespace Coursework
                 dbConnector.Connect();
                 dbConnector.DoDML(cmdStr);
                 dbConnector.Close();
-                (Application.OpenForms["Main"] as Main).DisplayData();
+                (Application.OpenForms["Main"] as frmMain).DisplayData(false);
                 frmManageCustomers_Load(sender, e);
             }
         }
@@ -166,12 +166,12 @@ namespace Coursework
         {
             if (cmbCustomerID.Text == "Select")
             {
-                MessageBox.Show($"You have not selected a customer to delete.");
+                MessageBox.Show($"You have not selected a user to delete.");
             }
             else
             {
                 clsDBConnector dbConnector = new clsDBConnector();
-                DialogResult dialogResult = MessageBox.Show($"Are you sure that you want to delete {txtFirstName.Text}?", "Deleting Customer", MessageBoxButtons.YesNo);
+                DialogResult dialogResult = MessageBox.Show($"Are you sure that you want to delete {txtFirstName.Text}?", "Deleting User", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
                     string cmdStr = "DELETE FROM tblUser " +
@@ -179,7 +179,7 @@ namespace Coursework
                     dbConnector.Connect();
                     dbConnector.DoDML(cmdStr);
                     dbConnector.Close();
-                    (Application.OpenForms["Main"] as Main).DisplayData();
+                    (Application.OpenForms["Main"] as frmMain).DisplayData(false);
                     frmManageCustomers_Load(sender, e);
                 }
             }
