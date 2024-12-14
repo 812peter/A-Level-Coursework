@@ -44,7 +44,6 @@
             this.txtFirstLine = new System.Windows.Forms.TextBox();
             this.lblSelectCustomer = new System.Windows.Forms.Label();
             this.cmbCustomerID = new System.Windows.Forms.ComboBox();
-            this.lblStar = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnAddAddress
@@ -112,9 +111,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(136, 256);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 13);
+            this.label1.Size = new System.Drawing.Size(52, 13);
             this.label1.TabIndex = 32;
-            this.label1.Text = "Postcode*";
+            this.label1.Text = "Postcode";
             // 
             // txtPostcode
             // 
@@ -129,9 +128,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(136, 230);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.Size = new System.Drawing.Size(34, 13);
             this.label2.TabIndex = 30;
-            this.label2.Text = "Town*";
+            this.label2.Text = "Town";
             // 
             // txtTown
             // 
@@ -146,9 +145,9 @@
             this.lblFirstLine.AutoSize = true;
             this.lblFirstLine.Location = new System.Drawing.Point(136, 204);
             this.lblFirstLine.Name = "lblFirstLine";
-            this.lblFirstLine.Size = new System.Drawing.Size(53, 13);
+            this.lblFirstLine.Size = new System.Drawing.Size(49, 13);
             this.lblFirstLine.TabIndex = 28;
-            this.lblFirstLine.Text = "First Line*";
+            this.lblFirstLine.Text = "First Line";
             // 
             // txtFirstLine
             // 
@@ -177,16 +176,6 @@
             this.cmbCustomerID.SelectedIndexChanged += new System.EventHandler(this.cmbCustomerID_SelectedIndexChanged);
             this.cmbCustomerID.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cmbCustomerID_MouseClick);
             // 
-            // lblStar
-            // 
-            this.lblStar.AutoSize = true;
-            this.lblStar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStar.Location = new System.Drawing.Point(136, 283);
-            this.lblStar.Name = "lblStar";
-            this.lblStar.Size = new System.Drawing.Size(180, 13);
-            this.lblStar.TabIndex = 38;
-            this.lblStar.Text = "Fields marked with a * are mandatory";
-            // 
             // frmAddresses
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -194,7 +183,6 @@
             this.ClientSize = new System.Drawing.Size(944, 501);
             this.Controls.Add(this.lblFirstLine);
             this.Controls.Add(this.txtFirstLine);
-            this.Controls.Add(this.lblStar);
             this.Controls.Add(this.lblSelectCustomer);
             this.Controls.Add(this.cmbCustomerID);
             this.Controls.Add(this.btnAddAddress);
@@ -232,6 +220,5 @@
         private System.Windows.Forms.TextBox txtFirstLine;
         private System.Windows.Forms.Label lblSelectCustomer;
         private System.Windows.Forms.ComboBox cmbCustomerID;
-        private System.Windows.Forms.Label lblStar;
     }
 }

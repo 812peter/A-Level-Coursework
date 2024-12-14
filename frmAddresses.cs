@@ -19,10 +19,11 @@ namespace Coursework
         {
             InitializeComponent();
         }
-        class CLsCustomer
+
+        class CLsUser
         {
-            public int customerid { get; set; }
-            public string customername { get; set; }
+            public int userid { get; set; }
+            public string username { get; set; }
         }
 
         private void frmAddresses_Load(object sender, EventArgs e)
@@ -48,20 +49,20 @@ namespace Coursework
 
         private void PopulateCombo()
         {
-            List<CLsCustomer> customerList = new List<CLsCustomer>();
+            List<CLsUser> userList = new List<CLsUser>();
             clsDBConnector dbConnector = new clsDBConnector();
             OleDbDataReader dr;
             string sqlStr;
             dbConnector.Connect();
-            sqlStr = "SELECT UserID, (Surname & " + "', '" + "& FirstName) as customername FROM tblUser";
+            sqlStr = "SELECT UserID, (Surname & " + "', '" + "& FirstName) as username FROM tblUser";
             dr = dbConnector.DoSQL(sqlStr);
             while (dr.Read())
             {
-                customerList.Add(new CLsCustomer { customerid = Convert.ToInt32(dr[0]), customername = dr[1].ToString() });
+                userList.Add(new CLsUser { userid = Convert.ToInt32(dr[0]), username = dr[1].ToString() });
             }
-            cmbCustomerID.DisplayMember = "customername";
-            cmbCustomerID.ValueMember = "customerid";
-            cmbCustomerID.DataSource = customerList;
+            cmbCustomerID.DisplayMember = "username";
+            cmbCustomerID.ValueMember = "userid";
+            cmbCustomerID.DataSource = userList;
             dbConnector.Close();
         }
 
@@ -93,7 +94,7 @@ namespace Coursework
         {
             if (cmbCustomerID.Text == "Select")
             {
-                MessageBox.Show("You need to select a customer first.");
+                MessageBox.Show("You need to select a user first.");
             }
             else
             {
@@ -132,19 +133,50 @@ namespace Coursework
                 MessageBox.Show("Invalid town (e.g., North London).");
                 return false;
             }
-            pattern = @"^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$";
-            tryToMatch = Regex.Match(txtTown.Text, pattern);
+            pattern = @"^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$";
+            tryToMatch = Regex.Match(txtPostcode.Text, pattern);
             if (!tryToMatch.Success)
             {
-                MessageBox.Show("Invalid postcode (e.g., N85 8YU).");
+                MessageBox.Show("Invalid postcode (e.g., BH2 7JP).");
                 return false;
             }
             return true;
         }
 
-        internal void SetUpNewCustomer(string previousEmail)
+        internal void SetUpNewCustomer()
         {
-            //
+            PopulateCombo();
+            int highestUserID = FindHighestID();
+            clsDBConnector dbConnector = new clsDBConnector();
+            OleDbDataReader dr;
+            string sqlStr;
+            string username = "";
+            dbConnector.Connect();
+            sqlStr = "SELECT (Surname & " + "', '" + $"& FirstName) FROM tblUser WHERE UserID = {highestUserID}";
+            dr = dbConnector.DoSQL(sqlStr);
+            while (dr.Read())
+            {
+                username = dr[0].ToString();
+            }
+            dbConnector.Close();
+            cmbCustomerID.Text = username;
+            cmbCustomerID.SelectedValue = highestUserID;
+        }
+
+        private int FindHighestID()
+        {
+            clsDBConnector dbConnector = new clsDBConnector();
+            OleDbDataReader dr;
+            string sqlStr;
+            dbConnector.Connect();
+            sqlStr = "SELECT MAX(UserID) FROM tblUser";
+            dr = dbConnector.DoSQL(sqlStr);
+            while (dr.Read())
+            {
+                return Convert.ToInt32(dr[0]);
+            }
+            dbConnector.Close();
+            return 0;
         }
     }
 }

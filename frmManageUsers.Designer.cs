@@ -1,6 +1,6 @@
 ﻿namespace Coursework
 {
-    partial class frmManageCustomers
+    partial class frmManageUsers
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmManageCustomers));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmManageUsers));
             this.txtFirstName = new System.Windows.Forms.TextBox();
             this.lblFirstName = new System.Windows.Forms.Label();
             this.lblSurname = new System.Windows.Forms.Label();
@@ -45,9 +45,7 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.lblSelectCustomer = new System.Windows.Forms.Label();
-            this.lblStar = new System.Windows.Forms.Label();
             this.lblCustomerDetails = new System.Windows.Forms.Label();
-            this.btnAddresses = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtFirstName
@@ -63,18 +61,18 @@
             this.lblFirstName.AutoSize = true;
             this.lblFirstName.Location = new System.Drawing.Point(315, 158);
             this.lblFirstName.Name = "lblFirstName";
-            this.lblFirstName.Size = new System.Drawing.Size(61, 13);
+            this.lblFirstName.Size = new System.Drawing.Size(57, 13);
             this.lblFirstName.TabIndex = 1;
-            this.lblFirstName.Text = "First Name*";
+            this.lblFirstName.Text = "First Name";
             // 
             // lblSurname
             // 
             this.lblSurname.AutoSize = true;
             this.lblSurname.Location = new System.Drawing.Point(315, 184);
             this.lblSurname.Name = "lblSurname";
-            this.lblSurname.Size = new System.Drawing.Size(53, 13);
+            this.lblSurname.Size = new System.Drawing.Size(49, 13);
             this.lblSurname.TabIndex = 3;
-            this.lblSurname.Text = "Surname*";
+            this.lblSurname.Text = "Surname";
             // 
             // txtSurname
             // 
@@ -89,9 +87,9 @@
             this.lblEmail.AutoSize = true;
             this.lblEmail.Location = new System.Drawing.Point(315, 210);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(36, 13);
+            this.lblEmail.Size = new System.Drawing.Size(32, 13);
             this.lblEmail.TabIndex = 5;
-            this.lblEmail.Text = "Email*";
+            this.lblEmail.Text = "Email";
             // 
             // txtEmail
             // 
@@ -106,9 +104,9 @@
             this.lblPhoneNumber.AutoSize = true;
             this.lblPhoneNumber.Location = new System.Drawing.Point(315, 236);
             this.lblPhoneNumber.Name = "lblPhoneNumber";
-            this.lblPhoneNumber.Size = new System.Drawing.Size(82, 13);
+            this.lblPhoneNumber.Size = new System.Drawing.Size(78, 13);
             this.lblPhoneNumber.TabIndex = 7;
-            this.lblPhoneNumber.Text = "Phone Number*";
+            this.lblPhoneNumber.Text = "Phone Number";
             // 
             // txtPhoneNumber
             // 
@@ -137,7 +135,7 @@
             // 
             // btnAddCustomer
             // 
-            this.btnAddCustomer.Location = new System.Drawing.Point(357, 338);
+            this.btnAddCustomer.Location = new System.Drawing.Point(399, 295);
             this.btnAddCustomer.Name = "btnAddCustomer";
             this.btnAddCustomer.Size = new System.Drawing.Size(75, 23);
             this.btnAddCustomer.TabIndex = 10;
@@ -157,7 +155,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(438, 338);
+            this.btnUpdate.Location = new System.Drawing.Point(480, 295);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(75, 23);
             this.btnUpdate.TabIndex = 12;
@@ -167,7 +165,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(519, 338);
+            this.btnDelete.Location = new System.Drawing.Point(561, 295);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 13;
@@ -177,7 +175,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(357, 309);
+            this.btnClear.Location = new System.Drawing.Point(318, 295);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 14;
@@ -194,16 +192,6 @@
             this.lblSelectCustomer.TabIndex = 15;
             this.lblSelectCustomer.Text = "Select User";
             // 
-            // lblStar
-            // 
-            this.lblStar.AutoSize = true;
-            this.lblStar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStar.Location = new System.Drawing.Point(315, 288);
-            this.lblStar.Name = "lblStar";
-            this.lblStar.Size = new System.Drawing.Size(180, 13);
-            this.lblStar.TabIndex = 16;
-            this.lblStar.Text = "Fields marked with a * are mandatory";
-            // 
             // lblCustomerDetails
             // 
             this.lblCustomerDetails.AutoSize = true;
@@ -214,24 +202,12 @@
             this.lblCustomerDetails.TabIndex = 23;
             this.lblCustomerDetails.Text = "User Details";
             // 
-            // btnAddresses
-            // 
-            this.btnAddresses.Location = new System.Drawing.Point(438, 309);
-            this.btnAddresses.Name = "btnAddresses";
-            this.btnAddresses.Size = new System.Drawing.Size(156, 23);
-            this.btnAddresses.TabIndex = 27;
-            this.btnAddresses.Text = "Address management";
-            this.btnAddresses.UseVisualStyleBackColor = true;
-            this.btnAddresses.Click += new System.EventHandler(this.btnAddresses_Click);
-            // 
-            // frmManageCustomers
+            // frmManageUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(944, 501);
-            this.Controls.Add(this.btnAddresses);
             this.Controls.Add(this.lblCustomerDetails);
-            this.Controls.Add(this.lblStar);
             this.Controls.Add(this.lblSelectCustomer);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnDelete);
@@ -251,8 +227,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "frmManageCustomers";
-            this.Text = "Reinforcements - Customers Management";
+            this.Name = "frmManageUsers";
+            this.Text = "Reinforcements - Users Management";
             this.Load += new System.EventHandler(this.frmManageCustomers_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -277,8 +253,6 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Label lblSelectCustomer;
-        private System.Windows.Forms.Label lblStar;
         private System.Windows.Forms.Label lblCustomerDetails;
-        private System.Windows.Forms.Button btnAddresses;
     }
 }

@@ -13,7 +13,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Coursework
 {
-    public partial class Main : Form
+    public partial class frmMain : Form
     {
         clsDBConnector dbConnector = new clsDBConnector();
         OleDbDataReader dr;
@@ -21,16 +21,17 @@ namespace Coursework
         
         private const int MaxColumnWidth = 200;
 
-        public Main()
+        public frmMain()
         {
             InitializeComponent();
         }
+
         private void Main_Load(object sender, EventArgs e)
         {
-          DisplayData();
+            DisplayData(false);
         }
 
-        public void DisplayData()
+        public void DisplayData(bool v)
         {
             dbConnector.Connect();
             sqlStr = "SELECT OrderID, UserID, DateOfOrder, TotalPaid, Completed, DateOfCompletion, AddressID FROM tblOrder";
@@ -47,7 +48,7 @@ namespace Coursework
                 lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[6].ToString());
             }
 
-            sqlStr = "SELECT UserID, FirstName, Surname, Email, PhoneNumber, CompanyName FROM tblUser WHERE Manager = false";
+            sqlStr = $"SELECT UserID, FirstName, Surname, Email, PhoneNumber, CompanyName FROM tblUser WHERE Manager = {v}";
             dr = dbConnector.DoSQL(sqlStr);
             lstCustomers.Items.Clear();
             while (dr.Read())
@@ -79,8 +80,8 @@ namespace Coursework
 
         private void btnManageCustomers_Click(object sender, EventArgs e)
         {
-            frmManageCustomers frmManageCustomers = new frmManageCustomers();
-            frmManageCustomers.Show();
+            frmManageUsers frmManageUsers = new frmManageUsers();
+            frmManageUsers.Show();
         }
 
         private void btnAddresses_Click(object sender, EventArgs e)
@@ -89,5 +90,18 @@ namespace Coursework
             frmAddresses.Show();
         }
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+
+                DisplayData(true);
+            }
+            else
+            {
+                DisplayData(false);
+            } 
+                
+        }
     }
 }
