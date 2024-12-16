@@ -20,6 +20,8 @@ namespace Coursework
             InitializeComponent();
         }
 
+        string selectedAddressID = "";
+
         class CLsUser
         {
             public int userid { get; set; }
@@ -87,6 +89,8 @@ namespace Coursework
                     lstAddresses.Items[lstAddresses.Items.Count - 1].SubItems.Add(dr[3].ToString());
                 }
                 dbConnector.Close();
+                ClearFields();
+                selectedAddressID = "";
             }
         }
 
@@ -177,6 +181,87 @@ namespace Coursework
             }
             dbConnector.Close();
             return 0;
+        }
+
+        private void lstAddresses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstAddresses.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = lstAddresses.SelectedItems[0];
+                selectedAddressID = selectedItem.SubItems[0].Text;
+
+                clsDBConnector dbConnector = new clsDBConnector();
+                OleDbDataReader dr;
+                string sqlStr;
+                dbConnector.Connect();
+                sqlStr = "SELECT FirstLine, Town, Postcode FROM tblAddress WHERE AddressID = " + selectedAddressID;
+                dr = dbConnector.DoSQL(sqlStr);
+                dr.Read();
+                txtFirstLine.Text = dr[0].ToString();
+                txtTown.Text = dr[1].ToString();
+                txtPostcode.Text = dr[2].ToString();
+                dbConnector.Close();
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (selectedAddressID == "")
+            {
+                MessageBox.Show("You need to select an address to delete from the list.");
+            }
+            else
+            {
+                clsDBConnector dbConnector = new clsDBConnector();
+                DialogResult dialogResult = MessageBox.Show($"Are you sure that you want to delete {GetFirstName()}'s address, which is: \n{GetAddress()}?", "Deleting Address", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    string cmdStr = "DELETE FROM tblAddress " +
+                                    $"WHERE AddressID = {selectedAddressID}";
+                    dbConnector.Connect();
+                    dbConnector.DoDML(cmdStr);
+                    dbConnector.Close();
+                    ClearFields();
+                    cmbCustomerID_SelectedIndexChanged(sender, e);
+                }
+            }
+        }
+
+        private string GetAddress()
+        {
+            string addressToDelete = "";
+            clsDBConnector dbConnector = new clsDBConnector();
+            OleDbDataReader dr;
+            string sqlStr;
+            dbConnector.Connect();
+            sqlStr = "SELECT FirstLine, Town, Postcode FROM tblAddress WHERE AddressID = " + selectedAddressID;
+            dr = dbConnector.DoSQL(sqlStr);
+            dr.Read();
+            addressToDelete = dr[0].ToString() + ", " + dr[1].ToString() + ", " + dr[2].ToString();
+            dbConnector.Close();
+            return addressToDelete;
+        }
+
+        private string GetFirstName()
+        {
+            string firstName = "";
+            clsDBConnector dbConnector = new clsDBConnector();
+            OleDbDataReader dr;
+            string sqlStr;
+            dbConnector.Connect();
+            sqlStr = $"SELECT FirstName FROM tblUser WHERE UserID = {cmbCustomerID.SelectedValue}";
+            dr = dbConnector.DoSQL(sqlStr);
+            dr.Read();
+            firstName = dr[0].ToString();
+            dbConnector.Close();
+            return firstName;
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearFields();
+            cmbCustomerID.Text = "Select";
+            lstAddresses.Items.Clear();
         }
     }
 }

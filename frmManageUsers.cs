@@ -179,7 +179,7 @@ namespace Coursework
                     dbConnector.Connect();
                     dbConnector.DoDML(cmdStr);
                     dbConnector.Close();
-                    (Application.OpenForms["Main"] as frmMain).DisplayData(false);
+                    (Application.OpenForms["frmMain"] as frmMain).DisplayData(false);
                     frmManageCustomers_Load(sender, e);
                 }
             }
