@@ -82,8 +82,13 @@ namespace Coursework
 
             private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
             {
-                Application.Exit();
+                ExitApp();
             }
+        }
+
+        internal static void ExitApp()
+        {
+            Application.Exit();
         }
     }
 }

@@ -27,6 +27,8 @@ namespace Coursework
             RegVisability(false);
         }
 
+        bool successfullSignIn = false;
+
         private string GetHashSHA256(string plainText)
         {
             string hashText = "";
@@ -64,6 +66,7 @@ namespace Coursework
         {
             if (CheckValid() == true)
             {
+                successfullSignIn = true;
                 if (chkRemember.Checked == true)
                 {
                     RememberMe();
@@ -103,7 +106,7 @@ namespace Coursework
             {
                 return false;
             }
-        }  
+        }
 
         private void RememberMe()
         {
@@ -117,22 +120,22 @@ namespace Coursework
         {
             if (txtPassword.Text == "" || txtEmail.Text == "")
             {
-                MessageBox.Show("You have not entered anything for one or many fields.");
+                MessageBox.Show("You have not entered anything for one or many fields.", "Error");
                 return false;
             }
             if (ExistingEmail(txtEmail.Text) == false)
             {
-                MessageBox.Show("We couldn't find an account with that email. Try creating an account.");
+                MessageBox.Show("We couldn't find an account with that email. Try creating an account.", "Error");
                 return false;
             }
             if (GetCorrectPassword() == "")
             {
-                MessageBox.Show("It seems like your account has been created by a manager. Please give us a call to set up a password.");
+                MessageBox.Show("It seems like your account has been created by a manager. Please give us a call to set up a password.", "Error");
                 return false;
             }
             if (GetHashSHA256(txtPassword.Text) != GetCorrectPassword())
             {
-                MessageBox.Show("Incorrect password.");
+                MessageBox.Show("Incorrect password.", "Error");
                 return false;
             }
             return true;
@@ -306,7 +309,7 @@ namespace Coursework
                 dbConnector.Connect();
                 dbConnector.DoDML(cmdStr);
                 dbConnector.Close();
-                MessageBox.Show("Account created successfully. You can sign in now.");
+                MessageBox.Show("Account created successfully. You can sign in now.", "Registration completed");
             }
         }
 
@@ -314,44 +317,44 @@ namespace Coursework
         {
             if (txtFirstName.Text == "" || txtSurname.Text == "" || txtEmailReg.Text == "" || txtPhoneNumber.Text == "" || txtPasswordReg1.Text == "" || txtPasswordReg2.Text == "")
             {
-                MessageBox.Show("You have not entered anything for one or many fields.");
+                MessageBox.Show("You have not entered anything for one or many fields.", "Error");
                 return false;
             }
             if (ExistingEmail(txtEmailReg.Text) == true)
             {
-                MessageBox.Show("This email address is already used. Try to sign in.");
+                MessageBox.Show("This email address is already used. Try to sign in.", "Error");
                 return false;
             }
             string pattern = @"[A-Z][a-z]+";
             Match tryToMatch = Regex.Match(txtFirstName.Text, pattern);
             if (!tryToMatch.Success)
             {
-                MessageBox.Show("Invalid first name (e.g., Charlie).");
+                MessageBox.Show("Invalid first name (e.g., Charlie).", "Error");
                 return false;
             }
             tryToMatch = Regex.Match(txtSurname.Text, pattern);
             if (!tryToMatch.Success)
             {
-                MessageBox.Show("Invalid surname (e.g., Black).");
+                MessageBox.Show("Invalid surname (e.g., Black).", "Error");
                 return false;
             }
             pattern = @"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|""(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*"")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])";
             tryToMatch = Regex.Match(txtEmailReg.Text, pattern);
             if (!tryToMatch.Success)
             {
-                MessageBox.Show("Invalid email address (e.g., charli3black999@gmail.com).");
+                MessageBox.Show("Invalid email address (e.g., charli3black999@gmail.com).", "Error");
                 return false;
             }
             pattern = @"^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$";
             tryToMatch = Regex.Match(txtPhoneNumber.Text, pattern);
             if (!tryToMatch.Success)
             {
-                MessageBox.Show("Invalid phone number. (e.g., 07635483912)");
+                MessageBox.Show("Invalid phone number. (e.g., 07635483912)", "Error");
                 return false;
             }
             if (txtPasswordReg1.Text != txtPasswordReg2.Text)
             {
-                MessageBox.Show("The passwords you have entered do not match.");
+                MessageBox.Show("The passwords you have entered do not match.", "Error");
                 return false;
             }
             return true;
@@ -427,6 +430,14 @@ namespace Coursework
         private void lblPasswordReg2_Click(object sender, EventArgs e)
         {
             txtPasswordReg2.Focus();
+        }
+
+        private void frmSignIn_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (successfullSignIn == false)
+            {
+                Application.ExitThread();
+            }
         }
     }
 }

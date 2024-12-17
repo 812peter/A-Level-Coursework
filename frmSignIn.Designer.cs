@@ -407,10 +407,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "frmSignIn";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reinforcements - Sign In";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSignIn_FormClosing);
             this.Load += new System.EventHandler(this.frmSignIn_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picViewPassword)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picViewPassword2)).EndInit();

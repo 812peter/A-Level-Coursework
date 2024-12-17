@@ -98,7 +98,7 @@ namespace Coursework
         {
             if (cmbCustomerID.Text == "Select")
             {
-                MessageBox.Show("You need to select a user first.");
+                MessageBox.Show("You need to select a user first.", "Error");
             }
             else
             {
@@ -120,28 +120,28 @@ namespace Coursework
         {
             if (txtFirstLine.Text == "" || txtTown.Text == "" || txtPostcode.Text == "")
             {
-                MessageBox.Show("You have not entered anything for one or many fields.");
+                MessageBox.Show("You have not entered anything for one or many fields.", "Error");
                 return false;
             }
             string pattern = @"^\d+[A-Za-z]?\s([A-Z][a-z]*)(\s([A-Z][a-z]*))*";
             Match tryToMatch = Regex.Match(txtFirstLine.Text, pattern);
             if (!tryToMatch.Success)
             {
-                MessageBox.Show("Invalid first line of address (e.g., 1a Alexander Road).");
+                MessageBox.Show("Invalid first line of address (e.g., 1a Alexander Road).", "Error");
                 return false;
             }
             pattern = @"^[A-Z][a-z]+(?:[\s-][a-zA-Z]+)*$";
             tryToMatch = Regex.Match(txtTown.Text, pattern);
             if (!tryToMatch.Success)
             {
-                MessageBox.Show("Invalid town (e.g., North London).");
+                MessageBox.Show("Invalid town (e.g., North London).", "Error");
                 return false;
             }
             pattern = @"^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$";
             tryToMatch = Regex.Match(txtPostcode.Text, pattern);
             if (!tryToMatch.Success)
             {
-                MessageBox.Show("Invalid postcode (e.g., BH2 7JP).");
+                MessageBox.Show("Invalid postcode (e.g., BH2 7JP).", "Error");
                 return false;
             }
             return true;
@@ -208,7 +208,7 @@ namespace Coursework
         {
             if (selectedAddressID == "")
             {
-                MessageBox.Show("You need to select an address to delete from the list.");
+                MessageBox.Show("You need to select an address to delete from the list.", "Error");
             }
             else
             {
@@ -262,6 +262,27 @@ namespace Coursework
             ClearFields();
             cmbCustomerID.Text = "Select";
             lstAddresses.Items.Clear();
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (selectedAddressID == "")
+            {
+                MessageBox.Show("You need to select an address to update from the list.", "Error");
+            }
+            else if (CheckValid() == true)
+            {
+                clsDBConnector dbConnector = new clsDBConnector();
+                string cmdStr = "UPDATE tblAddress " +
+                                $"SET FirstLine = '{txtFirstLine.Text}'," +
+                                $"Town = '{txtTown.Text}'," +
+                                $"Postcode ='{txtPostcode.Text}' " +
+                                $"WHERE (AddressID = {selectedAddressID})";
+                dbConnector.Connect();
+                dbConnector.DoDML(cmdStr);
+                dbConnector.Close();
+                cmbCustomerID_SelectedIndexChanged(sender, e);
+            }
         }
     }
 }
