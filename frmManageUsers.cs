@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Text.RegularExpressions;
+using System.Data.Common;
 
 namespace Coursework
 {
@@ -29,12 +30,12 @@ namespace Coursework
             if (CheckValid() == true)
             {
                 clsDBConnector dbConnector = new clsDBConnector();
-                string cmdStr = $"INSERT INTO tblUser (FirstName, Surname, Email, PhoneNumber, CompanyName) " +
-                                $"VALUES ('{txtFirstName.Text}', '{txtSurname.Text}', '{txtEmail.Text}', '{txtPhoneNumber.Text}', '{txtCompanyName.Text}')";
+                string cmdStr = $"INSERT INTO tblUser (FirstName, Surname, Email, PhoneNumber, CompanyName, Manager) " +
+                                $"VALUES ('{txtFirstName.Text}', '{txtSurname.Text}', '{txtEmail.Text}', '{txtPhoneNumber.Text}', '{txtCompanyName.Text}', {chkManager.Checked})";
                 dbConnector.Connect();
                 dbConnector.DoDML(cmdStr);
                 dbConnector.Close();
-                (Application.OpenForms["Main"] as frmMain).DisplayData(false);
+                (Application.OpenForms["frmMain"] as frmMain).DisplayData(false);
                 DialogResult dialogResult = MessageBox.Show($"Do you want to associate an address with {txtFirstName.Text}?", "Adding Address", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
@@ -97,6 +98,7 @@ namespace Coursework
             txtEmail.Text = emptyStr;
             txtPhoneNumber.Text = emptyStr;
             txtCompanyName.Text = emptyStr;
+            chkManager.Checked = false;
         }
 
         private void PopulateCombo()
@@ -118,6 +120,8 @@ namespace Coursework
             dbConnector.Close();
         }
 
+        bool cancelChkEvent = false;
+
         private void cmbCustomerID_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbCustomerID.SelectedValue != null)
@@ -126,7 +130,7 @@ namespace Coursework
                 OleDbDataReader dr;
                 string sqlStr;
                 dbConnector.Connect();
-                sqlStr = "SELECT UserID, FirstName, Surname, Email, PhoneNumber, CompanyName" +
+                sqlStr = "SELECT UserID, FirstName, Surname, Email, PhoneNumber, CompanyName, Manager" +
                          " FROM tblUser" +
                          " WHERE UserID = " + cmbCustomerID.SelectedValue;
                 dr = dbConnector.DoSQL(sqlStr);
@@ -137,8 +141,15 @@ namespace Coursework
                     txtEmail.Text = dr[3].ToString();
                     txtPhoneNumber.Text = dr[4].ToString();
                     txtCompanyName.Text = dr[5].ToString();
+                    cancelChkEvent = true;
+                    if (dr[6].ToString() == "True")
+                    {
+                        chkManager.Checked = true;
+                    }
+                    else { chkManager.Checked = false; }
                 }
                 dbConnector.Close();
+                cancelChkEvent = false;
             }
         }
 
@@ -150,14 +161,15 @@ namespace Coursework
                 string cmdStr = "UPDATE tblUser " +
                                 $"SET FirstName = '{txtFirstName.Text}'," +
                                 $"Surname = '{txtSurname.Text}'," +
-                                $"Email ='{txtEmail.Text}'," +
-                                $"PhoneNumber ='{txtPhoneNumber.Text}'," +
-                                $"CompanyName ='{txtCompanyName.Text}'" +
+                                $"Email = '{txtEmail.Text}'," +
+                                $"PhoneNumber = '{txtPhoneNumber.Text}'," +
+                                $"CompanyName = '{txtCompanyName.Text}'," +
+                                $"Manager = {chkManager.Checked} " +
                                 $"WHERE (UserID = {cmbCustomerID.SelectedValue})";
                 dbConnector.Connect();
                 dbConnector.DoDML(cmdStr);
                 dbConnector.Close();
-                (Application.OpenForms["Main"] as frmMain).DisplayData(false);
+                (Application.OpenForms["frmMain"] as frmMain).DisplayData(false);
                 frmManageCustomers_Load(sender, e);
             }
         }
@@ -196,6 +208,23 @@ namespace Coursework
         private void btnClear_Click(object sender, EventArgs e)
         {
             frmManageCustomers_Load(sender, e);
+        }
+
+        private void chkManager_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkManager.Checked && !cancelChkEvent)
+            {
+                string username = "the user";
+                if (txtFirstName.Text != "")
+                {
+                    username = txtFirstName.Text;
+                }
+                DialogResult dialogResult = MessageBox.Show($"Are you sure that you want to set {username} as a manager?\nYou need to either add or update for the change to take place.", "Adding Manager", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.No)
+                {
+                    chkManager.Checked = false;
+                }
+            }
         }
     }
 }

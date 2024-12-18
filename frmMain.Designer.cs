@@ -55,11 +55,17 @@ namespace Coursework
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.picAccount = new System.Windows.Forms.PictureBox();
+            this.picMore = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picAccount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picMore)).BeginInit();
             this.SuspendLayout();
             // 
             // lstOrders
@@ -124,6 +130,7 @@ namespace Coursework
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -258,18 +265,62 @@ namespace Coursework
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(1132, -52);
+            this.pictureBox1.Location = new System.Drawing.Point(1162, -52);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(164, 722);
+            this.pictureBox1.Size = new System.Drawing.Size(134, 722);
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
+            // 
+            // picAccount
+            // 
+            this.picAccount.BackColor = System.Drawing.SystemColors.Control;
+            this.picAccount.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picAccount.Image = ((System.Drawing.Image)(resources.GetObject("picAccount.Image")));
+            this.picAccount.Location = new System.Drawing.Point(1183, 643);
+            this.picAccount.Name = "picAccount";
+            this.picAccount.Size = new System.Drawing.Size(30, 30);
+            this.picAccount.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picAccount.TabIndex = 5;
+            this.picAccount.TabStop = false;
+            // 
+            // picMore
+            // 
+            this.picMore.BackColor = System.Drawing.SystemColors.Control;
+            this.picMore.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picMore.Image = ((System.Drawing.Image)(resources.GetObject("picMore.Image")));
+            this.picMore.Location = new System.Drawing.Point(1229, 647);
+            this.picMore.Name = "picMore";
+            this.picMore.Size = new System.Drawing.Size(22, 22);
+            this.picMore.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picMore.TabIndex = 6;
+            this.picMore.TabStop = false;
+            // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(1406, 465);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(200, 100);
+            this.panel1.TabIndex = 7;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1265, 655);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Products";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.ClientSize = new System.Drawing.Size(1815, 681);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.picMore);
+            this.Controls.Add(this.picAccount);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -283,6 +334,8 @@ namespace Coursework
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picAccount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picMore)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -311,6 +364,10 @@ namespace Coursework
         private PictureBox pictureBox2;
         private Button btnAddresses;
         private CheckBox checkBox1;
+        private PictureBox picAccount;
+        private PictureBox picMore;
+        private Panel panel1;
+        private TabPage tabPage3;
     }
 }
 

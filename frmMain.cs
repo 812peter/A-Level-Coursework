@@ -28,6 +28,10 @@ namespace Coursework
 
         private void Main_Load(object sender, EventArgs e)
         {
+            if (true)
+            {
+                //tabControl1.TabPages.Remove(tabPage1); some pages are hidden from customers
+            }
             DisplayData(false);
         }
 

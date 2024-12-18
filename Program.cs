@@ -51,10 +51,9 @@ namespace Coursework
                 currentFile.Close();
                 clsDBConnector dbConnector = new clsDBConnector();
                 OleDbDataReader dr;
-                string sqlStr;
                 string boolDB = "";
                 dbConnector.Connect();
-                sqlStr = "SELECT Manager" +
+                string sqlStr = "SELECT Manager" +
                          " FROM tblUser" +
                          $" WHERE Email = '{email}'";
                 dr = dbConnector.DoSQL(sqlStr);

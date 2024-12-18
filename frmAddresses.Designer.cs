@@ -149,9 +149,9 @@
             this.lblFirstLine.AutoSize = true;
             this.lblFirstLine.Location = new System.Drawing.Point(136, 204);
             this.lblFirstLine.Name = "lblFirstLine";
-            this.lblFirstLine.Size = new System.Drawing.Size(49, 13);
+            this.lblFirstLine.Size = new System.Drawing.Size(45, 13);
             this.lblFirstLine.TabIndex = 28;
-            this.lblFirstLine.Text = "First Line";
+            this.lblFirstLine.Text = "First line";
             // 
             // txtFirstLine
             // 
@@ -166,9 +166,9 @@
             this.lblSelectCustomer.AutoSize = true;
             this.lblSelectCustomer.Location = new System.Drawing.Point(136, 178);
             this.lblSelectCustomer.Name = "lblSelectCustomer";
-            this.lblSelectCustomer.Size = new System.Drawing.Size(62, 13);
+            this.lblSelectCustomer.Size = new System.Drawing.Size(60, 13);
             this.lblSelectCustomer.TabIndex = 37;
-            this.lblSelectCustomer.Text = "Select User";
+            this.lblSelectCustomer.Text = "Select user";
             // 
             // cmbCustomerID
             // 
