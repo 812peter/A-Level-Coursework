@@ -33,6 +33,7 @@ namespace Coursework
                 //tabControl1.TabPages.Remove(tabPage1); some pages are hidden from customers
             }
             DisplayData(false);
+            panel1.Visible = false;
         }
 
         public void DisplayData(bool v)
@@ -106,6 +107,12 @@ namespace Coursework
                 DisplayData(false);
             } 
                 
+        }
+
+        private void picAccount_Click(object sender, EventArgs e)
+        {
+            frmAccount frmAccount = new frmAccount();
+            frmAccount.Show();
         }
     }
 }
