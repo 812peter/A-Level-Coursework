@@ -55,10 +55,12 @@ namespace Coursework
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.picAccount = new System.Windows.Forms.PictureBox();
             this.picMore = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -66,6 +68,7 @@ namespace Coursework
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picAccount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMore)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstOrders
@@ -271,6 +274,16 @@ namespace Coursework
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1265, 655);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Products";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
             // picAccount
             // 
             this.picAccount.BackColor = System.Drawing.SystemColors.Control;
@@ -282,6 +295,7 @@ namespace Coursework
             this.picAccount.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picAccount.TabIndex = 5;
             this.picAccount.TabStop = false;
+            this.picAccount.Click += new System.EventHandler(this.picAccount_Click);
             // 
             // picMore
             // 
@@ -297,20 +311,30 @@ namespace Coursework
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(1406, 465);
+            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Location = new System.Drawing.Point(1178, 578);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 100);
+            this.panel1.Size = new System.Drawing.Size(89, 60);
             this.panel1.TabIndex = 7;
             // 
-            // tabPage3
+            // button1
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1265, 655);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Products";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.button1.Location = new System.Drawing.Point(3, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(3, 27);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
@@ -336,6 +360,7 @@ namespace Coursework
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picAccount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMore)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -368,6 +393,8 @@ namespace Coursework
         private PictureBox picMore;
         private Panel panel1;
         private TabPage tabPage3;
+        private Button button2;
+        private Button button1;
     }
 }
 
