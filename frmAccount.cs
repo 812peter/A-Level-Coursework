@@ -16,5 +16,10 @@ namespace Coursework
         {
             InitializeComponent();
         }
+
+        private void frmAccount_Load(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

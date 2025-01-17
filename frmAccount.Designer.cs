@@ -49,11 +49,13 @@
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.BackColor = System.Drawing.Color.Transparent;
+            this.lblName.BackColor = System.Drawing.Color.White;
+            this.lblName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblName.ForeColor = System.Drawing.Color.Black;
-            this.lblName.Location = new System.Drawing.Point(29, 44);
+            this.lblName.Location = new System.Drawing.Point(28, 32);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(80, 13);
+            this.lblName.Size = new System.Drawing.Size(216, 33);
             this.lblName.TabIndex = 7;
             this.lblName.Text = "Name Surname";
             // 
@@ -70,6 +72,7 @@
             this.MaximizeBox = false;
             this.Name = "frmAccount";
             this.Text = "Reinforcements - Account";
+            this.Load += new System.EventHandler(this.frmAccount_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

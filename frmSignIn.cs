@@ -70,16 +70,20 @@ namespace Coursework
                 if (chkRemember.Checked == true)
                 {
                     RememberMe();
-                }
-                if (isManager() == true)
-                {
-                    this.Close();
-                }
-                else
-                {
 
                 }
+                CreateTempFile();
+                this.Close();
             }
+        }
+
+        private void CreateTempFile()
+        {
+            StreamWriter currentFile = new StreamWriter("temp.txt");
+            File.SetAttributes("temp.txt", FileAttributes.Hidden);
+            currentFile.WriteLine(txtEmail.Text);
+            currentFile.WriteLine(isManager().ToString());
+            currentFile.Close();
         }
 
         private bool isManager()
