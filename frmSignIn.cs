@@ -24,6 +24,7 @@ namespace Coursework
         private void frmSignIn_Load(object sender, EventArgs e)
         {
             File.Delete("user details.txt");
+            File.Delete("temp.txt");
             RegVisability(false);
         }
 
@@ -115,6 +116,7 @@ namespace Coursework
         private void RememberMe()
         {
             StreamWriter currentFile = new StreamWriter("user details.txt");
+            File.SetAttributes("user details.txt", FileAttributes.Hidden);
             currentFile.WriteLine(txtEmail.Text);
             currentFile.WriteLine(GetHashSHA256(txtPassword.Text));
             currentFile.Close();
