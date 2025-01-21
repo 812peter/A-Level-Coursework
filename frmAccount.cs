@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Data.OleDb;
 
 namespace Coursework
 {
@@ -18,17 +19,64 @@ namespace Coursework
             InitializeComponent();
         }
 
+        string userID;
+        string email;
+        string firstName;
+        string surname;
+        string phoneNumber;
+        string companyName;
+        bool manager = false;
+
         private void frmAccount_Load(object sender, EventArgs e)
         {
             PullData();
+            lblAccountType.Text = " Customer ";
+            if (manager)
+            {
+                lblAccountType.Text = " Manager ";
+            }
+            lblName.Text = $"{firstName} {surname}";
         }
 
         private void PullData()
         {
-            string currentLine;
+            clsDBConnector dbConnector = new clsDBConnector();
+            OleDbDataReader dr;
+            string sqlStr;
             StreamReader currentFile = new StreamReader("temp.txt");
-            currentLine = currentFile.ReadLine();
+            email = currentFile.ReadLine();
             currentFile.Close();
+            dbConnector.Connect();
+            sqlStr = $"SELECT FirstName, Surname, PhoneNumber, CompanyName, Manager, UserID FROM tblUser WHERE Email = '{email}'";
+            dr = dbConnector.DoSQL(sqlStr);
+            while (dr.Read())
+            {
+                firstName = dr[0].ToString();
+                surname = dr[1].ToString();
+                phoneNumber = dr[2].ToString();
+                companyName = dr[3].ToString();
+                if (dr[4].ToString() == "True")
+                {
+                    manager = true;
+                }
+                userID = dr[5].ToString();
+            }
+            dbConnector.Close();
+        }
+
+        private void btnSignOut_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show($"Are you sure that you want to sign out?", "Signing Out", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                File.Delete("user details.txt");
+                File.Delete("temp.txt");
+                Application.Restart();
+            }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
 
         }
     }

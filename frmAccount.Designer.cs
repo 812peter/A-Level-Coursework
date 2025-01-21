@@ -33,6 +33,7 @@
             this.lblName = new System.Windows.Forms.Label();
             this.btnSignOut = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
+            this.lblAccountType = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,7 +56,7 @@
             this.lblName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblName.ForeColor = System.Drawing.Color.Black;
-            this.lblName.Location = new System.Drawing.Point(12, 32);
+            this.lblName.Location = new System.Drawing.Point(12, 20);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(216, 33);
             this.lblName.TabIndex = 7;
@@ -70,6 +71,7 @@
             this.btnSignOut.TabIndex = 8;
             this.btnSignOut.Text = "Sign out";
             this.btnSignOut.UseVisualStyleBackColor = true;
+            this.btnSignOut.Click += new System.EventHandler(this.btnSignOut_Click);
             // 
             // btnEdit
             // 
@@ -80,6 +82,20 @@
             this.btnEdit.TabIndex = 9;
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // lblAccountType
+            // 
+            this.lblAccountType.AutoSize = true;
+            this.lblAccountType.BackColor = System.Drawing.Color.White;
+            this.lblAccountType.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblAccountType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAccountType.ForeColor = System.Drawing.Color.Black;
+            this.lblAccountType.Location = new System.Drawing.Point(12, 61);
+            this.lblAccountType.Name = "lblAccountType";
+            this.lblAccountType.Size = new System.Drawing.Size(106, 18);
+            this.lblAccountType.TabIndex = 10;
+            this.lblAccountType.Text = " Account type ";
             // 
             // frmAccount
             // 
@@ -87,6 +103,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.lblAccountType);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnSignOut);
             this.Controls.Add(this.lblName);
@@ -109,5 +126,6 @@
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Button btnSignOut;
         private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Label lblAccountType;
     }
 }
