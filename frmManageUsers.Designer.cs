@@ -56,6 +56,7 @@
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(219, 20);
             this.txtFirstName.TabIndex = 0;
+            this.txtFirstName.TextChanged += new System.EventHandler(this.txtFirstName_TextChanged);
             // 
             // lblFirstName
             // 
@@ -65,6 +66,7 @@
             this.lblFirstName.Size = new System.Drawing.Size(55, 13);
             this.lblFirstName.TabIndex = 1;
             this.lblFirstName.Text = "First name";
+            this.lblFirstName.Click += new System.EventHandler(this.lblFirstName_Click);
             // 
             // lblSurname
             // 
@@ -74,6 +76,7 @@
             this.lblSurname.Size = new System.Drawing.Size(49, 13);
             this.lblSurname.TabIndex = 3;
             this.lblSurname.Text = "Surname";
+            this.lblSurname.Click += new System.EventHandler(this.lblSurname_Click);
             // 
             // txtSurname
             // 
@@ -82,6 +85,7 @@
             this.txtSurname.Name = "txtSurname";
             this.txtSurname.Size = new System.Drawing.Size(219, 20);
             this.txtSurname.TabIndex = 2;
+            this.txtSurname.TextChanged += new System.EventHandler(this.txtSurname_TextChanged);
             // 
             // lblEmail
             // 
@@ -91,6 +95,7 @@
             this.lblEmail.Size = new System.Drawing.Size(32, 13);
             this.lblEmail.TabIndex = 5;
             this.lblEmail.Text = "Email";
+            this.lblEmail.Click += new System.EventHandler(this.lblEmail_Click);
             // 
             // txtEmail
             // 
@@ -99,6 +104,7 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(219, 20);
             this.txtEmail.TabIndex = 4;
+            this.txtEmail.TextChanged += new System.EventHandler(this.txtEmail_TextChanged);
             // 
             // lblPhoneNumber
             // 
@@ -108,6 +114,7 @@
             this.lblPhoneNumber.Size = new System.Drawing.Size(76, 13);
             this.lblPhoneNumber.TabIndex = 7;
             this.lblPhoneNumber.Text = "Phone number";
+            this.lblPhoneNumber.Click += new System.EventHandler(this.lblPhoneNumber_Click);
             // 
             // txtPhoneNumber
             // 
@@ -116,6 +123,7 @@
             this.txtPhoneNumber.Name = "txtPhoneNumber";
             this.txtPhoneNumber.Size = new System.Drawing.Size(219, 20);
             this.txtPhoneNumber.TabIndex = 6;
+            this.txtPhoneNumber.TextChanged += new System.EventHandler(this.txtPhoneNumber_TextChanged);
             // 
             // lblCompanyName
             // 
@@ -125,6 +133,7 @@
             this.lblCompanyName.Size = new System.Drawing.Size(80, 13);
             this.lblCompanyName.TabIndex = 9;
             this.lblCompanyName.Text = "Company name";
+            this.lblCompanyName.Click += new System.EventHandler(this.lblCompanyName_Click);
             // 
             // txtCompanyName
             // 
@@ -133,6 +142,7 @@
             this.txtCompanyName.Name = "txtCompanyName";
             this.txtCompanyName.Size = new System.Drawing.Size(219, 20);
             this.txtCompanyName.TabIndex = 8;
+            this.txtCompanyName.TextChanged += new System.EventHandler(this.txtCompanyName_TextChanged);
             // 
             // btnAddCustomer
             // 
@@ -202,6 +212,7 @@
             this.lblCustomerDetails.Size = new System.Drawing.Size(121, 24);
             this.lblCustomerDetails.TabIndex = 23;
             this.lblCustomerDetails.Text = "User Details";
+            this.lblCustomerDetails.Click += new System.EventHandler(this.lblCustomerDetails_Click);
             // 
             // chkManager
             // 

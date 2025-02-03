@@ -226,5 +226,60 @@ namespace Coursework
                 }
             }
         }
+
+        private void lblCustomerDetails_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblCompanyName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCompanyName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblPhoneNumber_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtPhoneNumber_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblEmail_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblSurname_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtSurname_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtFirstName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblFirstName_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
