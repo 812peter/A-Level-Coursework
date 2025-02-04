@@ -77,7 +77,9 @@ namespace Coursework
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-
+            frmEditDetails frmEditDetails = new frmEditDetails();
+            frmEditDetails.Show();
+            frmEditDetails.LoadDetails(userID, firstName, surname, email, phoneNumber, companyName);
         }
     }
 }

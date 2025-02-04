@@ -169,6 +169,7 @@
             this.MaximizeBox = false;
             this.Name = "frmEditDetails";
             this.Text = "Reinforcements - Edit Details";
+            this.Load += new System.EventHandler(this.frmEditDetails_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
