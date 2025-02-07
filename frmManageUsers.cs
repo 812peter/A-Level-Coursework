@@ -81,6 +81,26 @@ namespace Coursework
                 MessageBox.Show("Invalid phone number. (e.g., 07635483912)", "Error");
                 return false;
             }
+
+            if (txtEmail.Text != currentEmail)
+            {
+                clsDBConnector dbConnector = new clsDBConnector();
+                OleDbDataReader dr;
+                string sqlStr;
+                dbConnector.Connect();
+                sqlStr = $"SELECT UserID FROM tblUser WHERE Email = '{txtEmail.Text}'";
+                dr = dbConnector.DoSQL(sqlStr);
+                int i = 0;
+                while (dr.Read())
+                {
+                    if (dr[i] != cmbCustomerID.SelectedValue)
+                    {
+                        MessageBox.Show("The email address you have entered is already used.", "Error");
+                        return false;
+                    }
+                    i++;
+                }
+            }
             return true;
         }
 
@@ -121,6 +141,8 @@ namespace Coursework
         }
 
         bool cancelChkEvent = false;
+        string currentFirstName = "user";
+        string currentEmail = "email@gmail.com";
 
         private void cmbCustomerID_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -137,8 +159,10 @@ namespace Coursework
                 while (dr.Read())
                 {
                     txtFirstName.Text = dr[1].ToString();
+                    currentFirstName = dr[1].ToString();
                     txtSurname.Text = dr[2].ToString();
                     txtEmail.Text = dr[3].ToString();
+                    currentEmail = dr[3].ToString();
                     txtPhoneNumber.Text = dr[4].ToString();
                     txtCompanyName.Text = dr[5].ToString();
                     cancelChkEvent = true;
@@ -155,22 +179,33 @@ namespace Coursework
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (CheckValid() == true)
+            if (cmbCustomerID.Text != "Select")
             {
-                clsDBConnector dbConnector = new clsDBConnector();
-                string cmdStr = "UPDATE tblUser " +
-                                $"SET FirstName = '{txtFirstName.Text}'," +
-                                $"Surname = '{txtSurname.Text}'," +
-                                $"Email = '{txtEmail.Text}'," +
-                                $"PhoneNumber = '{txtPhoneNumber.Text}'," +
-                                $"CompanyName = '{txtCompanyName.Text}'," +
-                                $"Manager = {chkManager.Checked} " +
-                                $"WHERE (UserID = {cmbCustomerID.SelectedValue})";
-                dbConnector.Connect();
-                dbConnector.DoDML(cmdStr);
-                dbConnector.Close();
-                (Application.OpenForms["frmMain"] as frmMain).DisplayData(false);
-                frmManageCustomers_Load(sender, e);
+                if (CheckValid() == true)
+                {
+                    DialogResult dialogResult = MessageBox.Show($"Are you sure that you want to update {currentFirstName}'s details?", "Updating Details", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        clsDBConnector dbConnector = new clsDBConnector();
+                        string cmdStr = "UPDATE tblUser " +
+                                        $"SET FirstName = '{txtFirstName.Text}'," +
+                                        $"Surname = '{txtSurname.Text}'," +
+                                        $"Email = '{txtEmail.Text}'," +
+                                        $"PhoneNumber = '{txtPhoneNumber.Text}'," +
+                                        $"CompanyName = '{txtCompanyName.Text}'," +
+                                        $"Manager = {chkManager.Checked} " +
+                                        $"WHERE (UserID = {cmbCustomerID.SelectedValue})";
+                        dbConnector.Connect();
+                        dbConnector.DoDML(cmdStr);
+                        dbConnector.Close();
+                        (Application.OpenForms["frmMain"] as frmMain).DisplayData(false);
+                        frmManageCustomers_Load(sender, e);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show($"You have not selected a user to update.", "Error");
             }
         }
 
@@ -225,61 +260,6 @@ namespace Coursework
                     chkManager.Checked = false;
                 }
             }
-        }
-
-        private void lblCustomerDetails_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblCompanyName_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtCompanyName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblPhoneNumber_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtPhoneNumber_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblEmail_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtEmail_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblSurname_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtSurname_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtFirstName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblFirstName_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
