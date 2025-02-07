@@ -81,6 +81,23 @@ namespace Coursework
                 MessageBox.Show("Invalid phone number. (e.g., 07635483912)", "Error");
                 return false;
             }
+
+            clsDBConnector dbConnector = new clsDBConnector();
+            OleDbDataReader dr;
+            string sqlStr;
+            dbConnector.Connect();
+            sqlStr = $"SELECT UserID FROM tblUser WHERE Email = '{txtEmail.Text}'";
+            dr = dbConnector.DoSQL(sqlStr);
+            int i = 0;
+            while (dr.Read())
+            {
+                if (dr[i] != cmbCustomerID.SelectedValue)
+                {
+                    MessageBox.Show("The email address you have entered is already used.", "Error");
+                    return false;
+                }
+                i++;
+            }
             return true;
         }
 

@@ -146,7 +146,7 @@
             // 
             // btnAddCustomer
             // 
-            this.btnAddCustomer.Location = new System.Drawing.Point(399, 306);
+            this.btnAddCustomer.Location = new System.Drawing.Point(399, 305);
             this.btnAddCustomer.Name = "btnAddCustomer";
             this.btnAddCustomer.Size = new System.Drawing.Size(75, 23);
             this.btnAddCustomer.TabIndex = 10;
@@ -166,7 +166,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(480, 306);
+            this.btnUpdate.Location = new System.Drawing.Point(480, 305);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(75, 23);
             this.btnUpdate.TabIndex = 12;
@@ -176,7 +176,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(561, 306);
+            this.btnDelete.Location = new System.Drawing.Point(561, 305);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 13;
@@ -186,7 +186,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(318, 306);
+            this.btnClear.Location = new System.Drawing.Point(318, 305);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 14;
@@ -218,7 +218,7 @@
             // 
             this.chkManager.AutoSize = true;
             this.chkManager.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkManager.Location = new System.Drawing.Point(313, 286);
+            this.chkManager.Location = new System.Drawing.Point(313, 285);
             this.chkManager.Name = "chkManager";
             this.chkManager.Size = new System.Drawing.Size(118, 17);
             this.chkManager.TabIndex = 24;
