@@ -403,7 +403,7 @@ namespace Coursework
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
         private Button btnAddresses;
-        private CheckBox checkBox1;
+        public CheckBox checkBox1;
         private PictureBox picAccount;
         private PictureBox picMore;
         private Panel panel1;

@@ -38,6 +38,7 @@ namespace Coursework
 
         public void DisplayData(bool v)
         {
+            checkBox1.Checked = v;
             dbConnector.Connect();
             sqlStr = "SELECT OrderID, UserID, DateOfOrder, TotalPaid, Completed, DateOfCompletion, AddressID FROM tblOrder";
             dr = dbConnector.DoSQL(sqlStr);

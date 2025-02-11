@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Data.OleDb;
+using System.Security.Cryptography;
 
 namespace Coursework
 {
@@ -22,6 +23,19 @@ namespace Coursework
         private void frmEditDetails_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private string GetHashSHA256(string plainText)
+        {
+            string hashText = "";
+            Encoding enc = Encoding.UTF8;
+            SHA256Managed hash = new SHA256Managed();
+            byte[] result = hash.ComputeHash(enc.GetBytes(plainText));
+            foreach (Byte item in result)
+            {
+                hashText = hashText + item.ToString("X");
+            }
+            return hashText;
         }
 
         string userID;
@@ -55,7 +69,24 @@ namespace Coursework
                 DialogResult dialogResult = MessageBox.Show($"Are you sure that you want to update your details?", "Updating Details", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
+                    clsDBConnector dbConnector = new clsDBConnector();
+                    string cmdStr = "UPDATE tblUser " +
+                                    $"SET FirstName = '{txtFirstName.Text}'," +
+                                    $"Surname = '{txtSurname.Text}'," +
+                                    $"Email = '{txtEmail.Text}'," +
+                                    $"PhoneNumber = '{txtPhoneNumber.Text}'," +
+                                    $"CompanyName = '{txtCompanyName.Text}'";
+                    if (txtPassword.Text != "")
+                    {
 
+                        cmdStr = cmdStr + $", [Password] = '{GetHashSHA256(txtPassword.Text)}' ";
+                    }
+                    cmdStr = cmdStr + $"WHERE (UserID = {userID})";
+                    dbConnector.Connect();
+                    dbConnector.DoDML(cmdStr);
+                    dbConnector.Close();
+                    (Application.OpenForms["frmMain"] as frmMain).DisplayData(false);
+                    (Application.OpenForms["frmAccount"] as frmAccount).frmAccount_Load(sender, e);
                 }
             }
         }

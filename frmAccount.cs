@@ -27,7 +27,7 @@ namespace Coursework
         string companyName;
         bool manager = false;
 
-        private void frmAccount_Load(object sender, EventArgs e)
+        public void frmAccount_Load(object sender, EventArgs e)
         {
             PullData();
             lblAccountType.Text = " Customer ";
