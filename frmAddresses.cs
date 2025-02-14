@@ -35,10 +35,9 @@ namespace Coursework
 
         private void ClearFields()
         {
-            string emptyStr = "";
-            txtFirstLine.Text = emptyStr;
-            txtTown.Text = emptyStr;
-            txtPostcode.Text = emptyStr;
+            txtFirstLine.Text = "";
+            txtTown.Text = "";
+            txtPostcode.Text = "";
         }
 
         private void cmbCustomerID_MouseClick(object sender, MouseEventArgs e)
@@ -72,26 +71,31 @@ namespace Coursework
         {
             if (cmbCustomerID.SelectedValue != null)
             {
-                clsDBConnector dbConnector = new clsDBConnector();
-                OleDbDataReader dr;
-                string sqlStr;
-                dbConnector.Connect();
-                sqlStr = "SELECT AddressID, FirstLine, Town, Postcode" +
-                         " FROM tblAddress" +
-                         " WHERE UserID = " + cmbCustomerID.SelectedValue;
-                dr = dbConnector.DoSQL(sqlStr);
-                lstAddresses.Items.Clear();
-                while (dr.Read())
-                {
-                    lstAddresses.Items.Add(dr[0].ToString());
-                    lstAddresses.Items[lstAddresses.Items.Count - 1].SubItems.Add(dr[1].ToString());
-                    lstAddresses.Items[lstAddresses.Items.Count - 1].SubItems.Add(dr[2].ToString());
-                    lstAddresses.Items[lstAddresses.Items.Count - 1].SubItems.Add(dr[3].ToString());
-                }
-                dbConnector.Close();
-                ClearFields();
-                selectedAddressID = "";
+                LoadTable();
             }
+        }
+
+        private void LoadTable()
+        {
+            clsDBConnector dbConnector = new clsDBConnector();
+            OleDbDataReader dr;
+            string sqlStr;
+            dbConnector.Connect();
+            sqlStr = "SELECT AddressID, FirstLine, Town, Postcode" +
+                     " FROM tblAddress" +
+                     " WHERE UserID = " + cmbCustomerID.SelectedValue;
+            dr = dbConnector.DoSQL(sqlStr);
+            lstAddresses.Items.Clear();
+            while (dr.Read())
+            {
+                lstAddresses.Items.Add(dr[0].ToString());
+                lstAddresses.Items[lstAddresses.Items.Count - 1].SubItems.Add(dr[1].ToString());
+                lstAddresses.Items[lstAddresses.Items.Count - 1].SubItems.Add(dr[2].ToString());
+                lstAddresses.Items[lstAddresses.Items.Count - 1].SubItems.Add(dr[3].ToString());
+            }
+            dbConnector.Close();
+            ClearFields();
+            selectedAddressID = "";
         }
 
         private void btnAddAddress_Click(object sender, EventArgs e)
@@ -145,6 +149,31 @@ namespace Coursework
                 return false;
             }
             return true;
+        }
+        internal void EditAccountAddress(string userID)
+        {
+            //DODELAT
+            List<CLsUser> userList = new List<CLsUser>();
+            clsDBConnector dbConnector = new clsDBConnector();
+            OleDbDataReader dr;
+            string username = "";
+            int userid = 0;
+            string sqlStr = "";
+            dbConnector.Connect();
+            sqlStr = "SELECT (Surname & " + "', '" + $"& FirstName) as username FROM tblUser WHERE UserID = {userID}";
+            dr = dbConnector.DoSQL(sqlStr);
+            while (dr.Read())
+            {
+                userid = Convert.ToInt32(userID); 
+                username = dr[0].ToString();
+            }
+            cmbCustomerID.DisplayMember = "username";
+            cmbCustomerID.ValueMember = "userid";
+            cmbCustomerID.DataSource = userList;
+            cmbCustomerID.Text = username;
+            cmbCustomerID.SelectedValue = Convert.ToInt32(userID);
+            dbConnector.Close();
+            //LoadTable();
         }
 
         internal void SetUpNewCustomer()

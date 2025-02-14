@@ -34,6 +34,7 @@
             this.btnSignOut = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.lblAccountType = new System.Windows.Forms.Label();
+            this.btnAddress = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,7 +66,7 @@
             // btnSignOut
             // 
             this.btnSignOut.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSignOut.Location = new System.Drawing.Point(1177, 53);
+            this.btnSignOut.Location = new System.Drawing.Point(1177, 67);
             this.btnSignOut.Name = "btnSignOut";
             this.btnSignOut.Size = new System.Drawing.Size(75, 23);
             this.btnSignOut.TabIndex = 8;
@@ -76,7 +77,7 @@
             // btnEdit
             // 
             this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnEdit.Location = new System.Drawing.Point(1177, 24);
+            this.btnEdit.Location = new System.Drawing.Point(1177, 9);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 23);
             this.btnEdit.TabIndex = 9;
@@ -97,12 +98,24 @@
             this.lblAccountType.TabIndex = 10;
             this.lblAccountType.Text = " Account type ";
             // 
+            // btnAddress
+            // 
+            this.btnAddress.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAddress.Location = new System.Drawing.Point(1177, 38);
+            this.btnAddress.Name = "btnAddress";
+            this.btnAddress.Size = new System.Drawing.Size(75, 23);
+            this.btnAddress.TabIndex = 11;
+            this.btnAddress.Text = "Address";
+            this.btnAddress.UseVisualStyleBackColor = true;
+            this.btnAddress.Click += new System.EventHandler(this.btnAddress_Click);
+            // 
             // frmAccount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.btnAddress);
             this.Controls.Add(this.lblAccountType);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnSignOut);
@@ -127,5 +140,6 @@
         private System.Windows.Forms.Button btnSignOut;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Label lblAccountType;
+        private System.Windows.Forms.Button btnAddress;
     }
 }

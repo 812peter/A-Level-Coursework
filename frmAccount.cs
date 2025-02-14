@@ -81,5 +81,12 @@ namespace Coursework
             frmEditDetails.Show();
             frmEditDetails.LoadDetails(userID, firstName, surname, email, phoneNumber, companyName);
         }
+
+        private void btnAddress_Click(object sender, EventArgs e)
+        {
+            frmAddresses frmAddresses = new frmAddresses();
+            frmAddresses.Show();
+            frmAddresses.EditAccountAddress(userID);
+        }
     }
 }
