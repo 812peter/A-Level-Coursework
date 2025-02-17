@@ -21,6 +21,7 @@ namespace Coursework
         }
 
         string selectedAddressID = "";
+        bool altClearBtn = false;
 
         class CLsUser
         {
@@ -152,28 +153,21 @@ namespace Coursework
         }
         internal void EditAccountAddress(string userID)
         {
-            //DODELAT123
+            altClearBtn = true;
             List<CLsUser> userList = new List<CLsUser>();
             clsDBConnector dbConnector = new clsDBConnector();
             OleDbDataReader dr;
-            string username = "";
-            int userid = 0;
-            string sqlStr = "";
+            string sqlStr;
             dbConnector.Connect();
-            sqlStr = "SELECT (Surname & " + "', '" + $"& FirstName) as username FROM tblUser WHERE UserID = {userID}";
+            sqlStr = "SELECT (Surname & " + "', '" + "& FirstName) as username FROM tblUser WHERE UserID = " + userID;
             dr = dbConnector.DoSQL(sqlStr);
-            while (dr.Read())
-            {
-                userid = Convert.ToInt32(userID); 
-                username = dr[0].ToString();
-            }
+            dr.Read();
+            userList.Add(new CLsUser { userid = Convert.ToInt32(userID), username = dr[0].ToString() });
             cmbCustomerID.DisplayMember = "username";
             cmbCustomerID.ValueMember = "userid";
             cmbCustomerID.DataSource = userList;
-            cmbCustomerID.Text = username;
-            cmbCustomerID.SelectedValue = Convert.ToInt32(userID);
             dbConnector.Close();
-            //LoadTable();
+            LoadTable();
         }
 
         internal void SetUpNewCustomer()
@@ -289,8 +283,11 @@ namespace Coursework
         private void btnClear_Click(object sender, EventArgs e)
         {
             ClearFields();
-            cmbCustomerID.Text = "Select";
-            lstAddresses.Items.Clear();
+            if (!altClearBtn)
+            {
+                cmbCustomerID.Text = "Select";
+                lstAddresses.Items.Clear();
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)

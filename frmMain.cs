@@ -47,10 +47,10 @@ namespace Coursework
             {
                 lstOrders.Items.Add(dr[0].ToString());
                 lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[1].ToString());
-                lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[2].ToString());
+                lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(GetDateOnly(dr[2]));
                 lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add("£" + dr[3].ToString());
                 lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[4].ToString());
-                lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[5].ToString());
+                lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(GetDateOnly(dr[5]));
                 lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[6].ToString());
             }
 
@@ -67,6 +67,12 @@ namespace Coursework
                 lstCustomers.Items[lstCustomers.Items.Count - 1].SubItems.Add(dr[5].ToString());
             }
             dbConnector.Close();
+        }
+
+        private string GetDateOnly(object originalDBDate)
+        {
+            DateTime fullDate = Convert.ToDateTime(originalDBDate);
+            return fullDate.ToString("dd/MM/yyyy");
         }
 
         private void lstCustomers_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e)
