@@ -261,5 +261,10 @@ namespace Coursework
                 }
             }
         }
+
+        private void frmManageUsers_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            (Application.OpenForms["frmMain"] as frmMain).frmMUOpen = false;
+        }
     }
 }

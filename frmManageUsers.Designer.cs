@@ -243,6 +243,7 @@
             this.MaximizeBox = false;
             this.Name = "frmManageUsers";
             this.Text = "Reinforcements - Users Management";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmManageUsers_FormClosed);
             this.Load += new System.EventHandler(this.frmManageCustomers_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

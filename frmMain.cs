@@ -18,7 +18,8 @@ namespace Coursework
         clsDBConnector dbConnector = new clsDBConnector();
         OleDbDataReader dr;
         string sqlStr;
-        
+        public bool frmMUOpen = false;
+
         private const int MaxColumnWidth = 200;
 
         public frmMain()
@@ -92,8 +93,13 @@ namespace Coursework
 
         private void btnManageCustomers_Click(object sender, EventArgs e)
         {
-            frmManageUsers frmManageUsers = new frmManageUsers();
-            frmManageUsers.Show();
+            if (!frmMUOpen)
+            {
+                frmMUOpen = true;
+                frmManageUsers frmManageUsers = new frmManageUsers();
+                frmManageUsers.Show();
+            }
+            //FINISH (focus if open) + EVERY FORM
         }
 
         private void btnAddresses_Click(object sender, EventArgs e)
@@ -112,8 +118,8 @@ namespace Coursework
             else
             {
                 DisplayData(false);
-            } 
-                
+            }
+
         }
 
         private void picAccount_Click(object sender, EventArgs e)
