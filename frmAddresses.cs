@@ -310,5 +310,13 @@ namespace Coursework
                 cmbCustomerID_SelectedIndexChanged(sender, e);
             }
         }
+
+        private void frmAddresses_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (Application.OpenForms["frmMain"] as frmMain != null)
+            {
+                (Application.OpenForms["frmMain"] as frmMain).frmAddrOpen = false;
+            }
+        }
     }
 }

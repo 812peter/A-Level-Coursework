@@ -88,5 +88,13 @@ namespace Coursework
             frmAddresses.Show();
             frmAddresses.EditAccountAddress(userID);
         }
+
+        private void frmAccount_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (Application.OpenForms["frmMain"] as frmMain != null)
+            {
+                (Application.OpenForms["frmMain"] as frmMain).frmAccOpen = false;
+            }
+        }
     }
 }

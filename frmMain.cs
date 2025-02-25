@@ -17,8 +17,16 @@ namespace Coursework
     {
         clsDBConnector dbConnector = new clsDBConnector();
         OleDbDataReader dr;
+
         string sqlStr;
+
         public bool frmMUOpen = false;
+        public bool frmAddrOpen = false;
+        public bool frmAccOpen = false;
+
+        private frmManageUsers frmManageUsers = null;
+        private frmAddresses frmAddresses = null;
+        private frmAccount frmAccount = null;
 
         private const int MaxColumnWidth = 200;
 
@@ -96,16 +104,43 @@ namespace Coursework
             if (!frmMUOpen)
             {
                 frmMUOpen = true;
-                frmManageUsers frmManageUsers = new frmManageUsers();
+                frmManageUsers = new frmManageUsers();
                 frmManageUsers.Show();
             }
-            //FINISH (focus if open) + EVERY FORM
+            else
+            {
+                frmManageUsers.BringToFront();
+                frmManageUsers.WindowState = FormWindowState.Normal;
+            }
         }
 
         private void btnAddresses_Click(object sender, EventArgs e)
         {
-            frmAddresses frmAddresses = new frmAddresses();
-            frmAddresses.Show();
+            if (!frmAddrOpen)
+            {
+                frmAddrOpen = true;
+                frmAddresses = new frmAddresses();
+                frmAddresses.Show();
+            }
+            else
+            {
+                frmAddresses.BringToFront();
+                frmAddresses.WindowState = FormWindowState.Normal;
+            }
+        }
+        private void picAccount_Click(object sender, EventArgs e)
+        {
+            if (!frmAccOpen)
+            {
+                frmAccOpen = true;
+                frmAccount = new frmAccount();
+                frmAccount.Show();
+            }
+            else
+            {
+                frmAccount.BringToFront();
+                frmAccount.WindowState = FormWindowState.Normal;
+            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -120,12 +155,6 @@ namespace Coursework
                 DisplayData(false);
             }
 
-        }
-
-        private void picAccount_Click(object sender, EventArgs e)
-        {
-            frmAccount frmAccount = new frmAccount();
-            frmAccount.Show();
         }
     }
 }

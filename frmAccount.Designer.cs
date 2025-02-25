@@ -126,6 +126,7 @@
             this.MaximizeBox = false;
             this.Name = "frmAccount";
             this.Text = "Reinforcements - Account";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmAccount_FormClosed);
             this.Load += new System.EventHandler(this.frmAccount_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
