@@ -234,6 +234,7 @@
             this.MaximizeBox = false;
             this.Name = "frmAddresses";
             this.Text = "Reinforcements - Address Management";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmAddresses_FormClosed);
             this.Load += new System.EventHandler(this.frmAddresses_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

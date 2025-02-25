@@ -29,6 +29,7 @@ namespace Coursework
         }
 
         bool successfullSignIn = false;
+        bool regVisible = false;
 
         private string GetHashSHA256(string plainText)
         {
@@ -168,7 +169,11 @@ namespace Coursework
 
         private void lblRegister_Click(object sender, EventArgs e)
         {
-            RegVisability(true);
+            if (regVisible == false)
+            {
+                RegVisability(true);
+            }
+            regVisible = true;
         }
 
         private void txtEmail_TextChanged(object sender, EventArgs e)
