@@ -148,5 +148,13 @@ namespace Coursework
             }
             return true;
         }
+
+        private void frmEditDetails_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (Application.OpenForms["frmMain"] as frmMain != null && Application.OpenForms["frmAccount"] as frmAccount != null)
+            {
+                (Application.OpenForms["frmAccount"] as frmAccount).frmEditOpen = false;
+            }
+        }
     }
 }

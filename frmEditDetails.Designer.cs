@@ -244,6 +244,7 @@
             this.MaximizeBox = false;
             this.Name = "frmEditDetails";
             this.Text = "Reinforcements - Edit Details";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmEditDetails_FormClosed);
             this.Load += new System.EventHandler(this.frmEditDetails_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picViewPassword)).EndInit();
             this.ResumeLayout(false);

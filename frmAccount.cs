@@ -26,6 +26,13 @@ namespace Coursework
         string phoneNumber;
         string companyName;
         bool manager = false;
+        bool ordered = false;
+
+        public bool frmEditOpen = false;
+        public bool frmAddrOpen = false;
+
+        private frmAddresses frmAddresses = null;
+        private frmEditDetails frmEditDetails = null;
 
         public void frmAccount_Load(object sender, EventArgs e)
         {
@@ -61,7 +68,20 @@ namespace Coursework
                 }
                 userID = dr[5].ToString();
             }
+
+            sqlStr = $"SELECT OrderID FROM tblOrder WHERE UserID = '{userID}'";
             dbConnector.Close();
+            while (dr.Read())
+            {
+                if (dr[0] != DBNull.Value)
+                {
+                    ordered = true;
+                }
+            }
+            dbConnector.Close();
+            //
+            //!!!!FINISH ORDERS BY CUSTOMERS!!!!!!!!
+            //
         }
 
         private void btnSignOut_Click(object sender, EventArgs e)
@@ -77,16 +97,34 @@ namespace Coursework
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            frmEditDetails frmEditDetails = new frmEditDetails();
-            frmEditDetails.Show();
-            frmEditDetails.LoadDetails(userID, firstName, surname, email, phoneNumber, companyName);
+            if (!frmEditOpen)
+            {
+                frmEditOpen = true;
+                frmEditDetails = new frmEditDetails();
+                frmEditDetails.Show();
+                frmEditDetails.LoadDetails(userID, firstName, surname, email, phoneNumber, companyName);
+            }
+            else
+            {
+                frmEditDetails.BringToFront();
+                frmEditDetails.WindowState = FormWindowState.Normal;
+            }
         }
 
         private void btnAddress_Click(object sender, EventArgs e)
         {
-            frmAddresses frmAddresses = new frmAddresses();
-            frmAddresses.Show();
-            frmAddresses.EditAccountAddress(userID);
+            if (!frmAddrOpen)
+            {
+                frmAddrOpen = true;
+                frmAddresses = new frmAddresses();
+                frmAddresses.Show();
+                frmAddresses.EditAccountAddress(userID);
+            }
+            else
+            {
+                frmAddresses.BringToFront();
+                frmAddresses.WindowState = FormWindowState.Normal;
+            }
         }
 
         private void frmAccount_FormClosed(object sender, FormClosedEventArgs e)

@@ -317,6 +317,10 @@ namespace Coursework
             {
                 (Application.OpenForms["frmMain"] as frmMain).frmAddrOpen = false;
             }
+            if (Application.OpenForms["frmAccount"] as frmAccount != null)
+            {
+                (Application.OpenForms["frmAccount"] as frmAccount).frmAddrOpen = false;
+            }
         }
     }
 }
