@@ -134,5 +134,13 @@ namespace Coursework
                 (Application.OpenForms["frmMain"] as frmMain).frmAccOpen = false;
             }
         }
+
+        private void frmAccount_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (Application.OpenForms["frmMain"] as frmMain != null)
+            {
+                (Application.OpenForms["frmMain"] as frmMain).frmAccOpen = false;
+            }
+        }
     }
 }
