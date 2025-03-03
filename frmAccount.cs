@@ -43,6 +43,39 @@ namespace Coursework
                 lblAccountType.Text = " Manager ";
             }
             lblName.Text = $"{firstName} {surname}";
+            LoadOrders();
+        }
+
+        private void LoadOrders()
+        {
+            if (!ordered)
+            {
+                lstOrders.Visible = false;
+            }
+            else
+            {
+                clsDBConnector dbConnector = new clsDBConnector();
+                OleDbDataReader dr;
+                string sqlStr;
+                dbConnector.Connect();
+                sqlStr = "SELECT tblOrder.OrderID, tblOrder.DateOfOrder, tblOrder.TotalPaid, tblOrder.Completed, tblOrder.DateOfCompletion, (tblAddress.FirstLine & ', ' & tblAddress.Town & ', ' & tblAddress.Postcode) AS address" +
+                         " FROM (tblOrder INNER JOIN tblAddress ON tblOrder.AddressID = tblAddress.AddressID)" +
+                         $"WHERE tblOrder.UserID = {userID}";
+                dr = dbConnector.DoSQL(sqlStr);
+                lstOrders.Items.Clear();
+                while (dr.Read())
+                {
+                    lstOrders.Items.Add(dr[0].ToString());
+                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[1].ToString());
+                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[2].ToString());
+                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[3].ToString());
+                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[4].ToString());
+                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[5].ToString());
+                    //lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[6].ToString());
+                    //FINISH!!!!!
+                }
+                dbConnector.Close();
+            }
         }
 
         private void PullData()
@@ -69,19 +102,20 @@ namespace Coursework
                 userID = dr[5].ToString();
             }
 
-            sqlStr = $"SELECT OrderID FROM tblOrder WHERE UserID = '{userID}'";
-            dbConnector.Close();
-            while (dr.Read())
+            sqlStr = $"SELECT OrderID FROM tblOrder WHERE UserID = {userID}";
+            dr = dbConnector.DoSQL(sqlStr);
+            dr.Read();
+            try
             {
                 if (dr[0] != DBNull.Value)
                 {
                     ordered = true;
                 }
             }
+            catch (Exception)
+            {
+            }
             dbConnector.Close();
-            //
-            //!!!!FINISH ORDERS BY CUSTOMERS!!!!!!!!
-            //
         }
 
         private void btnSignOut_Click(object sender, EventArgs e)
@@ -124,14 +158,6 @@ namespace Coursework
             {
                 frmAddresses.BringToFront();
                 frmAddresses.WindowState = FormWindowState.Normal;
-            }
-        }
-
-        private void frmAccount_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (Application.OpenForms["frmMain"] as frmMain != null)
-            {
-                (Application.OpenForms["frmMain"] as frmMain).frmAccOpen = false;
             }
         }
 
