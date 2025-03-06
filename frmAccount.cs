@@ -66,16 +66,45 @@ namespace Coursework
                 while (dr.Read())
                 {
                     lstOrders.Items.Add(dr[0].ToString());
-                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[1].ToString());
+                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(GetDateOnly(dr[1]).ToString());
                     lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[2].ToString());
                     lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[3].ToString());
-                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[4].ToString());
+                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(GetDateOnly(dr[4]).ToString());
                     lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[5].ToString());
-                    //lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[6].ToString());
-                    //FINISH!!!!!
+                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(GetProducts(Convert.ToInt32(dr[0])));
                 }
                 dbConnector.Close();
             }
+        }
+
+        private string GetProducts(int orderID)
+        {
+            string products = "";
+            int count = 0;
+            clsDBConnector dbConnector = new clsDBConnector();
+            OleDbDataReader dr;
+            string sqlStr;
+            dbConnector.Connect();
+            sqlStr = "SELECT Quantity, ProductName, DiameterInMM, Material FROM tblProductOrder, tblProduct " +
+                     $"WHERE OrderID = {orderID} AND tblProductOrder.ProductID = tblProduct.ProductID";
+            dr = dbConnector.DoSQL(sqlStr);
+            while (dr.Read())
+            {
+                if (count != 0)
+                {
+                    products += ", ";
+                }
+                products += $"{dr[0].ToString()} x {dr[1].ToString()} ({dr[2].ToString()}mm, {dr[3].ToString().ToLower()})";
+                count++;
+            }
+            dbConnector.Close();
+            return products;
+        }
+
+        private string GetDateOnly(object originalDBDate)
+        {
+            DateTime fullDate = Convert.ToDateTime(originalDBDate);
+            return fullDate.ToString("dd/MM/yyyy");
         }
 
         private void PullData()

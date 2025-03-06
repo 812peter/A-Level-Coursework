@@ -163,11 +163,12 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "ID";
-            this.columnHeader1.Width = 23;
+            this.columnHeader1.Width = 25;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Date of Order";
+            this.columnHeader2.Width = 80;
             // 
             // columnHeader3
             // 
@@ -176,22 +177,22 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "Completed";
-            this.columnHeader4.Width = 64;
+            this.columnHeader4.Width = 65;
             // 
             // columnHeader5
             // 
             this.columnHeader5.Text = "Date of Completion";
-            this.columnHeader5.Width = 104;
+            this.columnHeader5.Width = 105;
             // 
             // columnHeader6
             // 
             this.columnHeader6.Text = "Address";
-            this.columnHeader6.Width = 270;
+            this.columnHeader6.Width = 300;
             // 
             // columnHeader7
             // 
             this.columnHeader7.Text = "Products";
-            this.columnHeader7.Width = 58;
+            this.columnHeader7.Width = 629;
             // 
             // frmAccount
             // 

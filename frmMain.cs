@@ -47,9 +47,8 @@ namespace Coursework
 
         public void DisplayData(bool v)
         {
-            checkBox1.Checked = v;
             dbConnector.Connect();
-            sqlStr = "SELECT OrderID, UserID, DateOfOrder, TotalPaid, Completed, DateOfCompletion, AddressID FROM tblOrder";
+            sqlStr = "SELECT OrderID, UserID, DateOfOrder, TotalPaid, Completed, DateOfCompletion, AddressID FROM tblOrder ORDER BY Completed";
             dr = dbConnector.DoSQL(sqlStr);
             lstOrders.Items.Clear();
             while (dr.Read())
@@ -63,7 +62,7 @@ namespace Coursework
                 lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[6].ToString());
             }
 
-            sqlStr = $"SELECT UserID, FirstName, Surname, Email, PhoneNumber, CompanyName FROM tblUser WHERE Manager = {v}";
+            sqlStr = $"SELECT UserID, FirstName, Surname, Email, PhoneNumber, CompanyName FROM tblUser WHERE Manager = {v} ORDER BY UserID DESC";
             dr = dbConnector.DoSQL(sqlStr);
             lstCustomers.Items.Clear();
             while (dr.Read())
@@ -154,7 +153,6 @@ namespace Coursework
             {
                 DisplayData(false);
             }
-
         }
     }
 }

@@ -42,6 +42,7 @@ namespace Coursework
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnViewDetails = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -146,6 +147,7 @@ namespace Coursework
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnViewDetails);
             this.tabPage1.Controls.Add(this.lstOrders);
             this.tabPage1.Controls.Add(this.pictureBox2);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
@@ -155,6 +157,17 @@ namespace Coursework
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Orders";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btnViewDetails
+            // 
+            this.btnViewDetails.BackColor = System.Drawing.SystemColors.Control;
+            this.btnViewDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnViewDetails.Location = new System.Drawing.Point(1175, 3);
+            this.btnViewDetails.Name = "btnViewDetails";
+            this.btnViewDetails.Size = new System.Drawing.Size(75, 23);
+            this.btnViewDetails.TabIndex = 7;
+            this.btnViewDetails.Text = "View details";
+            this.btnViewDetails.UseVisualStyleBackColor = false;
             // 
             // pictureBox2
             // 
@@ -411,6 +424,7 @@ namespace Coursework
         private Button button2;
         private Button button1;
         private PictureBox pictureBox3;
+        private Button btnViewDetails;
     }
 }
 
