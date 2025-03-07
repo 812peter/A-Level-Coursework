@@ -98,6 +98,7 @@ namespace Coursework
             this.lstOrders.UseCompatibleStateImageBehavior = false;
             this.lstOrders.View = System.Windows.Forms.View.Details;
             this.lstOrders.ColumnWidthChanged += new System.Windows.Forms.ColumnWidthChangedEventHandler(this.lstOrders_ColumnWidthChanged);
+            this.lstOrders.SelectedIndexChanged += new System.EventHandler(this.lstOrders_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -160,7 +161,7 @@ namespace Coursework
             // 
             // btnViewDetails
             // 
-            this.btnViewDetails.BackColor = System.Drawing.SystemColors.Control;
+            this.btnViewDetails.BackColor = System.Drawing.Color.Transparent;
             this.btnViewDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnViewDetails.Location = new System.Drawing.Point(1175, 3);
             this.btnViewDetails.Name = "btnViewDetails";
@@ -168,6 +169,7 @@ namespace Coursework
             this.btnViewDetails.TabIndex = 7;
             this.btnViewDetails.Text = "View details";
             this.btnViewDetails.UseVisualStyleBackColor = false;
+            this.btnViewDetails.Click += new System.EventHandler(this.btnViewDetails_Click);
             // 
             // pictureBox2
             // 
@@ -278,7 +280,7 @@ namespace Coursework
             // columnHeader13
             // 
             this.columnHeader13.Text = "Company Name";
-            this.columnHeader13.Width = 115;
+            this.columnHeader13.Width = 200;
             // 
             // pictureBox1
             // 

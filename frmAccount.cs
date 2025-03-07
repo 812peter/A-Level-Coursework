@@ -58,24 +58,27 @@ namespace Coursework
                 OleDbDataReader dr;
                 string sqlStr;
                 dbConnector.Connect();
-                sqlStr = "SELECT tblOrder.OrderID, tblOrder.DateOfOrder, tblOrder.TotalPaid, tblOrder.Completed, tblOrder.DateOfCompletion, (tblAddress.FirstLine & ', ' & tblAddress.Town & ', ' & tblAddress.Postcode) AS address" +
-                         " FROM (tblOrder INNER JOIN tblAddress ON tblOrder.AddressID = tblAddress.AddressID)" +
-                         $"WHERE tblOrder.UserID = {userID}";
+                sqlStr = "SELECT tblOrder.OrderID, tblOrder.DateOfOrder, tblOrder.TotalPaid, tblOrder.Completed, tblOrder.DateOfCompletion, (tblAddress.FirstLine & ', ' & tblAddress.Town & ', ' & tblAddress.Postcode) AS address " +
+                         "FROM (tblOrder INNER JOIN tblAddress ON tblOrder.AddressID = tblAddress.AddressID) " +
+                        $"WHERE tblOrder.UserID = {userID} " +
+                         "ORDER BY tblOrder.OrderID DESC";
                 dr = dbConnector.DoSQL(sqlStr);
                 lstOrders.Items.Clear();
                 while (dr.Read())
                 {
                     lstOrders.Items.Add(dr[0].ToString());
-                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(GetDateOnly(dr[1]).ToString());
-                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[2].ToString());
-                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[3].ToString());
-                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(GetDateOnly(dr[4]).ToString());
+                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add((Application.OpenForms["frmMain"] as frmMain).GetDateOnly(dr[1]).ToString());
+                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add("£" + dr[2].ToString());
+                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add((Application.OpenForms["frmMain"] as frmMain).GetBoolEmoji(dr[3].ToString()));
+                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add((Application.OpenForms["frmMain"] as frmMain).GetDateOnly(dr[4]).ToString());
                     lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[5].ToString());
                     lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(GetProducts(Convert.ToInt32(dr[0])));
                 }
                 dbConnector.Close();
             }
         }
+
+       
 
         private string GetProducts(int orderID)
         {
@@ -99,12 +102,6 @@ namespace Coursework
             }
             dbConnector.Close();
             return products;
-        }
-
-        private string GetDateOnly(object originalDBDate)
-        {
-            DateTime fullDate = Convert.ToDateTime(originalDBDate);
-            return fullDate.ToString("dd/MM/yyyy");
         }
 
         private void PullData()

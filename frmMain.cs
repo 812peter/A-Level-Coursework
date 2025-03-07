@@ -17,7 +17,6 @@ namespace Coursework
     {
         clsDBConnector dbConnector = new clsDBConnector();
         OleDbDataReader dr;
-
         string sqlStr;
 
         public bool frmMUOpen = false;
@@ -29,6 +28,7 @@ namespace Coursework
         private frmAccount frmAccount = null;
 
         private const int MaxColumnWidth = 200;
+        string selectedOrderID = "";
 
         public frmMain()
         {
@@ -45,10 +45,20 @@ namespace Coursework
             panel1.Visible = false;
         }
 
+        public string GetBoolEmoji(string boolean)
+        {
+            if (boolean.ToLower() == "true")
+            {
+                return "✔";
+            }
+            return "❌";
+        }
+
         public void DisplayData(bool v)
         {
+            selectedOrderID = "";
             dbConnector.Connect();
-            sqlStr = "SELECT OrderID, UserID, DateOfOrder, TotalPaid, Completed, DateOfCompletion, AddressID FROM tblOrder ORDER BY Completed";
+            sqlStr = "SELECT OrderID, UserID, DateOfOrder, TotalPaid, Completed, DateOfCompletion, AddressID FROM tblOrder ORDER BY Completed DESC";
             dr = dbConnector.DoSQL(sqlStr);
             lstOrders.Items.Clear();
             while (dr.Read())
@@ -57,7 +67,7 @@ namespace Coursework
                 lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[1].ToString());
                 lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(GetDateOnly(dr[2]));
                 lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add("£" + dr[3].ToString());
-                lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[4].ToString());
+                lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(GetBoolEmoji(dr[4].ToString()));
                 lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(GetDateOnly(dr[5]));
                 lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[6].ToString());
             }
@@ -77,10 +87,14 @@ namespace Coursework
             dbConnector.Close();
         }
 
-        private string GetDateOnly(object originalDBDate)
+        public string GetDateOnly(object originalDBDate)
         {
-            DateTime fullDate = Convert.ToDateTime(originalDBDate);
-            return fullDate.ToString("dd/MM/yyyy");
+            if (originalDBDate != DBNull.Value)
+            {
+                DateTime fullDate = Convert.ToDateTime(originalDBDate);
+                return fullDate.ToString("dd/MM/yyyy");
+            }
+            return "❌";
         }
 
         private void lstCustomers_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e)
@@ -152,6 +166,33 @@ namespace Coursework
             else
             {
                 DisplayData(false);
+            }
+        }
+
+        private void lstOrders_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstOrders.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = lstOrders.SelectedItems[0];
+                selectedOrderID = selectedItem.SubItems[0].Text;
+            }
+            else
+            {
+                selectedOrderID = "";
+            }
+        }
+
+        private void btnViewDetails_Click(object sender, EventArgs e)
+        {
+            if (selectedOrderID == "")
+            {
+                MessageBox.Show("You have not selected an order to view.", "Error");
+            }
+            else
+            {
+                frmOrderDetails frmOrderDetails = new frmOrderDetails();
+                frmOrderDetails.Show();
+                frmOrderDetails.LoadDetails(selectedOrderID);
             }
         }
     }
