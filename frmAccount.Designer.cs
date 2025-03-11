@@ -66,7 +66,7 @@
             this.lblName.BackColor = System.Drawing.Color.White;
             this.lblName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.ForeColor = System.Drawing.Color.Black;
+            this.lblName.ForeColor = System.Drawing.Color.Red;
             this.lblName.Location = new System.Drawing.Point(12, 20);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(216, 33);
@@ -101,7 +101,7 @@
             this.lblAccountType.BackColor = System.Drawing.Color.White;
             this.lblAccountType.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblAccountType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAccountType.ForeColor = System.Drawing.Color.Black;
+            this.lblAccountType.ForeColor = System.Drawing.Color.Red;
             this.lblAccountType.Location = new System.Drawing.Point(12, 61);
             this.lblAccountType.Name = "lblAccountType";
             this.lblAccountType.Size = new System.Drawing.Size(106, 18);

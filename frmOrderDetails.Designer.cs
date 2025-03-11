@@ -42,12 +42,19 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lblCustomerDetails = new System.Windows.Forms.Label();
+            this.lblCustDetails = new System.Windows.Forms.Label();
+            this.lblName = new System.Windows.Forms.Label();
+            this.lblEmail = new System.Windows.Forms.Label();
+            this.lblPhoneNumber = new System.Windows.Forms.Label();
+            this.lblCompanyName = new System.Windows.Forms.Label();
+            this.lblProductDetails = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblDateOfOrder
             // 
             this.lblDateOfOrder.AutoSize = true;
-            this.lblDateOfOrder.Location = new System.Drawing.Point(12, 85);
+            this.lblDateOfOrder.Location = new System.Drawing.Point(13, 33);
             this.lblDateOfOrder.Name = "lblDateOfOrder";
             this.lblDateOfOrder.Size = new System.Drawing.Size(75, 13);
             this.lblDateOfOrder.TabIndex = 0;
@@ -56,7 +63,9 @@
             // lblTotalPaid
             // 
             this.lblTotalPaid.AutoSize = true;
-            this.lblTotalPaid.Location = new System.Drawing.Point(699, 307);
+            this.lblTotalPaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalPaid.ForeColor = System.Drawing.Color.Red;
+            this.lblTotalPaid.Location = new System.Drawing.Point(700, 335);
             this.lblTotalPaid.Name = "lblTotalPaid";
             this.lblTotalPaid.Size = new System.Drawing.Size(37, 13);
             this.lblTotalPaid.TabIndex = 1;
@@ -65,7 +74,7 @@
             // lblTotalPaidNoVAT
             // 
             this.lblTotalPaidNoVAT.AutoSize = true;
-            this.lblTotalPaidNoVAT.Location = new System.Drawing.Point(684, 281);
+            this.lblTotalPaidNoVAT.Location = new System.Drawing.Point(685, 305);
             this.lblTotalPaidNoVAT.Name = "lblTotalPaidNoVAT";
             this.lblTotalPaidNoVAT.Size = new System.Drawing.Size(52, 13);
             this.lblTotalPaidNoVAT.TabIndex = 2;
@@ -75,17 +84,18 @@
             // 
             this.chkCompleted.AutoSize = true;
             this.chkCompleted.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkCompleted.Location = new System.Drawing.Point(10, 148);
+            this.chkCompleted.Location = new System.Drawing.Point(13, 49);
             this.chkCompleted.Name = "chkCompleted";
             this.chkCompleted.Size = new System.Drawing.Size(76, 17);
             this.chkCompleted.TabIndex = 3;
             this.chkCompleted.Text = "Completed";
             this.chkCompleted.UseVisualStyleBackColor = true;
+            this.chkCompleted.CheckedChanged += new System.EventHandler(this.chkCompleted_CheckedChanged);
             // 
             // lblDateOfCompletion
             // 
             this.lblDateOfCompletion.AutoSize = true;
-            this.lblDateOfCompletion.Location = new System.Drawing.Point(7, 168);
+            this.lblDateOfCompletion.Location = new System.Drawing.Point(13, 67);
             this.lblDateOfCompletion.Name = "lblDateOfCompletion";
             this.lblDateOfCompletion.Size = new System.Drawing.Size(102, 13);
             this.lblDateOfCompletion.TabIndex = 4;
@@ -94,7 +104,7 @@
             // lblAddress
             // 
             this.lblAddress.AutoSize = true;
-            this.lblAddress.Location = new System.Drawing.Point(7, 192);
+            this.lblAddress.Location = new System.Drawing.Point(13, 84);
             this.lblAddress.Name = "lblAddress";
             this.lblAddress.Size = new System.Drawing.Size(91, 13);
             this.lblAddress.TabIndex = 5;
@@ -103,7 +113,7 @@
             // lblVAT
             // 
             this.lblVAT.AutoSize = true;
-            this.lblVAT.Location = new System.Drawing.Point(702, 294);
+            this.lblVAT.Location = new System.Drawing.Point(703, 320);
             this.lblVAT.Name = "lblVAT";
             this.lblVAT.Size = new System.Drawing.Size(34, 13);
             this.lblVAT.TabIndex = 6;
@@ -120,7 +130,7 @@
             this.columnHeader5});
             this.lstProducts.FullRowSelect = true;
             this.lstProducts.HideSelection = false;
-            this.lstProducts.Location = new System.Drawing.Point(340, 12);
+            this.lstProducts.Location = new System.Drawing.Point(340, 38);
             this.lstProducts.Name = "lstProducts";
             this.lstProducts.Size = new System.Drawing.Size(448, 255);
             this.lstProducts.TabIndex = 7;
@@ -151,12 +161,85 @@
             // 
             this.columnHeader5.Text = "Price";
             // 
+            // lblCustomerDetails
+            // 
+            this.lblCustomerDetails.AutoSize = true;
+            this.lblCustomerDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCustomerDetails.Location = new System.Drawing.Point(10, 9);
+            this.lblCustomerDetails.Name = "lblCustomerDetails";
+            this.lblCustomerDetails.Size = new System.Drawing.Size(132, 24);
+            this.lblCustomerDetails.TabIndex = 25;
+            this.lblCustomerDetails.Text = "Order Details";
+            // 
+            // lblCustDetails
+            // 
+            this.lblCustDetails.AutoSize = true;
+            this.lblCustDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCustDetails.Location = new System.Drawing.Point(10, 130);
+            this.lblCustDetails.Name = "lblCustDetails";
+            this.lblCustDetails.Size = new System.Drawing.Size(167, 24);
+            this.lblCustDetails.TabIndex = 26;
+            this.lblCustDetails.Text = "Customer Details";
+            // 
+            // lblName
+            // 
+            this.lblName.AutoSize = true;
+            this.lblName.Location = new System.Drawing.Point(13, 154);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(35, 13);
+            this.lblName.TabIndex = 27;
+            this.lblName.Text = "Name";
+            // 
+            // lblEmail
+            // 
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Location = new System.Drawing.Point(13, 171);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(32, 13);
+            this.lblEmail.TabIndex = 28;
+            this.lblEmail.Text = "Email";
+            // 
+            // lblPhoneNumber
+            // 
+            this.lblPhoneNumber.AutoSize = true;
+            this.lblPhoneNumber.Location = new System.Drawing.Point(13, 188);
+            this.lblPhoneNumber.Name = "lblPhoneNumber";
+            this.lblPhoneNumber.Size = new System.Drawing.Size(46, 13);
+            this.lblPhoneNumber.TabIndex = 29;
+            this.lblPhoneNumber.Text = "PhoneN";
+            // 
+            // lblCompanyName
+            // 
+            this.lblCompanyName.AutoSize = true;
+            this.lblCompanyName.Location = new System.Drawing.Point(13, 205);
+            this.lblCompanyName.Name = "lblCompanyName";
+            this.lblCompanyName.Size = new System.Drawing.Size(59, 13);
+            this.lblCompanyName.TabIndex = 30;
+            this.lblCompanyName.Text = "CompanyN";
+            // 
+            // lblProductDetails
+            // 
+            this.lblProductDetails.AutoSize = true;
+            this.lblProductDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProductDetails.Location = new System.Drawing.Point(336, 9);
+            this.lblProductDetails.Name = "lblProductDetails";
+            this.lblProductDetails.Size = new System.Drawing.Size(150, 24);
+            this.lblProductDetails.TabIndex = 31;
+            this.lblProductDetails.Text = "Product Details";
+            // 
             // frmOrderDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 360);
+            this.Controls.Add(this.lblProductDetails);
+            this.Controls.Add(this.lblCompanyName);
+            this.Controls.Add(this.lblPhoneNumber);
+            this.Controls.Add(this.lblEmail);
+            this.Controls.Add(this.lblName);
+            this.Controls.Add(this.lblCustDetails);
+            this.Controls.Add(this.lblCustomerDetails);
             this.Controls.Add(this.lstProducts);
             this.Controls.Add(this.lblVAT);
             this.Controls.Add(this.lblAddress);
@@ -190,5 +273,12 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.Label lblCustomerDetails;
+        private System.Windows.Forms.Label lblCustDetails;
+        private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.Label lblEmail;
+        private System.Windows.Forms.Label lblPhoneNumber;
+        private System.Windows.Forms.Label lblCompanyName;
+        private System.Windows.Forms.Label lblProductDetails;
     }
 }
