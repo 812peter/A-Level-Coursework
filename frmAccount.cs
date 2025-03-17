@@ -19,6 +19,7 @@ namespace Coursework
             InitializeComponent();
         }
 
+        string selectedOrderID = "";
         string userID;
         string email;
         string firstName;
@@ -192,6 +193,30 @@ namespace Coursework
             if (Application.OpenForms["frmMain"] as frmMain != null)
             {
                 (Application.OpenForms["frmMain"] as frmMain).frmAccOpen = false;
+            }
+        }
+
+        private void lstOrders_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstOrders.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = lstOrders.SelectedItems[0];
+                selectedOrderID = selectedItem.SubItems[0].Text;
+            }
+            else
+            {
+                selectedOrderID = "";
+            }
+        }
+
+        private void lstOrders_DoubleClick(object sender, EventArgs e)
+        {
+            if (selectedOrderID != "")
+            {
+                frmOrderDetails frmOrderDetails = new frmOrderDetails();
+                frmOrderDetails.Show();
+                frmOrderDetails.LoadDetails(selectedOrderID);
+                frmOrderDetails.chkCompleted.Enabled = false;
             }
         }
     }

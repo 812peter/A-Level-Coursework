@@ -159,6 +159,8 @@
             this.lstOrders.TabIndex = 14;
             this.lstOrders.UseCompatibleStateImageBehavior = false;
             this.lstOrders.View = System.Windows.Forms.View.Details;
+            this.lstOrders.SelectedIndexChanged += new System.EventHandler(this.lstOrders_SelectedIndexChanged);
+            this.lstOrders.DoubleClick += new System.EventHandler(this.lstOrders_DoubleClick);
             // 
             // columnHeader1
             // 

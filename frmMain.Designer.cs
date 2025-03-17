@@ -99,6 +99,7 @@ namespace Coursework
             this.lstOrders.View = System.Windows.Forms.View.Details;
             this.lstOrders.ColumnWidthChanged += new System.Windows.Forms.ColumnWidthChangedEventHandler(this.lstOrders_ColumnWidthChanged);
             this.lstOrders.SelectedIndexChanged += new System.EventHandler(this.lstOrders_SelectedIndexChanged);
+            this.lstOrders.DoubleClick += new System.EventHandler(this.lstOrders_DoubleClick);
             // 
             // columnHeader1
             // 

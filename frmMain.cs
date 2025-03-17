@@ -195,5 +195,15 @@ namespace Coursework
                 frmOrderDetails.LoadDetails(selectedOrderID);
             }
         }
+
+        private void lstOrders_DoubleClick(object sender, EventArgs e)
+        {
+            if (selectedOrderID != "")
+            {
+                frmOrderDetails frmOrderDetails = new frmOrderDetails();
+                frmOrderDetails.Show();
+                frmOrderDetails.LoadDetails(selectedOrderID);
+            }
+        }
     }
 }

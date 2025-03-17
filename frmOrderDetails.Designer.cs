@@ -49,6 +49,8 @@
             this.lblPhoneNumber = new System.Windows.Forms.Label();
             this.lblCompanyName = new System.Windows.Forms.Label();
             this.lblProductDetails = new System.Windows.Forms.Label();
+            this.btnReceipt = new System.Windows.Forms.Button();
+            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.SuspendLayout();
             // 
             // lblDateOfOrder
@@ -227,12 +229,33 @@
             this.lblProductDetails.TabIndex = 31;
             this.lblProductDetails.Text = "Product Details";
             // 
+            // btnReceipt
+            // 
+            this.btnReceipt.Location = new System.Drawing.Point(16, 324);
+            this.btnReceipt.Name = "btnReceipt";
+            this.btnReceipt.Size = new System.Drawing.Size(75, 23);
+            this.btnReceipt.TabIndex = 32;
+            this.btnReceipt.Text = "View receipt";
+            this.btnReceipt.UseVisualStyleBackColor = true;
+            this.btnReceipt.Click += new System.EventHandler(this.btnReceipt_Click);
+            // 
+            // printPreviewDialog1
+            // 
+            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewDialog1.Enabled = true;
+            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
+            this.printPreviewDialog1.Name = "printPreviewDialog1";
+            this.printPreviewDialog1.Visible = false;
+            // 
             // frmOrderDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 360);
+            this.Controls.Add(this.btnReceipt);
             this.Controls.Add(this.lblProductDetails);
             this.Controls.Add(this.lblCompanyName);
             this.Controls.Add(this.lblPhoneNumber);
@@ -263,7 +286,7 @@
         private System.Windows.Forms.Label lblDateOfOrder;
         private System.Windows.Forms.Label lblTotalPaid;
         private System.Windows.Forms.Label lblTotalPaidNoVAT;
-        private System.Windows.Forms.CheckBox chkCompleted;
+        public System.Windows.Forms.CheckBox chkCompleted;
         private System.Windows.Forms.Label lblDateOfCompletion;
         private System.Windows.Forms.Label lblAddress;
         private System.Windows.Forms.Label lblVAT;
@@ -280,5 +303,7 @@
         private System.Windows.Forms.Label lblPhoneNumber;
         private System.Windows.Forms.Label lblCompanyName;
         private System.Windows.Forms.Label lblProductDetails;
+        private System.Windows.Forms.Button btnReceipt;
+        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
     }
 }

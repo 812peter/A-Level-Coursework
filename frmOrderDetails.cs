@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Drawing.Printing;
 
 namespace Coursework
 {
@@ -130,6 +131,36 @@ namespace Coursework
             dbConnector.DoDML(cmdStr);
             dbConnector.Close();
             (Application.OpenForms["frmMain"] as frmMain).DisplayData(false);
+        }
+
+        private void btnReceipt_Click(object sender, EventArgs e)
+        {
+            PrintDocument receipt;
+            receipt = new PrintDocument();
+            receipt.DefaultPageSettings.PaperSize = new PaperSize("Receipt", 350, 800);
+            receipt.DocumentName = $"Order #{orderID} Receipt";
+            receipt.PrintPage += new PrintPageEventHandler(this.PrintReceiptPage);
+            printPreviewDialog1.Document = receipt;
+            printPreviewDialog1.ShowDialog();
+            receipt.Dispose();
+        }
+
+        private void PrintReceiptPage(object sender, PrintPageEventArgs e)
+        {
+            int y;
+            int x;
+            Font myFont1 = new Font("Cooper", 18, FontStyle.Bold);
+            Font myFont2 = new Font("Times New Roman", 10, FontStyle.Bold);
+            Font myFont3 = new Font("Times New Roman", 10);
+            x = e.MarginBounds.X - 50;
+            y = e.MarginBounds.Y - 70;
+            string str = "REINFORCEMENTS";
+            e.Graphics.DrawString(str, myFont1, Brushes.Black, x, y);
+            str = "    120 St Georges Ave, Poole, BH12 4ND\n                     0-7927-369-011";
+            y += 30;
+            e.Graphics.DrawString(str, myFont3, Brushes.Black, x, y);
+            y += 45;
+            e.Graphics.DrawString("*****************************************************************", myFont3, Brushes.Black, 0, y);
         }
     }
 }
