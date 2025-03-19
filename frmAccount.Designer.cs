@@ -150,6 +150,7 @@
             this.columnHeader5,
             this.columnHeader6,
             this.columnHeader7});
+            this.lstOrders.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lstOrders.FullRowSelect = true;
             this.lstOrders.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstOrders.HideSelection = false;

@@ -19,9 +19,16 @@ namespace Coursework
             InitializeComponent();
         }
 
+        Random rnd = new Random();
         bool chkCompletedEvent = false;
         int orderID;
-        List<string> products = new List<string>();
+        double subtotal;
+        double total;
+        double VAT;
+        string dateOfOrder;
+        List<string> productsList = new List<string>();
+        List<string> qtyList = new List<string>();
+        List<string> priceList = new List<string>();
 
         internal void LoadDetails(string selectedOrderID)
         {
@@ -36,11 +43,11 @@ namespace Coursework
             dr.Read();
             orderID = Convert.ToInt32(selectedOrderID);
             int userID = Convert.ToInt32(dr[0]);
-            string dateOfOrder = (Application.OpenForms["frmMain"] as frmMain).GetDateOnly(dr[1]).ToString();
+            dateOfOrder = (Application.OpenForms["frmMain"] as frmMain).GetDateOnly(dr[1]).ToString();
             lblDateOfOrder.Text += dateOfOrder;
-            double subtotal = Convert.ToDouble(dr[2]) / 1.2;
-            double total = Convert.ToDouble(dr[2]);
-            double VAT = total - subtotal;
+            subtotal = Convert.ToDouble(dr[2]) / 1.2;
+            total = Convert.ToDouble(dr[2]);
+            VAT = total - subtotal;
             lblTotalPaidNoVAT.Text += "£" + subtotal.ToString();
             lblVAT.Text += "£" + VAT.ToString();
             lblTotalPaid.Text += "£" + total.ToString();
@@ -74,10 +81,9 @@ namespace Coursework
                 }
                 double pricePP = Convert.ToDouble(dr[4]) * Convert.ToDouble(dr[0]);
                 lstProducts.Items[lstProducts.Items.Count - 1].SubItems.Add("£" + pricePP.ToString());
-                products.Add($"{(dr[1]).ToString().ToUpper()}{materialShortVer.ToLower()}{dr[2].ToString()}mm");
-                products.Add(dr[0].ToString());
-                products.Add($"£{pricePP.ToString()}");
-                //products.Add($"{(dr[1]).ToString().ToUpper()}{materialShortVer.ToLower()}{dr[2].ToString()}mm                              {dr[0].ToString()}         £{pricePP.ToString()}");
+                productsList.Add($"{(dr[1]).ToString().ToUpper()}{materialShortVer.ToLower()}{dr[2].ToString()}mm");
+                qtyList.Add(dr[0].ToString());
+                priceList.Add($"£{pricePP.ToString()}");
             }
 
             sqlStr = $"SELECT FirstName, Surname, Email, PhoneNumber, CompanyName FROM tblUser WHERE UserID = {userID}";
@@ -152,9 +158,14 @@ namespace Coursework
 
         private void btnReceipt_Click(object sender, EventArgs e)
         {
+            int receiptLength = 450;
+            foreach (var item in productsList)
+            {
+                receiptLength += 15;
+            }
             PrintDocument receipt;
             receipt = new PrintDocument();
-            receipt.DefaultPageSettings.PaperSize = new PaperSize("Receipt", 350, 800);
+            receipt.DefaultPageSettings.PaperSize = new PaperSize("Receipt", 350, receiptLength);
             receipt.DocumentName = $"Order #{orderID} Receipt";
             receipt.PrintPage += new PrintPageEventHandler(this.PrintReceiptPage);
             printPreviewDialog1.Document = receipt;
@@ -164,41 +175,76 @@ namespace Coursework
 
         private void PrintReceiptPage(object sender, PrintPageEventArgs e)
         {
-            int y;
-            int x;
             Font myFont1 = new Font("Cooper", 18, FontStyle.Bold);
             Font myFont2 = new Font("Times New Roman", 10, FontStyle.Bold);
             Font myFont3 = new Font("Times New Roman", 8);
-            x = e.MarginBounds.X - 50;
-            y = e.MarginBounds.Y - 70;
+            int x = e.MarginBounds.X - 50;
+            int y = e.MarginBounds.Y - 70;
             e.Graphics.DrawString("REINFORCEMENTS", myFont1, Brushes.Black, x, y);
             y += 35;
             e.Graphics.DrawString("            120 St Georges Ave, Poole, BH12 4ND\n                             0-7927-369-011", myFont3, Brushes.Black, x, y);
-            y += 38;
-            e.Graphics.DrawString("*****************************************************************", myFont3, Brushes.Black, 0, y);
+            y += 58;
+            e.Graphics.DrawString($"ORDER: #{orderID}   DATE: {dateOfOrder}   CARD: xxxx {GetRandom(1000, 9999)}", myFont3, Brushes.Black, x + 5, y);
+            y += 18;
+            e.Graphics.DrawString("========================================================", myFont3, Brushes.Black, -2, y);
             y += 30;
+            x -= 10;
             e.Graphics.DrawString("NAME                               QTY         PRICE", myFont2, Brushes.Black, x, y);
-            y += 15;
-            int count = 0;
-            foreach (var product in products)
+            y += 20;
+            foreach (var product in productsList)
             {
                 e.Graphics.DrawString(product, myFont3, Brushes.Black, x, y);
-                if (count % 2 == 0)
+                y += 15;
+            }
+            x = e.MarginBounds.X + 98;
+            y = 191;
+            foreach (var qty in qtyList)
+            {
+                e.Graphics.DrawString(qty, myFont3, Brushes.Black, x, y);
+                y += 15;
+            }
+            x = e.MarginBounds.X + 158;
+            y = 191;
+            priceList.Add(null);
+            foreach (var price in priceList)
+            {
+                e.Graphics.DrawString(price, myFont3, Brushes.Black, x, y);
+                if (price != null)
                 {
                     y += 15;
-                    x += 70;
                 }
-                else if (count % 3 == 0)
-                {
-                    x = e.MarginBounds.X - 50;
-                    count = 0;
-                }
-                else
-                {
-                    x += 100;
-                }
-                count++;
             }
+            y += 20;
+            e.Graphics.DrawString("========================================================", myFont3, Brushes.Black, -2, y);
+            y += 30;
+            x = e.MarginBounds.X - 60;
+            e.Graphics.DrawString($"SUBTOTAL", myFont3, Brushes.Black, x, y);
+            y += 15;
+            e.Graphics.DrawString($"VAT", myFont3, Brushes.Black, x, y);
+            y += 15;
+            e.Graphics.DrawString($"TOTAL", myFont2, Brushes.Black, x, y);
+            y -= 30;
+            x = e.MarginBounds.X + 158;
+            e.Graphics.DrawString($"£{subtotal}", myFont3, Brushes.Black, x, y);
+            y += 15;
+            e.Graphics.DrawString($"£{VAT}", myFont3, Brushes.Black, x, y);
+            y += 15;
+            e.Graphics.DrawString($"£{total}", myFont2, Brushes.Black, x, y);
+            y += 50;
+            e.Graphics.DrawLine(new Pen(Color.Black, 3), new Point(40, y), new Point(40, y + 30));
+            e.Graphics.DrawLine(new Pen(Color.Black, 3), new Point(310, y), new Point(310, y + 30));
+            for (int i = 0; i < 125; i++)
+            {
+                x = GetRandom(43, 308);
+                int width = GetRandom(1, 2);
+                e.Graphics.DrawLine(new Pen(Color.Black, width), new Point(x, y), new Point(x, y + 30));
+            }
+            e.Graphics.DrawString("THANK YOU!", myFont1, Brushes.Black, e.MarginBounds.X - 7, y + 60);
+        }
+
+        private int GetRandom(int min, int max)
+        {
+            return Convert.ToInt32(rnd.Next(min, max));
         }
     }
 }
