@@ -254,13 +254,11 @@ namespace Coursework
 
         private void Doc_PrintPage(object sender, PrintPageEventArgs e)
         {
-            int pageCount = 1;
             int charactersOnPage = 0;
             int linesPerPage = 0;
             Font myFont1 = new Font("Courier New", 12.0f);
             Font myFont2 = new Font("Cooper", 18, FontStyle.Bold);
-            e.Graphics.DrawString("Page " + pageCount.ToString(), myFont1, Brushes.Black, 380, 20);
-            e.Graphics.DrawString("REINFORCEMENTS: ORDERS REPORT", myFont2, Brushes.Black, 170, 50);
+            e.Graphics.DrawString("REINFORCEMENTS: ORDERS REPORT", myFont2, Brushes.Black, 170, 40);
             e.Graphics.MeasureString(stringToPrint, myFont1, e.MarginBounds.Size, StringFormat.GenericTypographic, out charactersOnPage, out linesPerPage);
             e.Graphics.DrawString(stringToPrint, myFont1, Brushes.Black, e.MarginBounds, StringFormat.GenericTypographic);
             stringToPrint = stringToPrint.Substring(charactersOnPage);
@@ -271,11 +269,8 @@ namespace Coursework
             }
             else
             {
-                pageCount++;
-                e.Graphics.DrawString("Page " + pageCount.ToString(), myFont1, Brushes.Black, 380, 20);
                 stringToPrint = header + stringToPrint;
             }
-
         }
     }
 }
