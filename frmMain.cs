@@ -5,7 +5,9 @@ using System.Data;
 using System.Data.Common;
 using System.Data.OleDb;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,6 +31,10 @@ namespace Coursework
 
         private const int MaxColumnWidth = 200;
         string selectedOrderID = "";
+
+        private string documentContents;
+        private string stringToPrint;
+        private string header;
 
         public frmMain()
         {
@@ -204,6 +210,72 @@ namespace Coursework
                 frmOrderDetails.Show();
                 frmOrderDetails.LoadDetails(selectedOrderID);
             }
+        }
+
+        private void picMore_Click(object sender, EventArgs e)
+        {
+            if (!panel1.Visible)
+            {
+                panel1.Visible = true;
+            }
+            else
+            {
+                panel1.Visible = false;
+            }
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            PrintDocument doc = new PrintDocument();
+            header = string.Format("{0,-11}{1,-20}{2, -20}{3,-5}", "Order ID", "Customer", "Date", "Paid") + "\n";
+            doc.PrintPage += Doc_PrintPage;
+            stringToPrint = GetData();
+            documentContents = stringToPrint;
+            printPreviewDialog1.Document = doc;
+            printPreviewDialog1.ShowDialog();
+        }
+
+        private string GetData()
+        {
+            string dataToPrint = "";
+            dbConnector.Connect();
+            sqlStr = "SELECT tblOrder.OrderID, tblUser.FirstName, tblUser.Surname, tblOrder.DateOfOrder, tblOrder.TotalPaid " +
+                     "FROM tblOrder, tblUser " +
+                     "WHERE tblOrder.UserID = tblUser.UserID " +
+                     "ORDER BY tblOrder.DateOfOrder";
+            dr = dbConnector.DoSQL(sqlStr);
+            dataToPrint = header;
+            while (dr.Read())
+            {
+                dataToPrint = dataToPrint + string.Format("{0,-11}{1,-20}{2, -20}{3,-5}", dr[0].ToString(), dr[1].ToString() + ", " + dr[2].ToString(), GetDateOnly(dr[3]), "£" + dr[4].ToString()) + "\n";
+            }
+            return dataToPrint;
+        }
+
+        private void Doc_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            int pageCount = 1;
+            int charactersOnPage = 0;
+            int linesPerPage = 0;
+            Font myFont1 = new Font("Courier New", 12.0f);
+            Font myFont2 = new Font("Cooper", 18, FontStyle.Bold);
+            e.Graphics.DrawString("Page " + pageCount.ToString(), myFont1, Brushes.Black, 375, 20);
+            e.Graphics.DrawString("REINFORCEMENTS: ORDERS REPORT", myFont2, Brushes.Black, 150, 40);
+            e.Graphics.MeasureString(stringToPrint, myFont1, e.MarginBounds.Size, StringFormat.GenericTypographic, out charactersOnPage, out linesPerPage);
+            e.Graphics.DrawString(stringToPrint, myFont1, Brushes.Black, e.MarginBounds, StringFormat.GenericTypographic);
+            stringToPrint = stringToPrint.Substring(charactersOnPage);
+            e.HasMorePages = (stringToPrint.Length > 0);
+            if (!e.HasMorePages)
+            {
+                stringToPrint = documentContents;
+            }
+            else
+            {
+                pageCount++;
+                e.Graphics.DrawString("Page " + pageCount.ToString(), myFont1, Brushes.Black, 375, 20);
+                stringToPrint = header + stringToPrint;
+            }
+
         }
     }
 }
