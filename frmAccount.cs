@@ -89,7 +89,7 @@ namespace Coursework
             OleDbDataReader dr;
             string sqlStr;
             dbConnector.Connect();
-            sqlStr = "SELECT Quantity, ProductName, DiameterInMM, Material FROM tblProductOrder, tblProduct " +
+            sqlStr = "SELECT Quantity, ProductName, DiameterInMM, Material, LengthInM FROM tblProductOrder, tblProduct " +
                      $"WHERE OrderID = {orderID} AND tblProductOrder.ProductID = tblProduct.ProductID";
             dr = dbConnector.DoSQL(sqlStr);
             while (dr.Read())
@@ -98,7 +98,7 @@ namespace Coursework
                 {
                     products += ", ";
                 }
-                products += $"{dr[0].ToString()} x {dr[1].ToString()} ({dr[2].ToString()}mm, {dr[3].ToString().ToLower()})";
+                products += $"{dr[0]} x {dr[1]} ({dr[2]}mm, {dr[4]}m, {dr[3].ToString().ToLower()})";
                 count++;
             }
             dbConnector.Close();

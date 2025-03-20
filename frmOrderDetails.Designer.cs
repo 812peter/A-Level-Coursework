@@ -1,4 +1,6 @@
-﻿namespace Coursework
+﻿using System.Windows.Forms;
+
+namespace Coursework
 {
     partial class frmOrderDetails
     {
@@ -42,6 +44,7 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lblCustomerDetails = new System.Windows.Forms.Label();
             this.lblCustDetails = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
@@ -129,7 +132,8 @@
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
-            this.columnHeader5});
+            this.columnHeader5,
+            this.columnHeader6});
             this.lstProducts.FullRowSelect = true;
             this.lstProducts.HideSelection = false;
             this.lstProducts.Location = new System.Drawing.Point(340, 38);
@@ -147,7 +151,7 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "Product";
-            this.columnHeader2.Width = 130;
+            this.columnHeader2.Width = 80;
             // 
             // columnHeader3
             // 
@@ -157,11 +161,16 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "Material";
-            this.columnHeader4.Width = 147;
+            this.columnHeader4.Width = 130;
             // 
             // columnHeader5
             // 
-            this.columnHeader5.Text = "Price";
+            this.columnHeader5.Text = "Length";
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Price";
+            this.columnHeader6.Width = 68;
             // 
             // lblCustomerDetails
             // 
@@ -243,9 +252,10 @@
             // 
             this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
             this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
-            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(600, 600);
             this.printPreviewDialog1.Enabled = true;
             this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
+            this.printPreviewDialog1.Text = "Reinforcements - Print Preview";
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
             // 
@@ -305,5 +315,6 @@
         private System.Windows.Forms.Label lblProductDetails;
         private System.Windows.Forms.Button btnReceipt;
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
     }
 }

@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Button = System.Windows.Forms.Button;
 
 namespace Coursework
 {
@@ -35,6 +36,8 @@ namespace Coursework
         private string documentContents;
         private string stringToPrint;
         private string header;
+        private string startDate;
+        private string endDate;
 
         public frmMain()
         {
@@ -47,8 +50,117 @@ namespace Coursework
             {
                 //tabControl1.TabPages.Remove(tabPage1); some pages are hidden from customers
             }
+            VisibleProductLbls(false);
             DisplayData(false);
+            LoadDynamicBtns();
             panel1.Visible = false;
+            dateStart.Value = GetOrderDate("MIN");
+            dateEnd.Value = GetOrderDate("MAX");
+        }
+
+        private void VisibleProductLbls(bool v)
+        {
+            lblProductName.Visible = v;
+            lblDiameter.Visible = v;
+            lblMaterial.Visible = v;
+            lblPricePM.Visible = v;
+            lblPriceVAT.Visible = v;
+            lblTotal.Visible = v;
+            lblStock.Visible = v;
+        }
+
+        private void LoadDynamicBtns()
+        {
+            int i = 0;
+            int y = 10;
+            int x = 10;
+            dbConnector.Connect();
+            sqlStr = "SELECT ProductID, ProductName, DiameterInMM, Material, PricePerMeter, AmountInStock FROM tblProduct ORDER BY DiameterInMM";
+            dr = dbConnector.DoSQL(sqlStr);
+            while (dr.Read())
+            {
+                Button btn = new Button();
+                btn.BackColor = Color.Transparent;
+                btn.ForeColor = Color.LimeGreen;
+                if (Convert.ToInt32(dr[5]) == 0)
+                {
+                    btn.ForeColor = Color.Red;
+                }
+                btn.Size = new Size(100, 100);
+                if (x > 1000) 
+                {
+                    y += 100;
+                    x = 10;
+                }
+                btn.Location = new Point(x, y);
+                btn.Visible = true;
+                btn.Tag = dr[0].ToString();
+                Font font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold);
+                btn.Font = font;
+                btn.Text = $"{dr[1].ToString()}\n{dr[2].ToString()}mm\n{dr[3].ToString()}\n£{dr[4].ToString()}";
+                if (Convert.ToInt32(dr[5]) == 0) 
+                {
+                    btn.Text += "\nUNAVLIABLE";
+                }
+                btn.Name = "btn_ " + i;
+                i++;
+                x += 110;
+                btn.Image = SelectImage(dr[1].ToString(), dr[3].ToString());
+                btn.Click += btn_Click;
+                tabPage3.Controls.Add(btn);
+            }
+            dbConnector.Close();
+
+        }
+
+        private void btn_Click(object sender, EventArgs e)
+        {
+            VisibleProductLbls(true);
+            ShowProductInfo((sender as Button).Tag.ToString());
+        }
+
+        private void ShowProductInfo(string productID)
+        {
+            dbConnector.Connect();
+            sqlStr = $"SELECT ProductName, DiameterInMM, Material, PricePerMeter, AmountInStock FROM tblProduct WHERE ProductID = {productID}";
+            dr = dbConnector.DoSQL(sqlStr);
+            dr.Read();
+            lblProductName.Text = dr[0].ToString();
+            lblDiameter.Text = dr[1].ToString() + "mm";
+            lblMaterial.Text = dr[2].ToString();
+            double price = Convert.ToDouble(dr[3]);
+            double priceVAT = price * 1.2;
+            lblPricePM.Text = $"£{price}";
+            lblPriceVAT.Text = $"£{Math.Round(priceVAT, 2)} inc VAT";
+            lblStock.Text = $"Stock: {dr[4]}";
+            dbConnector.Close();
+        }
+
+        private Image SelectImage(string productName, string material)
+        {
+            if (productName.ToLower() == "rebar")
+            {
+                if (material.ToLower() == "mild steel")
+                {
+                    return Image.FromFile("rebar_mild_steel.png");
+                }
+                if (material.ToLower() == "stainless steel")
+                {
+                    return Image.FromFile("rebar_stainless_steel.png");
+                }
+            }
+            return null;
+        }
+
+        private DateTime GetOrderDate(string maxOrMin)
+        {
+            dbConnector.Connect();
+            sqlStr = $"SELECT {maxOrMin}(DateOfOrder) FROM tblOrder";
+            dr = dbConnector.DoSQL(sqlStr);
+            dr.Read();
+            DateTime date = Convert.ToDateTime(dr[0]);
+            dbConnector.Close();
+            return date;
         }
 
         public string GetBoolEmoji(string boolean)
@@ -237,18 +349,30 @@ namespace Coursework
 
         private string GetData()
         {
+            double totalSales = 0;
             string dataToPrint = "";
             dbConnector.Connect();
             sqlStr = "SELECT tblOrder.OrderID, tblUser.FirstName, tblUser.Surname, tblOrder.DateOfOrder, tblOrder.TotalPaid " +
                      "FROM tblOrder, tblUser " +
                      "WHERE tblOrder.UserID = tblUser.UserID " +
+                    $"AND tblOrder.DateOfOrder >= {startDate} AND tblOrder.DateOfOrder <= {endDate} " +
                      "ORDER BY tblOrder.DateOfOrder";
             dr = dbConnector.DoSQL(sqlStr);
             dataToPrint = header;
             while (dr.Read())
             {
+                totalSales += Convert.ToDouble(dr[4]);
                 dataToPrint = dataToPrint + string.Format("{0,-11}{1,-20}{2, -20}{3,-5}", dr[0].ToString(), dr[1].ToString() + ", " + dr[2].ToString(), GetDateOnly(dr[3]), "£" + dr[4].ToString()) + "\n";
             }
+            if (dataToPrint == header) 
+            {
+                dataToPrint += "\n                        NO DATA FOUND!";
+            }
+            else
+            {
+                dataToPrint += string.Format("{0,-11}{1,-18}{2, -20}{3,-5}", "\nTotal Sales: ", "", "", "£" + totalSales.ToString());
+            }
+            dbConnector.Close();
             return dataToPrint;
         }
 
@@ -258,7 +382,8 @@ namespace Coursework
             int linesPerPage = 0;
             Font myFont1 = new Font("Courier New", 12.0f);
             Font myFont2 = new Font("Cooper", 18, FontStyle.Bold);
-            e.Graphics.DrawString("REINFORCEMENTS: ORDERS REPORT", myFont2, Brushes.Black, 170, 40);
+            e.Graphics.DrawString("REINFORCEMENTS: ORDERS REPORT", myFont2, Brushes.Black, 170, 35);
+            e.Graphics.DrawString($"Between {dateStart.Value.ToString("dd/MM/yyyy")} and {dateEnd.Value.ToString("dd/MM/yyyy")} inclusive", myFont1, Brushes.Black, 190, 70);
             e.Graphics.MeasureString(stringToPrint, myFont1, e.MarginBounds.Size, StringFormat.GenericTypographic, out charactersOnPage, out linesPerPage);
             e.Graphics.DrawString(stringToPrint, myFont1, Brushes.Black, e.MarginBounds, StringFormat.GenericTypographic);
             stringToPrint = stringToPrint.Substring(charactersOnPage);
@@ -271,6 +396,16 @@ namespace Coursework
             {
                 stringToPrint = header + stringToPrint;
             }
+        }
+
+        private void dateStart_ValueChanged(object sender, EventArgs e)
+        {
+            startDate = dateStart.Value.ToString("#MM/dd/yyyy#");
+        }
+
+        private void dateEnd_ValueChanged(object sender, EventArgs e)
+        {
+            endDate = dateEnd.Value.ToString("#MM/dd/yyyy#");
         }
     }
 }

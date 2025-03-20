@@ -31,6 +31,9 @@ namespace Coursework
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.lstOrders = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -58,18 +61,29 @@ namespace Coursework
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.salesPerMonth = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.lblEnd = new System.Windows.Forms.Label();
+            this.lblStart = new System.Windows.Forms.Label();
+            this.lblOrderReport = new System.Windows.Forms.Label();
+            this.btnPrint = new System.Windows.Forms.Button();
+            this.dateEnd = new System.Windows.Forms.DateTimePicker();
+            this.dateStart = new System.Windows.Forms.DateTimePicker();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.picAccount = new System.Windows.Forms.PictureBox();
             this.picMore = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.dateStart = new System.Windows.Forms.DateTimePicker();
-            this.dateEnd = new System.Windows.Forms.DateTimePicker();
-            this.btnPrint = new System.Windows.Forms.Button();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+            this.lblProductName = new System.Windows.Forms.Label();
+            this.lblDiameter = new System.Windows.Forms.Label();
+            this.lblMaterial = new System.Windows.Forms.Label();
+            this.lblPricePM = new System.Windows.Forms.Label();
+            this.lblPriceVAT = new System.Windows.Forms.Label();
+            this.lblTotal = new System.Windows.Forms.Label();
+            this.lblStock = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -77,11 +91,12 @@ namespace Coursework
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.salesPerMonth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picAccount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMore)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstOrders
@@ -305,6 +320,13 @@ namespace Coursework
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.lblStock);
+            this.tabPage3.Controls.Add(this.lblTotal);
+            this.tabPage3.Controls.Add(this.lblPriceVAT);
+            this.tabPage3.Controls.Add(this.lblPricePM);
+            this.tabPage3.Controls.Add(this.lblMaterial);
+            this.tabPage3.Controls.Add(this.lblDiameter);
+            this.tabPage3.Controls.Add(this.lblProductName);
             this.tabPage3.Controls.Add(this.pictureBox3);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
@@ -322,6 +344,115 @@ namespace Coursework
             this.pictureBox3.Size = new System.Drawing.Size(134, 722);
             this.pictureBox3.TabIndex = 9;
             this.pictureBox3.TabStop = false;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.salesPerMonth);
+            this.tabPage4.Controls.Add(this.lblEnd);
+            this.tabPage4.Controls.Add(this.lblStart);
+            this.tabPage4.Controls.Add(this.lblOrderReport);
+            this.tabPage4.Controls.Add(this.btnPrint);
+            this.tabPage4.Controls.Add(this.dateEnd);
+            this.tabPage4.Controls.Add(this.dateStart);
+            this.tabPage4.Controls.Add(this.pictureBox4);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(1265, 655);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Statistics";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // salesPerMonth
+            // 
+            chartArea6.Name = "ChartArea1";
+            this.salesPerMonth.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.salesPerMonth.Legends.Add(legend6);
+            this.salesPerMonth.Location = new System.Drawing.Point(498, 65);
+            this.salesPerMonth.Name = "salesPerMonth";
+            this.salesPerMonth.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Fire;
+            series6.ChartArea = "ChartArea1";
+            series6.Legend = "Legend1";
+            series6.Name = "Series1";
+            this.salesPerMonth.Series.Add(series6);
+            this.salesPerMonth.Size = new System.Drawing.Size(300, 300);
+            this.salesPerMonth.TabIndex = 29;
+            this.salesPerMonth.Text = "chart1";
+            // 
+            // lblEnd
+            // 
+            this.lblEnd.AutoSize = true;
+            this.lblEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblEnd.Location = new System.Drawing.Point(13, 65);
+            this.lblEnd.Name = "lblEnd";
+            this.lblEnd.Size = new System.Drawing.Size(32, 13);
+            this.lblEnd.TabIndex = 28;
+            this.lblEnd.Text = "End: ";
+            // 
+            // lblStart
+            // 
+            this.lblStart.AutoSize = true;
+            this.lblStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblStart.Location = new System.Drawing.Point(13, 40);
+            this.lblStart.Name = "lblStart";
+            this.lblStart.Size = new System.Drawing.Size(35, 13);
+            this.lblStart.TabIndex = 27;
+            this.lblStart.Text = "Start: ";
+            // 
+            // lblOrderReport
+            // 
+            this.lblOrderReport.AutoSize = true;
+            this.lblOrderReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOrderReport.Location = new System.Drawing.Point(10, 9);
+            this.lblOrderReport.Name = "lblOrderReport";
+            this.lblOrderReport.Size = new System.Drawing.Size(132, 24);
+            this.lblOrderReport.TabIndex = 26;
+            this.lblOrderReport.Text = "Order Report";
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnPrint.Location = new System.Drawing.Point(84, 89);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(75, 23);
+            this.btnPrint.TabIndex = 2;
+            this.btnPrint.Text = "Print";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
+            // dateEnd
+            // 
+            this.dateEnd.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateEnd.CalendarTitleBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.dateEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateEnd.Location = new System.Drawing.Point(51, 63);
+            this.dateEnd.Name = "dateEnd";
+            this.dateEnd.Size = new System.Drawing.Size(107, 20);
+            this.dateEnd.TabIndex = 12;
+            this.dateEnd.ValueChanged += new System.EventHandler(this.dateEnd_ValueChanged);
+            // 
+            // dateStart
+            // 
+            this.dateStart.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateStart.CalendarTitleBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.dateStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dateStart.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateStart.Location = new System.Drawing.Point(51, 37);
+            this.dateStart.Name = "dateStart";
+            this.dateStart.Size = new System.Drawing.Size(107, 20);
+            this.dateStart.TabIndex = 11;
+            this.dateStart.ValueChanged += new System.EventHandler(this.dateStart_ValueChanged);
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureBox4.Location = new System.Drawing.Point(1164, -52);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(134, 722);
+            this.pictureBox4.TabIndex = 10;
+            this.pictureBox4.TabStop = false;
             // 
             // picAccount
             // 
@@ -376,71 +507,86 @@ namespace Coursework
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // pictureBox4
-            // 
-            this.pictureBox4.BackColor = System.Drawing.SystemColors.Control;
-            this.pictureBox4.Location = new System.Drawing.Point(1164, -52);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(134, 722);
-            this.pictureBox4.TabIndex = 10;
-            this.pictureBox4.TabStop = false;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.btnPrint);
-            this.tabPage4.Controls.Add(this.dateEnd);
-            this.tabPage4.Controls.Add(this.dateStart);
-            this.tabPage4.Controls.Add(this.pictureBox4);
-            this.tabPage4.Location = new System.Drawing.Point(4, 25);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1265, 655);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Reports";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // dateStart
-            // 
-            this.dateStart.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateStart.CalendarTitleBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.dateStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateStart.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateStart.Location = new System.Drawing.Point(73, 53);
-            this.dateStart.Name = "dateStart";
-            this.dateStart.Size = new System.Drawing.Size(107, 22);
-            this.dateStart.TabIndex = 11;
-            // 
-            // dateEnd
-            // 
-            this.dateEnd.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateEnd.CalendarTitleBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.dateEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateEnd.Location = new System.Drawing.Point(73, 81);
-            this.dateEnd.Name = "dateEnd";
-            this.dateEnd.Size = new System.Drawing.Size(107, 22);
-            this.dateEnd.TabIndex = 12;
-            // 
-            // btnPrint
-            // 
-            this.btnPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnPrint.Location = new System.Drawing.Point(73, 142);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(75, 23);
-            this.btnPrint.TabIndex = 2;
-            this.btnPrint.Text = "Print";
-            this.btnPrint.UseVisualStyleBackColor = true;
-            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
-            // 
             // printPreviewDialog1
             // 
             this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
             this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
-            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(750, 1000);
             this.printPreviewDialog1.Enabled = true;
             this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
             this.printPreviewDialog1.Name = "printPreviewDialog1";
+            this.printPreviewDialog1.Text = "Reinforcements - Print Preview";
             this.printPreviewDialog1.Visible = false;
+            // 
+            // lblProductName
+            // 
+            this.lblProductName.AutoSize = true;
+            this.lblProductName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblProductName.Location = new System.Drawing.Point(1170, 3);
+            this.lblProductName.Name = "lblProductName";
+            this.lblProductName.Size = new System.Drawing.Size(82, 13);
+            this.lblProductName.TabIndex = 10;
+            this.lblProductName.Text = "lblProductName";
+            // 
+            // lblDiameter
+            // 
+            this.lblDiameter.AutoSize = true;
+            this.lblDiameter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblDiameter.Location = new System.Drawing.Point(1170, 20);
+            this.lblDiameter.Name = "lblDiameter";
+            this.lblDiameter.Size = new System.Drawing.Size(59, 13);
+            this.lblDiameter.TabIndex = 11;
+            this.lblDiameter.Text = "lblDiameter";
+            // 
+            // lblMaterial
+            // 
+            this.lblMaterial.AutoSize = true;
+            this.lblMaterial.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblMaterial.Location = new System.Drawing.Point(1170, 37);
+            this.lblMaterial.Name = "lblMaterial";
+            this.lblMaterial.Size = new System.Drawing.Size(54, 13);
+            this.lblMaterial.TabIndex = 12;
+            this.lblMaterial.Text = "lblMaterial";
+            // 
+            // lblPricePM
+            // 
+            this.lblPricePM.AutoSize = true;
+            this.lblPricePM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblPricePM.Location = new System.Drawing.Point(1170, 54);
+            this.lblPricePM.Name = "lblPricePM";
+            this.lblPricePM.Size = new System.Drawing.Size(57, 13);
+            this.lblPricePM.TabIndex = 13;
+            this.lblPricePM.Text = "lblPricePM";
+            // 
+            // lblPriceVAT
+            // 
+            this.lblPriceVAT.AutoSize = true;
+            this.lblPriceVAT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblPriceVAT.Location = new System.Drawing.Point(1170, 71);
+            this.lblPriceVAT.Name = "lblPriceVAT";
+            this.lblPriceVAT.Size = new System.Drawing.Size(62, 13);
+            this.lblPriceVAT.TabIndex = 14;
+            this.lblPriceVAT.Text = "lblPriceVAT";
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblTotal.Location = new System.Drawing.Point(1170, 500);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(41, 13);
+            this.lblTotal.TabIndex = 15;
+            this.lblTotal.Text = "lblTotal";
+            // 
+            // lblStock
+            // 
+            this.lblStock.AutoSize = true;
+            this.lblStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblStock.Location = new System.Drawing.Point(1170, 88);
+            this.lblStock.Name = "lblStock";
+            this.lblStock.Size = new System.Drawing.Size(45, 13);
+            this.lblStock.TabIndex = 16;
+            this.lblStock.Text = "lblStock";
             // 
             // frmMain
             // 
@@ -465,12 +611,15 @@ namespace Coursework
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.salesPerMonth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picAccount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMore)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            this.tabPage4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -514,6 +663,17 @@ namespace Coursework
         private Button btnPrint;
         private PrintPreviewDialog printPreviewDialog1;
         private System.Drawing.Printing.PrintDocument printDocument1;
+        private Label lblOrderReport;
+        private Label lblStart;
+        private Label lblEnd;
+        private System.Windows.Forms.DataVisualization.Charting.Chart salesPerMonth;
+        private Label lblDiameter;
+        private Label lblProductName;
+        private Label lblTotal;
+        private Label lblPriceVAT;
+        private Label lblPricePM;
+        private Label lblMaterial;
+        private Label lblStock;
     }
 }
 

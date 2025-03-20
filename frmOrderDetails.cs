@@ -58,7 +58,7 @@ namespace Coursework
             lblDateOfCompletion.Text += (Application.OpenForms["frmMain"] as frmMain).GetDateOnly(dr[4]).ToString();
             lblAddress.Text += dr[5].ToString();
 
-            sqlStr = "SELECT Quantity, ProductName, DiameterInMM, Material, PricePerMeter FROM tblProductOrder, tblProduct " +
+            sqlStr = "SELECT Quantity, ProductName, DiameterInMM, Material, PricePerMeter, LengthInM FROM tblProductOrder, tblProduct " +
                      $"WHERE OrderID = {selectedOrderID} AND tblProductOrder.ProductID = tblProduct.ProductID ORDER BY Quantity DESC";
             dr = dbConnector.DoSQL(sqlStr);
             lstProducts.Items.Clear();
@@ -66,7 +66,7 @@ namespace Coursework
             {
                 lstProducts.Items.Add(dr[0].ToString());
                 lstProducts.Items[lstProducts.Items.Count - 1].SubItems.Add((dr[1]).ToString());
-                lstProducts.Items[lstProducts.Items.Count - 1].SubItems.Add(dr[2].ToString());
+                lstProducts.Items[lstProducts.Items.Count - 1].SubItems.Add(dr[2].ToString() + " mm");
                 string material = dr[3].ToString();
                 string materialShortVer = "";
                 lstProducts.Items[lstProducts.Items.Count - 1].SubItems.Add(material);
@@ -79,9 +79,10 @@ namespace Coursework
                         materialShortVer += original;
                     }
                 }
-                double pricePP = Convert.ToDouble(dr[4]) * Convert.ToDouble(dr[0]);
+                double pricePP = Convert.ToDouble(dr[4]) * Convert.ToDouble(dr[0]) * Convert.ToDouble(dr[5]);
+                lstProducts.Items[lstProducts.Items.Count - 1].SubItems.Add(dr[5].ToString() + " m");
                 lstProducts.Items[lstProducts.Items.Count - 1].SubItems.Add("£" + pricePP.ToString());
-                productsList.Add($"{(dr[1]).ToString().ToUpper()}{materialShortVer.ToLower()}{dr[2].ToString()}mm");
+                productsList.Add($"{(dr[1]).ToString().ToUpper()}{materialShortVer.ToLower()}{dr[2].ToString()}mm{dr[5].ToString()}m");
                 qtyList.Add(dr[0].ToString());
                 priceList.Add($"£{pricePP.ToString()}");
             }
