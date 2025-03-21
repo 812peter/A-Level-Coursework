@@ -39,6 +39,8 @@ namespace Coursework
         private string startDate;
         private string endDate;
 
+        private int productInStock;
+
         public frmMain()
         {
             InitializeComponent();
@@ -67,6 +69,11 @@ namespace Coursework
             lblPriceVAT.Visible = v;
             lblTotal.Visible = v;
             lblStock.Visible = v;
+            lblCstLength.Visible = v;
+            txtLength.Visible = v;
+            lblLengthMeters.Visible = v;
+            lblQuantity.Visible = v;
+            txtQuantity.Visible = v;
         }
 
         private void LoadDynamicBtns()
@@ -87,7 +94,7 @@ namespace Coursework
                     btn.ForeColor = Color.Red;
                 }
                 btn.Size = new Size(100, 100);
-                if (x > 1000) 
+                if (x > 1000)
                 {
                     y += 100;
                     x = 10;
@@ -98,7 +105,7 @@ namespace Coursework
                 Font font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold);
                 btn.Font = font;
                 btn.Text = $"{dr[1].ToString()}\n{dr[2].ToString()}mm\n{dr[3].ToString()}\n£{dr[4].ToString()}";
-                if (Convert.ToInt32(dr[5]) == 0) 
+                if (Convert.ToInt32(dr[5]) == 0)
                 {
                     btn.Text += "\nUNAVLIABLE";
                 }
@@ -129,11 +136,15 @@ namespace Coursework
             lblDiameter.Text = dr[1].ToString() + "mm";
             lblMaterial.Text = dr[2].ToString();
             double price = Convert.ToDouble(dr[3]);
-            double priceVAT = price * 1.2;
+            double priceVAT = Math.Round(price * 1.2, 2);
             lblPricePM.Text = $"£{price}";
-            lblPriceVAT.Text = $"£{Math.Round(priceVAT, 2)} inc VAT";
-            lblStock.Text = $"Stock: {dr[4]}";
+            lblPriceVAT.Text = $"£{priceVAT} inc VAT";
+            productInStock = Convert.ToInt32(dr[4]);
+            lblStock.Text = $"Stock: {productInStock}";
             dbConnector.Close();
+            txtLength.Text = "1";
+            txtQuantity.Text = "1";
+            lblTotal.Text = $"Total: £{priceVAT}";
         }
 
         private Image SelectImage(string productName, string material)
@@ -364,7 +375,7 @@ namespace Coursework
                 totalSales += Convert.ToDouble(dr[4]);
                 dataToPrint = dataToPrint + string.Format("{0,-11}{1,-20}{2, -20}{3,-5}", dr[0].ToString(), dr[1].ToString() + ", " + dr[2].ToString(), GetDateOnly(dr[3]), "£" + dr[4].ToString()) + "\n";
             }
-            if (dataToPrint == header) 
+            if (dataToPrint == header)
             {
                 dataToPrint += "\n                        NO DATA FOUND!";
             }
@@ -406,6 +417,51 @@ namespace Coursework
         private void dateEnd_ValueChanged(object sender, EventArgs e)
         {
             endDate = dateEnd.Value.ToString("#MM/dd/yyyy#");
+        }
+        private bool CheckValidTxt(double max, string input)
+        {
+            if (input == "length")
+            {
+                try
+                {
+                    double length = Convert.ToDouble(txtLength.Text);
+                    if (length >= 0.3 && length <= 16.0)
+                    {
+                        return true;
+                    }
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        bool disableTxtEventL = false;
+        bool disableTxtEventQ = false;
+
+        private void txtLength_TextChanged(object sender, EventArgs e)
+        {
+            if (!disableTxtEventL)
+            {
+                if (CheckValidTxt(16, "length") == false)
+                {
+                    disableTxtEventL = true;
+                    txtLength.Text = "1";
+                    MessageBox.Show("Valid length is a number between 0.3 and 16.0.", "Invalid length");
+                }
+            }
+            else
+            {
+                disableTxtEventL = false;
+            }
+        }
+
+
+        private void txtQuantity_TextChanged(object sender, EventArgs e)
+        {
+            //CheckValidTxt(productInStock, "quantity");
         }
     }
 }

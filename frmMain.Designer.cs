@@ -31,9 +31,9 @@ namespace Coursework
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.lstOrders = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -60,6 +60,14 @@ namespace Coursework
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.txtLength = new System.Windows.Forms.TextBox();
+            this.lblStock = new System.Windows.Forms.Label();
+            this.lblTotal = new System.Windows.Forms.Label();
+            this.lblPriceVAT = new System.Windows.Forms.Label();
+            this.lblPricePM = new System.Windows.Forms.Label();
+            this.lblMaterial = new System.Windows.Forms.Label();
+            this.lblDiameter = new System.Windows.Forms.Label();
+            this.lblProductName = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.salesPerMonth = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -77,13 +85,10 @@ namespace Coursework
             this.button1 = new System.Windows.Forms.Button();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
-            this.lblProductName = new System.Windows.Forms.Label();
-            this.lblDiameter = new System.Windows.Forms.Label();
-            this.lblMaterial = new System.Windows.Forms.Label();
-            this.lblPricePM = new System.Windows.Forms.Label();
-            this.lblPriceVAT = new System.Windows.Forms.Label();
-            this.lblTotal = new System.Windows.Forms.Label();
-            this.lblStock = new System.Windows.Forms.Label();
+            this.lblCstLength = new System.Windows.Forms.Label();
+            this.lblQuantity = new System.Windows.Forms.Label();
+            this.txtQuantity = new System.Windows.Forms.TextBox();
+            this.lblLengthMeters = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -320,6 +325,11 @@ namespace Coursework
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.lblLengthMeters);
+            this.tabPage3.Controls.Add(this.lblQuantity);
+            this.tabPage3.Controls.Add(this.txtQuantity);
+            this.tabPage3.Controls.Add(this.lblCstLength);
+            this.tabPage3.Controls.Add(this.txtLength);
             this.tabPage3.Controls.Add(this.lblStock);
             this.tabPage3.Controls.Add(this.lblTotal);
             this.tabPage3.Controls.Add(this.lblPriceVAT);
@@ -335,6 +345,93 @@ namespace Coursework
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Products";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // txtLength
+            // 
+            this.txtLength.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.txtLength.Location = new System.Drawing.Point(1173, 137);
+            this.txtLength.Name = "txtLength";
+            this.txtLength.Size = new System.Drawing.Size(40, 20);
+            this.txtLength.TabIndex = 17;
+            this.txtLength.TextChanged += new System.EventHandler(this.txtLength_TextChanged);
+            // 
+            // lblStock
+            // 
+            this.lblStock.AutoSize = true;
+            this.lblStock.BackColor = System.Drawing.SystemColors.Control;
+            this.lblStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblStock.Location = new System.Drawing.Point(1170, 88);
+            this.lblStock.Name = "lblStock";
+            this.lblStock.Size = new System.Drawing.Size(45, 13);
+            this.lblStock.TabIndex = 16;
+            this.lblStock.Text = "lblStock";
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.BackColor = System.Drawing.SystemColors.Control;
+            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblTotal.Location = new System.Drawing.Point(1170, 500);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(41, 13);
+            this.lblTotal.TabIndex = 15;
+            this.lblTotal.Text = "lblTotal";
+            // 
+            // lblPriceVAT
+            // 
+            this.lblPriceVAT.AutoSize = true;
+            this.lblPriceVAT.BackColor = System.Drawing.SystemColors.Control;
+            this.lblPriceVAT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblPriceVAT.Location = new System.Drawing.Point(1170, 71);
+            this.lblPriceVAT.Name = "lblPriceVAT";
+            this.lblPriceVAT.Size = new System.Drawing.Size(62, 13);
+            this.lblPriceVAT.TabIndex = 14;
+            this.lblPriceVAT.Text = "lblPriceVAT";
+            // 
+            // lblPricePM
+            // 
+            this.lblPricePM.AutoSize = true;
+            this.lblPricePM.BackColor = System.Drawing.SystemColors.Control;
+            this.lblPricePM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblPricePM.Location = new System.Drawing.Point(1170, 54);
+            this.lblPricePM.Name = "lblPricePM";
+            this.lblPricePM.Size = new System.Drawing.Size(57, 13);
+            this.lblPricePM.TabIndex = 13;
+            this.lblPricePM.Text = "lblPricePM";
+            // 
+            // lblMaterial
+            // 
+            this.lblMaterial.AutoSize = true;
+            this.lblMaterial.BackColor = System.Drawing.SystemColors.Control;
+            this.lblMaterial.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblMaterial.Location = new System.Drawing.Point(1170, 37);
+            this.lblMaterial.Name = "lblMaterial";
+            this.lblMaterial.Size = new System.Drawing.Size(54, 13);
+            this.lblMaterial.TabIndex = 12;
+            this.lblMaterial.Text = "lblMaterial";
+            // 
+            // lblDiameter
+            // 
+            this.lblDiameter.AutoSize = true;
+            this.lblDiameter.BackColor = System.Drawing.SystemColors.Control;
+            this.lblDiameter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblDiameter.Location = new System.Drawing.Point(1170, 20);
+            this.lblDiameter.Name = "lblDiameter";
+            this.lblDiameter.Size = new System.Drawing.Size(59, 13);
+            this.lblDiameter.TabIndex = 11;
+            this.lblDiameter.Text = "lblDiameter";
+            // 
+            // lblProductName
+            // 
+            this.lblProductName.AutoSize = true;
+            this.lblProductName.BackColor = System.Drawing.SystemColors.Control;
+            this.lblProductName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblProductName.Location = new System.Drawing.Point(1170, 3);
+            this.lblProductName.Name = "lblProductName";
+            this.lblProductName.Size = new System.Drawing.Size(82, 13);
+            this.lblProductName.TabIndex = 10;
+            this.lblProductName.Text = "lblProductName";
             // 
             // pictureBox3
             // 
@@ -365,17 +462,17 @@ namespace Coursework
             // 
             // salesPerMonth
             // 
-            chartArea6.Name = "ChartArea1";
-            this.salesPerMonth.ChartAreas.Add(chartArea6);
-            legend6.Name = "Legend1";
-            this.salesPerMonth.Legends.Add(legend6);
+            chartArea4.Name = "ChartArea1";
+            this.salesPerMonth.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.salesPerMonth.Legends.Add(legend4);
             this.salesPerMonth.Location = new System.Drawing.Point(498, 65);
             this.salesPerMonth.Name = "salesPerMonth";
             this.salesPerMonth.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Fire;
-            series6.ChartArea = "ChartArea1";
-            series6.Legend = "Legend1";
-            series6.Name = "Series1";
-            this.salesPerMonth.Series.Add(series6);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.salesPerMonth.Series.Add(series4);
             this.salesPerMonth.Size = new System.Drawing.Size(300, 300);
             this.salesPerMonth.TabIndex = 29;
             this.salesPerMonth.Text = "chart1";
@@ -518,75 +615,48 @@ namespace Coursework
             this.printPreviewDialog1.Text = "Reinforcements - Print Preview";
             this.printPreviewDialog1.Visible = false;
             // 
-            // lblProductName
+            // lblCstLength
             // 
-            this.lblProductName.AutoSize = true;
-            this.lblProductName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblProductName.Location = new System.Drawing.Point(1170, 3);
-            this.lblProductName.Name = "lblProductName";
-            this.lblProductName.Size = new System.Drawing.Size(82, 13);
-            this.lblProductName.TabIndex = 10;
-            this.lblProductName.Text = "lblProductName";
+            this.lblCstLength.AutoSize = true;
+            this.lblCstLength.BackColor = System.Drawing.SystemColors.Control;
+            this.lblCstLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblCstLength.Location = new System.Drawing.Point(1170, 122);
+            this.lblCstLength.Name = "lblCstLength";
+            this.lblCstLength.Size = new System.Drawing.Size(77, 13);
+            this.lblCstLength.TabIndex = 18;
+            this.lblCstLength.Text = "Custom length:";
             // 
-            // lblDiameter
+            // lblQuantity
             // 
-            this.lblDiameter.AutoSize = true;
-            this.lblDiameter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblDiameter.Location = new System.Drawing.Point(1170, 20);
-            this.lblDiameter.Name = "lblDiameter";
-            this.lblDiameter.Size = new System.Drawing.Size(59, 13);
-            this.lblDiameter.TabIndex = 11;
-            this.lblDiameter.Text = "lblDiameter";
+            this.lblQuantity.AutoSize = true;
+            this.lblQuantity.BackColor = System.Drawing.SystemColors.Control;
+            this.lblQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblQuantity.Location = new System.Drawing.Point(1170, 163);
+            this.lblQuantity.Name = "lblQuantity";
+            this.lblQuantity.Size = new System.Drawing.Size(49, 13);
+            this.lblQuantity.TabIndex = 20;
+            this.lblQuantity.Text = "Quantity:";
             // 
-            // lblMaterial
+            // txtQuantity
             // 
-            this.lblMaterial.AutoSize = true;
-            this.lblMaterial.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblMaterial.Location = new System.Drawing.Point(1170, 37);
-            this.lblMaterial.Name = "lblMaterial";
-            this.lblMaterial.Size = new System.Drawing.Size(54, 13);
-            this.lblMaterial.TabIndex = 12;
-            this.lblMaterial.Text = "lblMaterial";
+            this.txtQuantity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.txtQuantity.Location = new System.Drawing.Point(1173, 178);
+            this.txtQuantity.Name = "txtQuantity";
+            this.txtQuantity.Size = new System.Drawing.Size(40, 20);
+            this.txtQuantity.TabIndex = 19;
+            this.txtQuantity.TextChanged += new System.EventHandler(this.txtQuantity_TextChanged);
             // 
-            // lblPricePM
+            // lblLengthMeters
             // 
-            this.lblPricePM.AutoSize = true;
-            this.lblPricePM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblPricePM.Location = new System.Drawing.Point(1170, 54);
-            this.lblPricePM.Name = "lblPricePM";
-            this.lblPricePM.Size = new System.Drawing.Size(57, 13);
-            this.lblPricePM.TabIndex = 13;
-            this.lblPricePM.Text = "lblPricePM";
-            // 
-            // lblPriceVAT
-            // 
-            this.lblPriceVAT.AutoSize = true;
-            this.lblPriceVAT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblPriceVAT.Location = new System.Drawing.Point(1170, 71);
-            this.lblPriceVAT.Name = "lblPriceVAT";
-            this.lblPriceVAT.Size = new System.Drawing.Size(62, 13);
-            this.lblPriceVAT.TabIndex = 14;
-            this.lblPriceVAT.Text = "lblPriceVAT";
-            // 
-            // lblTotal
-            // 
-            this.lblTotal.AutoSize = true;
-            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblTotal.Location = new System.Drawing.Point(1170, 500);
-            this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(41, 13);
-            this.lblTotal.TabIndex = 15;
-            this.lblTotal.Text = "lblTotal";
-            // 
-            // lblStock
-            // 
-            this.lblStock.AutoSize = true;
-            this.lblStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblStock.Location = new System.Drawing.Point(1170, 88);
-            this.lblStock.Name = "lblStock";
-            this.lblStock.Size = new System.Drawing.Size(45, 13);
-            this.lblStock.TabIndex = 16;
-            this.lblStock.Text = "lblStock";
+            this.lblLengthMeters.AutoSize = true;
+            this.lblLengthMeters.BackColor = System.Drawing.SystemColors.Control;
+            this.lblLengthMeters.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblLengthMeters.Location = new System.Drawing.Point(1213, 139);
+            this.lblLengthMeters.Name = "lblLengthMeters";
+            this.lblLengthMeters.Size = new System.Drawing.Size(38, 13);
+            this.lblLengthMeters.TabIndex = 21;
+            this.lblLengthMeters.Text = "meters";
             // 
             // frmMain
             // 
@@ -674,6 +744,11 @@ namespace Coursework
         private Label lblPricePM;
         private Label lblMaterial;
         private Label lblStock;
+        private TextBox txtLength;
+        private Label lblQuantity;
+        private TextBox txtQuantity;
+        private Label lblCstLength;
+        private Label lblLengthMeters;
     }
 }
 
