@@ -441,6 +441,8 @@ namespace Coursework
         bool disableTxtEventL = false;
         bool disableTxtEventQ = false;
 
+        //FINISH
+
         private void txtLength_TextChanged(object sender, EventArgs e)
         {
             if (!disableTxtEventL)
