@@ -74,6 +74,8 @@ namespace Coursework
             lblLengthMeters.Visible = v;
             lblQuantity.Visible = v;
             txtQuantity.Visible = v;
+            lblValidLength.Visible = v;
+            lblValidQuantity.Visible = v;
         }
 
         private void LoadDynamicBtns()
@@ -117,7 +119,6 @@ namespace Coursework
                 tabPage3.Controls.Add(btn);
             }
             dbConnector.Close();
-
         }
 
         private void btn_Click(object sender, EventArgs e)
@@ -125,6 +126,8 @@ namespace Coursework
             VisibleProductLbls(true);
             ShowProductInfo((sender as Button).Tag.ToString());
         }
+
+        double price;
 
         private void ShowProductInfo(string productID)
         {
@@ -135,16 +138,27 @@ namespace Coursework
             lblProductName.Text = dr[0].ToString();
             lblDiameter.Text = dr[1].ToString() + "mm";
             lblMaterial.Text = dr[2].ToString();
-            double price = Convert.ToDouble(dr[3]);
+            price = Convert.ToDouble(dr[3]);
             double priceVAT = Math.Round(price * 1.2, 2);
             lblPricePM.Text = $"£{price}";
             lblPriceVAT.Text = $"£{priceVAT} inc VAT";
             productInStock = Convert.ToInt32(dr[4]);
             lblStock.Text = $"Stock: {productInStock}";
             dbConnector.Close();
-            txtLength.Text = "1";
+            txtLength.Text = "1000";
             txtQuantity.Text = "1";
+            if (productInStock == 0)
+            {
+                lblValidQuantity.ForeColor = Color.Red;
+                lblValidQuantity.Text = "OUT OF STOCK!";
+            }
+            else
+            {
+                lblValidQuantity.ForeColor = Color.Black;
+                lblValidQuantity.Text = $"(1 - {productInStock * 12})";
+            }
             lblTotal.Text = $"Total: £{priceVAT}";
+            lblValidLength.ForeColor = Color.Black;
         }
 
         private Image SelectImage(string productName, string material)
@@ -418,15 +432,35 @@ namespace Coursework
         {
             endDate = dateEnd.Value.ToString("#MM/dd/yyyy#");
         }
-        private bool CheckValidTxt(double max, string input)
+        private bool CheckValidTxt(int max, string input)
         {
             if (input == "length")
             {
                 try
                 {
-                    double length = Convert.ToDouble(txtLength.Text);
-                    if (length >= 0.3 && length <= 16.0)
+                    int length = Convert.ToInt32(txtLength.Text);
+                    if (length >= 300 && length <= max)
                     {
+                        UpdateMaxQuantity();
+                        UpdateTotal();
+                        return true;
+                    }
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            else if (input == "quantity")
+            {
+                try
+                {
+                    int MMInStock = max * 12000;
+                    int maxQuantity = MMInStock / Convert.ToInt32(txtLength.Text);
+                    int quantity = Convert.ToInt32(txtQuantity.Text);
+                    if (quantity >= 1 && quantity <= maxQuantity)
+                    {
+                        UpdateTotal();
                         return true;
                     }
                 }
@@ -438,32 +472,48 @@ namespace Coursework
             return false;
         }
 
-        bool disableTxtEventL = false;
-        bool disableTxtEventQ = false;
+        double total;
 
-        //FINISH
+        private void UpdateTotal()
+        {
+            double length = Convert.ToDouble(txtLength.Text);
+            int quantity = Convert.ToInt32(txtQuantity.Text);
+            total = Math.Round(1.2 * (price * (length / 1000) * quantity), 2);
+            lblTotal.Text = $"Total: £{total}";
+        }
+
+        private void UpdateMaxQuantity()
+        {
+            if (productInStock != 0)
+            {
+                int maxQuantity = (productInStock * 12000) / Convert.ToInt32(txtLength.Text);
+                lblValidQuantity.Text = $"(1 - {maxQuantity})";
+            }
+        }
 
         private void txtLength_TextChanged(object sender, EventArgs e)
         {
-            if (!disableTxtEventL)
+            if (!CheckValidTxt(6000, "length"))
             {
-                if (CheckValidTxt(16, "length") == false)
-                {
-                    disableTxtEventL = true;
-                    txtLength.Text = "1";
-                    MessageBox.Show("Valid length is a number between 0.3 and 16.0.", "Invalid length");
-                }
+                lblValidLength.ForeColor = Color.Red;
             }
             else
             {
-                disableTxtEventL = false;
+                lblValidLength.ForeColor = Color.Black;
             }
         }
 
 
         private void txtQuantity_TextChanged(object sender, EventArgs e)
         {
-            //CheckValidTxt(productInStock, "quantity");
+            if (!CheckValidTxt(productInStock, "quantity"))
+            {
+                lblValidQuantity.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblValidQuantity.ForeColor = Color.Black;
+            }
         }
     }
 }

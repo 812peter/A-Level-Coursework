@@ -31,9 +31,9 @@ namespace Coursework
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.lstOrders = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -60,6 +60,10 @@ namespace Coursework
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.lblLengthMeters = new System.Windows.Forms.Label();
+            this.lblQuantity = new System.Windows.Forms.Label();
+            this.txtQuantity = new System.Windows.Forms.TextBox();
+            this.lblCstLength = new System.Windows.Forms.Label();
             this.txtLength = new System.Windows.Forms.TextBox();
             this.lblStock = new System.Windows.Forms.Label();
             this.lblTotal = new System.Windows.Forms.Label();
@@ -85,10 +89,8 @@ namespace Coursework
             this.button1 = new System.Windows.Forms.Button();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
-            this.lblCstLength = new System.Windows.Forms.Label();
-            this.lblQuantity = new System.Windows.Forms.Label();
-            this.txtQuantity = new System.Windows.Forms.TextBox();
-            this.lblLengthMeters = new System.Windows.Forms.Label();
+            this.lblValidLength = new System.Windows.Forms.Label();
+            this.lblValidQuantity = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -325,6 +327,8 @@ namespace Coursework
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.lblValidQuantity);
+            this.tabPage3.Controls.Add(this.lblValidLength);
             this.tabPage3.Controls.Add(this.lblLengthMeters);
             this.tabPage3.Controls.Add(this.lblQuantity);
             this.tabPage3.Controls.Add(this.txtQuantity);
@@ -345,6 +349,49 @@ namespace Coursework
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Products";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // lblLengthMeters
+            // 
+            this.lblLengthMeters.AutoSize = true;
+            this.lblLengthMeters.BackColor = System.Drawing.SystemColors.Control;
+            this.lblLengthMeters.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblLengthMeters.Location = new System.Drawing.Point(1213, 139);
+            this.lblLengthMeters.Name = "lblLengthMeters";
+            this.lblLengthMeters.Size = new System.Drawing.Size(23, 13);
+            this.lblLengthMeters.TabIndex = 21;
+            this.lblLengthMeters.Text = "mm";
+            // 
+            // lblQuantity
+            // 
+            this.lblQuantity.AutoSize = true;
+            this.lblQuantity.BackColor = System.Drawing.SystemColors.Control;
+            this.lblQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblQuantity.Location = new System.Drawing.Point(1170, 194);
+            this.lblQuantity.Name = "lblQuantity";
+            this.lblQuantity.Size = new System.Drawing.Size(49, 13);
+            this.lblQuantity.TabIndex = 20;
+            this.lblQuantity.Text = "Quantity:";
+            // 
+            // txtQuantity
+            // 
+            this.txtQuantity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.txtQuantity.Location = new System.Drawing.Point(1173, 209);
+            this.txtQuantity.Name = "txtQuantity";
+            this.txtQuantity.Size = new System.Drawing.Size(40, 20);
+            this.txtQuantity.TabIndex = 19;
+            this.txtQuantity.TextChanged += new System.EventHandler(this.txtQuantity_TextChanged);
+            // 
+            // lblCstLength
+            // 
+            this.lblCstLength.AutoSize = true;
+            this.lblCstLength.BackColor = System.Drawing.SystemColors.Control;
+            this.lblCstLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblCstLength.Location = new System.Drawing.Point(1170, 122);
+            this.lblCstLength.Name = "lblCstLength";
+            this.lblCstLength.Size = new System.Drawing.Size(77, 13);
+            this.lblCstLength.TabIndex = 18;
+            this.lblCstLength.Text = "Custom length:";
             // 
             // txtLength
             // 
@@ -371,8 +418,8 @@ namespace Coursework
             // 
             this.lblTotal.AutoSize = true;
             this.lblTotal.BackColor = System.Drawing.SystemColors.Control;
-            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblTotal.Location = new System.Drawing.Point(1170, 500);
+            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotal.Location = new System.Drawing.Point(1170, 266);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(41, 13);
             this.lblTotal.TabIndex = 15;
@@ -462,17 +509,17 @@ namespace Coursework
             // 
             // salesPerMonth
             // 
-            chartArea4.Name = "ChartArea1";
-            this.salesPerMonth.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.salesPerMonth.Legends.Add(legend4);
+            chartArea3.Name = "ChartArea1";
+            this.salesPerMonth.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.salesPerMonth.Legends.Add(legend3);
             this.salesPerMonth.Location = new System.Drawing.Point(498, 65);
             this.salesPerMonth.Name = "salesPerMonth";
             this.salesPerMonth.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Fire;
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.salesPerMonth.Series.Add(series4);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.salesPerMonth.Series.Add(series3);
             this.salesPerMonth.Size = new System.Drawing.Size(300, 300);
             this.salesPerMonth.TabIndex = 29;
             this.salesPerMonth.Text = "chart1";
@@ -615,48 +662,27 @@ namespace Coursework
             this.printPreviewDialog1.Text = "Reinforcements - Print Preview";
             this.printPreviewDialog1.Visible = false;
             // 
-            // lblCstLength
+            // lblValidLength
             // 
-            this.lblCstLength.AutoSize = true;
-            this.lblCstLength.BackColor = System.Drawing.SystemColors.Control;
-            this.lblCstLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblCstLength.Location = new System.Drawing.Point(1170, 122);
-            this.lblCstLength.Name = "lblCstLength";
-            this.lblCstLength.Size = new System.Drawing.Size(77, 13);
-            this.lblCstLength.TabIndex = 18;
-            this.lblCstLength.Text = "Custom length:";
+            this.lblValidLength.AutoSize = true;
+            this.lblValidLength.BackColor = System.Drawing.SystemColors.Control;
+            this.lblValidLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblValidLength.Location = new System.Drawing.Point(1170, 160);
+            this.lblValidLength.Name = "lblValidLength";
+            this.lblValidLength.Size = new System.Drawing.Size(64, 13);
+            this.lblValidLength.TabIndex = 22;
+            this.lblValidLength.Text = "(300 - 6000)";
             // 
-            // lblQuantity
+            // lblValidQuantity
             // 
-            this.lblQuantity.AutoSize = true;
-            this.lblQuantity.BackColor = System.Drawing.SystemColors.Control;
-            this.lblQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblQuantity.Location = new System.Drawing.Point(1170, 163);
-            this.lblQuantity.Name = "lblQuantity";
-            this.lblQuantity.Size = new System.Drawing.Size(49, 13);
-            this.lblQuantity.TabIndex = 20;
-            this.lblQuantity.Text = "Quantity:";
-            // 
-            // txtQuantity
-            // 
-            this.txtQuantity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txtQuantity.Location = new System.Drawing.Point(1173, 178);
-            this.txtQuantity.Name = "txtQuantity";
-            this.txtQuantity.Size = new System.Drawing.Size(40, 20);
-            this.txtQuantity.TabIndex = 19;
-            this.txtQuantity.TextChanged += new System.EventHandler(this.txtQuantity_TextChanged);
-            // 
-            // lblLengthMeters
-            // 
-            this.lblLengthMeters.AutoSize = true;
-            this.lblLengthMeters.BackColor = System.Drawing.SystemColors.Control;
-            this.lblLengthMeters.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblLengthMeters.Location = new System.Drawing.Point(1213, 139);
-            this.lblLengthMeters.Name = "lblLengthMeters";
-            this.lblLengthMeters.Size = new System.Drawing.Size(38, 13);
-            this.lblLengthMeters.TabIndex = 21;
-            this.lblLengthMeters.Text = "meters";
+            this.lblValidQuantity.AutoSize = true;
+            this.lblValidQuantity.BackColor = System.Drawing.SystemColors.Control;
+            this.lblValidQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblValidQuantity.Location = new System.Drawing.Point(1170, 232);
+            this.lblValidQuantity.Name = "lblValidQuantity";
+            this.lblValidQuantity.Size = new System.Drawing.Size(33, 13);
+            this.lblValidQuantity.TabIndex = 23;
+            this.lblValidQuantity.Text = "(1 - x)";
             // 
             // frmMain
             // 
@@ -749,6 +775,8 @@ namespace Coursework
         private TextBox txtQuantity;
         private Label lblCstLength;
         private Label lblLengthMeters;
+        private Label lblValidLength;
+        private Label lblValidQuantity;
     }
 }
 
