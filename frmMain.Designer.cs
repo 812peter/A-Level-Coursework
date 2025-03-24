@@ -31,9 +31,9 @@ namespace Coursework
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.lstOrders = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -60,6 +60,9 @@ namespace Coursework
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnAdd2Cart = new System.Windows.Forms.Button();
+            this.lblValidQuantity = new System.Windows.Forms.Label();
+            this.lblValidLength = new System.Windows.Forms.Label();
             this.lblLengthMeters = new System.Windows.Forms.Label();
             this.lblQuantity = new System.Windows.Forms.Label();
             this.txtQuantity = new System.Windows.Forms.TextBox();
@@ -83,14 +86,9 @@ namespace Coursework
             this.dateStart = new System.Windows.Forms.DateTimePicker();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.picAccount = new System.Windows.Forms.PictureBox();
-            this.picMore = new System.Windows.Forms.PictureBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.picCart = new System.Windows.Forms.PictureBox();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
-            this.lblValidLength = new System.Windows.Forms.Label();
-            this.lblValidQuantity = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -102,8 +100,7 @@ namespace Coursework
             ((System.ComponentModel.ISupportInitialize)(this.salesPerMonth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picAccount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picMore)).BeginInit();
-            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picCart)).BeginInit();
             this.SuspendLayout();
             // 
             // lstOrders
@@ -327,6 +324,7 @@ namespace Coursework
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.btnAdd2Cart);
             this.tabPage3.Controls.Add(this.lblValidQuantity);
             this.tabPage3.Controls.Add(this.lblValidLength);
             this.tabPage3.Controls.Add(this.lblLengthMeters);
@@ -349,6 +347,39 @@ namespace Coursework
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Products";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // btnAdd2Cart
+            // 
+            this.btnAdd2Cart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnAdd2Cart.Location = new System.Drawing.Point(1175, 298);
+            this.btnAdd2Cart.Name = "btnAdd2Cart";
+            this.btnAdd2Cart.Size = new System.Drawing.Size(75, 21);
+            this.btnAdd2Cart.TabIndex = 24;
+            this.btnAdd2Cart.Text = "Add to cart";
+            this.btnAdd2Cart.UseVisualStyleBackColor = true;
+            this.btnAdd2Cart.Click += new System.EventHandler(this.btnAdd2Cart_Click);
+            // 
+            // lblValidQuantity
+            // 
+            this.lblValidQuantity.AutoSize = true;
+            this.lblValidQuantity.BackColor = System.Drawing.SystemColors.Control;
+            this.lblValidQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblValidQuantity.Location = new System.Drawing.Point(1170, 232);
+            this.lblValidQuantity.Name = "lblValidQuantity";
+            this.lblValidQuantity.Size = new System.Drawing.Size(33, 13);
+            this.lblValidQuantity.TabIndex = 23;
+            this.lblValidQuantity.Text = "(1 - x)";
+            // 
+            // lblValidLength
+            // 
+            this.lblValidLength.AutoSize = true;
+            this.lblValidLength.BackColor = System.Drawing.SystemColors.Control;
+            this.lblValidLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblValidLength.Location = new System.Drawing.Point(1170, 160);
+            this.lblValidLength.Name = "lblValidLength";
+            this.lblValidLength.Size = new System.Drawing.Size(64, 13);
+            this.lblValidLength.TabIndex = 22;
+            this.lblValidLength.Text = "(300 - 6000)";
             // 
             // lblLengthMeters
             // 
@@ -509,17 +540,17 @@ namespace Coursework
             // 
             // salesPerMonth
             // 
-            chartArea3.Name = "ChartArea1";
-            this.salesPerMonth.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.salesPerMonth.Legends.Add(legend3);
+            chartArea4.Name = "ChartArea1";
+            this.salesPerMonth.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.salesPerMonth.Legends.Add(legend4);
             this.salesPerMonth.Location = new System.Drawing.Point(498, 65);
             this.salesPerMonth.Name = "salesPerMonth";
             this.salesPerMonth.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Fire;
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.salesPerMonth.Series.Add(series3);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.salesPerMonth.Series.Add(series4);
             this.salesPerMonth.Size = new System.Drawing.Size(300, 300);
             this.salesPerMonth.TabIndex = 29;
             this.salesPerMonth.Text = "chart1";
@@ -603,7 +634,7 @@ namespace Coursework
             this.picAccount.BackColor = System.Drawing.SystemColors.Control;
             this.picAccount.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picAccount.Image = ((System.Drawing.Image)(resources.GetObject("picAccount.Image")));
-            this.picAccount.Location = new System.Drawing.Point(1183, 643);
+            this.picAccount.Location = new System.Drawing.Point(1181, 643);
             this.picAccount.Name = "picAccount";
             this.picAccount.Size = new System.Drawing.Size(30, 30);
             this.picAccount.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -611,45 +642,18 @@ namespace Coursework
             this.picAccount.TabStop = false;
             this.picAccount.Click += new System.EventHandler(this.picAccount_Click);
             // 
-            // picMore
+            // picCart
             // 
-            this.picMore.BackColor = System.Drawing.SystemColors.Control;
-            this.picMore.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picMore.Image = ((System.Drawing.Image)(resources.GetObject("picMore.Image")));
-            this.picMore.Location = new System.Drawing.Point(1229, 647);
-            this.picMore.Name = "picMore";
-            this.picMore.Size = new System.Drawing.Size(22, 22);
-            this.picMore.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picMore.TabIndex = 6;
-            this.picMore.TabStop = false;
-            this.picMore.Click += new System.EventHandler(this.picMore_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Location = new System.Drawing.Point(1178, 578);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(85, 63);
-            this.panel1.TabIndex = 7;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(3, 27);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(3, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.picCart.BackColor = System.Drawing.SystemColors.Control;
+            this.picCart.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picCart.Image = ((System.Drawing.Image)(resources.GetObject("picCart.Image")));
+            this.picCart.Location = new System.Drawing.Point(1222, 643);
+            this.picCart.Name = "picCart";
+            this.picCart.Size = new System.Drawing.Size(29, 29);
+            this.picCart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCart.TabIndex = 6;
+            this.picCart.TabStop = false;
+            this.picCart.Click += new System.EventHandler(this.picCart_Click);
             // 
             // printPreviewDialog1
             // 
@@ -662,36 +666,13 @@ namespace Coursework
             this.printPreviewDialog1.Text = "Reinforcements - Print Preview";
             this.printPreviewDialog1.Visible = false;
             // 
-            // lblValidLength
-            // 
-            this.lblValidLength.AutoSize = true;
-            this.lblValidLength.BackColor = System.Drawing.SystemColors.Control;
-            this.lblValidLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblValidLength.Location = new System.Drawing.Point(1170, 160);
-            this.lblValidLength.Name = "lblValidLength";
-            this.lblValidLength.Size = new System.Drawing.Size(64, 13);
-            this.lblValidLength.TabIndex = 22;
-            this.lblValidLength.Text = "(300 - 6000)";
-            // 
-            // lblValidQuantity
-            // 
-            this.lblValidQuantity.AutoSize = true;
-            this.lblValidQuantity.BackColor = System.Drawing.SystemColors.Control;
-            this.lblValidQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblValidQuantity.Location = new System.Drawing.Point(1170, 232);
-            this.lblValidQuantity.Name = "lblValidQuantity";
-            this.lblValidQuantity.Size = new System.Drawing.Size(33, 13);
-            this.lblValidQuantity.TabIndex = 23;
-            this.lblValidQuantity.Text = "(1 - x)";
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1264, 681);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.picMore);
+            this.Controls.Add(this.picCart);
             this.Controls.Add(this.picAccount);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -714,8 +695,7 @@ namespace Coursework
             ((System.ComponentModel.ISupportInitialize)(this.salesPerMonth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picAccount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picMore)).EndInit();
-            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picCart)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -745,11 +725,8 @@ namespace Coursework
         private Button btnAddresses;
         public CheckBox checkBox1;
         private PictureBox picAccount;
-        private PictureBox picMore;
-        private Panel panel1;
+        private PictureBox picCart;
         private TabPage tabPage3;
-        private Button button2;
-        private Button button1;
         private PictureBox pictureBox3;
         private Button btnViewDetails;
         private TabPage tabPage4;
@@ -777,6 +754,7 @@ namespace Coursework
         private Label lblLengthMeters;
         private Label lblValidLength;
         private Label lblValidQuantity;
+        private Button btnAdd2Cart;
     }
 }
 

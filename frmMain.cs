@@ -25,10 +25,12 @@ namespace Coursework
         public bool frmMUOpen = false;
         public bool frmAddrOpen = false;
         public bool frmAccOpen = false;
+        public bool frmCartOpen = false;
 
         private frmManageUsers frmManageUsers = null;
         private frmAddresses frmAddresses = null;
         private frmAccount frmAccount = null;
+        private frmCart frmCart = null;
 
         private const int MaxColumnWidth = 200;
         string selectedOrderID = "";
@@ -55,7 +57,6 @@ namespace Coursework
             VisibleProductLbls(false);
             DisplayData(false);
             LoadDynamicBtns();
-            panel1.Visible = false;
             dateStart.Value = GetOrderDate("MIN");
             dateEnd.Value = GetOrderDate("MAX");
         }
@@ -76,6 +77,7 @@ namespace Coursework
             txtQuantity.Visible = v;
             lblValidLength.Visible = v;
             lblValidQuantity.Visible = v;
+            btnAdd2Cart.Visible = v;
         }
 
         private void LoadDynamicBtns()
@@ -349,15 +351,18 @@ namespace Coursework
             }
         }
 
-        private void picMore_Click(object sender, EventArgs e)
+        private void picCart_Click(object sender, EventArgs e)
         {
-            if (!panel1.Visible)
+            if (!frmCartOpen)
             {
-                panel1.Visible = true;
+                frmCartOpen = true;
+                frmCart = new frmCart();
+                frmCart.Show();
             }
             else
             {
-                panel1.Visible = false;
+                frmCart.BringToFront();
+                frmCart.WindowState = FormWindowState.Normal;
             }
         }
 
@@ -513,6 +518,14 @@ namespace Coursework
             else
             {
                 lblValidQuantity.ForeColor = Color.Black;
+            }
+        }
+
+        private void btnAdd2Cart_Click(object sender, EventArgs e)
+        {
+            if (CheckValidTxt(6000, "length") && CheckValidTxt(productInStock, "quantity"))
+            {
+
             }
         }
     }

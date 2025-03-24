@@ -189,9 +189,13 @@ namespace Coursework
             y += 18;
             e.Graphics.DrawString("========================================================", myFont3, Brushes.Black, -2, y);
             y += 30;
-            x -= 10;
-            e.Graphics.DrawString("NAME                               QTY         PRICE", myFont2, Brushes.Black, x, y);
+            e.Graphics.DrawString("NAME", myFont2, Brushes.Black, x, y);
+            x = e.MarginBounds.X + 98;
+            e.Graphics.DrawString("QTY", myFont2, Brushes.Black, x, y);
+            x = e.MarginBounds.X + 158;
+            e.Graphics.DrawString("PRICE", myFont2, Brushes.Black, x, y);
             y += 20;
+            x = e.MarginBounds.X - 50;
             foreach (var product in productsList)
             {
                 e.Graphics.DrawString(product, myFont3, Brushes.Black, x, y);
