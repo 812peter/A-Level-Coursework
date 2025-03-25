@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Button = System.Windows.Forms.Button;
+using System.IO;
 
 namespace Coursework
 {
@@ -42,6 +43,8 @@ namespace Coursework
         private string endDate;
 
         private int productInStock;
+        private string productID;
+        private string userID;
 
         public frmMain()
         {
@@ -54,8 +57,8 @@ namespace Coursework
             {
                 //tabControl1.TabPages.Remove(tabPage1); some pages are hidden from customers
             }
-            VisibleProductLbls(false);
             DisplayData(false);
+            VisibleProductLbls(false);
             LoadDynamicBtns();
             dateStart.Value = GetOrderDate("MIN");
             dateEnd.Value = GetOrderDate("MAX");
@@ -131,8 +134,9 @@ namespace Coursework
 
         double price;
 
-        private void ShowProductInfo(string productID)
+        private void ShowProductInfo(string productid)
         {
+            productID = productid;
             dbConnector.Connect();
             sqlStr = $"SELECT ProductName, DiameterInMM, Material, PricePerMeter, AmountInStock FROM tblProduct WHERE ProductID = {productID}";
             dr = dbConnector.DoSQL(sqlStr);
@@ -151,11 +155,13 @@ namespace Coursework
             txtQuantity.Text = "1";
             if (productInStock == 0)
             {
+                btnAdd2Cart.Enabled = false;
                 lblValidQuantity.ForeColor = Color.Red;
                 lblValidQuantity.Text = "OUT OF STOCK!";
             }
             else
             {
+                btnAdd2Cart.Enabled = true;
                 lblValidQuantity.ForeColor = Color.Black;
                 lblValidQuantity.Text = $"(1 - {productInStock * 12})";
             }
@@ -201,8 +207,15 @@ namespace Coursework
 
         public void DisplayData(bool v)
         {
-            selectedOrderID = "";
+            StreamReader currentFile = new StreamReader("temp.txt");
             dbConnector.Connect();
+            sqlStr = $"SELECT UserID FROM tblUser WHERE Email = '{currentFile.ReadLine()}'";
+            currentFile.Close();
+            dr = dbConnector.DoSQL(sqlStr);
+            dr.Read();
+            userID = dr[0].ToString();
+
+            selectedOrderID = "";
             sqlStr = "SELECT OrderID, UserID, DateOfOrder, TotalPaid, Completed, DateOfCompletion, AddressID FROM tblOrder ORDER BY Completed DESC";
             dr = dbConnector.DoSQL(sqlStr);
             lstOrders.Items.Clear();
@@ -358,6 +371,7 @@ namespace Coursework
                 frmCartOpen = true;
                 frmCart = new frmCart();
                 frmCart.Show();
+                frmCart.LoadDetails(userID);
             }
             else
             {
@@ -525,7 +539,15 @@ namespace Coursework
         {
             if (CheckValidTxt(6000, "length") && CheckValidTxt(productInStock, "quantity"))
             {
-
+                string cmdStr = $"INSERT INTO tblCart (UserID, ProductID, Quantity, LengthInM, Price) " +
+                                $"VALUES ('{userID}', '{productID}', '{txtQuantity.Text}', '{Convert.ToDouble(txtLength.Text) / 1000}', '{total}')";
+                dbConnector.DoDML(cmdStr);
+                dbConnector.Close();
+                MessageBox.Show($"Successfully added to cart. You can edit the contents of your cart anytime.", "Product added to cart");
+            }
+            else
+            {
+                MessageBox.Show("Invalid values for length/quantity or both.", "Invalid values");
             }
         }
     }
