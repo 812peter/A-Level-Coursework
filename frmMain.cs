@@ -539,8 +539,9 @@ namespace Coursework
         {
             if (CheckValidTxt(6000, "length") && CheckValidTxt(productInStock, "quantity"))
             {
-                string cmdStr = $"INSERT INTO tblCart (UserID, ProductID, Quantity, LengthInM, Price) " +
-                                $"VALUES ('{userID}', '{productID}', '{txtQuantity.Text}', '{Convert.ToDouble(txtLength.Text) / 1000}', '{total}')";
+                dbConnector.Connect();
+                string cmdStr = $"INSERT INTO tblCart (UserID, ProductID, Quantity, LengthInM) " +
+                                $"VALUES ('{userID}', '{productID}', '{txtQuantity.Text}', '{Convert.ToDouble(txtLength.Text) / 1000}')";
                 dbConnector.DoDML(cmdStr);
                 dbConnector.Close();
                 MessageBox.Show($"Successfully added to cart. You can edit the contents of your cart anytime.", "Product added to cart");

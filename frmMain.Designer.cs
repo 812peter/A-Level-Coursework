@@ -647,9 +647,9 @@ namespace Coursework
             this.picCart.BackColor = System.Drawing.SystemColors.Control;
             this.picCart.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCart.Image = ((System.Drawing.Image)(resources.GetObject("picCart.Image")));
-            this.picCart.Location = new System.Drawing.Point(1222, 643);
+            this.picCart.Location = new System.Drawing.Point(1225, 643);
             this.picCart.Name = "picCart";
-            this.picCart.Size = new System.Drawing.Size(29, 29);
+            this.picCart.Size = new System.Drawing.Size(28, 28);
             this.picCart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCart.TabIndex = 6;
             this.picCart.TabStop = false;
