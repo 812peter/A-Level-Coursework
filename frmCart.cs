@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -27,9 +28,14 @@ namespace Coursework
         List<int> stockLst = new List<int>();
         List<double> priceLst = new List<double>();
 
+        Label lblTotalNoVat = new Label();
+        Label lblTotalIncVat = new Label();
 
         Font font = new Font("Microsoft Sans Serif", 8.25f);
         Font font2 = new Font("Microsoft Sans Serif", 14.25f, FontStyle.Bold);
+
+        bool emptyCart = false;
+        string currentUserID;
 
         private void frmCart_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -41,6 +47,7 @@ namespace Coursework
 
         internal void LoadDetails(string userID)
         {
+            currentUserID = userID;
             clsDBConnector dbConnector = new clsDBConnector();
             OleDbDataReader dr;
             string sqlStr;
@@ -51,26 +58,23 @@ namespace Coursework
             int heightMultiplier = 1;
             while (dr.Read())
             {
-                if (dr[0] == DBNull.Value)
-                {
-                    MessageBox.Show("123");
-                }
-                else
-                {
-                    productNameLst.Add(dr[0].ToString());
-                    qtyLst.Add(Convert.ToInt32(dr[1]));
-                    diamLst.Add(Convert.ToInt32(dr[2]));
-                    materialLst.Add(dr[3].ToString());
-                    lengthLst.Add(Convert.ToDouble(dr[4]));
-                    cartIDLst.Add(dr[5].ToString());
-                    stockLst.Add(Convert.ToInt32(dr[6]));
-                    priceLst.Add(Convert.ToDouble(dr[7]));
-                    heightMultiplier += 1;
-                }
+                productNameLst.Add(dr[0].ToString());
+                qtyLst.Add(Convert.ToInt32(dr[1]));
+                diamLst.Add(Convert.ToInt32(dr[2]));
+                materialLst.Add(dr[3].ToString());
+                lengthLst.Add(Convert.ToDouble(dr[4]));
+                cartIDLst.Add(dr[5].ToString());
+                stockLst.Add(Convert.ToInt32(dr[6]));
+                priceLst.Add(Convert.ToDouble(dr[7]));
+                heightMultiplier += 1;
             }
-            this.Size = new Size(820, 100 + 60 * heightMultiplier);
-            LoadControls();
+            if (heightMultiplier == 1)
+            {
+                emptyCart = true;
+            }
+            this.Size = new Size(820, 150 + 60 * heightMultiplier);
             dbConnector.Close();
+            LoadControls();
         }
 
         private void LoadControls()
@@ -78,6 +82,23 @@ namespace Coursework
             int i = 0;
             int x = 15;
             int y = 57;
+            if (emptyCart)
+            {
+                x = 62;
+                y = 100;
+                Label lbl = new Label();
+                lbl.Visible = true;
+                lbl.ForeColor = SystemColors.ControlText;
+                lbl.BackColor = SystemColors.Control;
+                lbl.AutoSize = true;
+                lbl.Size = new Size(64, 13);
+                lbl.Location = new Point(x, y);
+                lbl.Name = "lblEmptyCart";
+                lbl.Text = "You have not added any products to the cart...";
+                lbl.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Italic);
+                y += 60;
+                this.Controls.Add(lbl);
+            }
             foreach (var material in materialLst)
             {
                 PictureBox pic = new PictureBox();
@@ -179,12 +200,50 @@ namespace Coursework
                 y += 60;
                 this.Controls.Add(lblLength);
             }
-            LoadPrices();
+
+            i = 0;
+            x = 750;
+            y = 66;
+            foreach (var item in productNameLst) 
+            {
+                PictureBox trash = new PictureBox();
+                trash.Visible = true;
+                trash.SizeMode = PictureBoxSizeMode.StretchImage;
+                trash.Image = Image.FromFile("trash.png");
+                trash.Size = new Size(15, 15);
+                trash.Location = new Point(x, y);
+                trash.Name = "picTrash_" + i;
+                trash.Tag = i;
+                trash.Click += PicTrash_Click;
+                this.Controls.Add(trash);
+                i++;
+                y += 60;
+            }
+            if (!emptyCart)
+            {
+                LoadPrices();
+            }
         }
 
-        int totalYcoord;
-        double totalNoVat = 0;
-        double totalIncVat = 0;
+        private void PicTrash_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show($"Are you sure that you want to remove that product from the cart?", "Removing From Cart", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                int i = Convert.ToInt32((sender as PictureBox).Tag);
+                clsDBConnector dbConnector = new clsDBConnector();
+                string cmdStr = $"DELETE FROM tblCart WHERE CartID = {cartIDLst[i]}";
+                dbConnector.Connect();
+                dbConnector.DoDML(cmdStr);
+                dbConnector.Close();
+                this.Close();  // Close the current form
+                frmCart frmCart = new frmCart();  // Create a new instance
+                frmCart.Show();
+                (Application.OpenForms["frmMain"] as frmMain).frmCartOpen = true;
+                frmCart.LoadDetails(currentUserID);
+
+            }
+        }
 
         private void LoadPrices()
         {
@@ -201,7 +260,6 @@ namespace Coursework
                 lblPriceNoVat.Size = new Size(64, 13);
                 lblPriceNoVat.Location = new Point(x, y);
                 lblPriceNoVat.Name = "lblPriceNoVat_" + i;
-                totalNoVat += Math.Round(price * lengthLst[i] * qtyLst[i], 2);
                 lblPriceNoVat.Text = $"£{Math.Round(price * lengthLst[i] * qtyLst[i], 2)}";
                 lblPriceNoVat.Font = font;
                 i++;
@@ -221,19 +279,13 @@ namespace Coursework
                 lblPriceIncVat.Size = new Size(64, 13);
                 lblPriceIncVat.Location = new Point(x, y);
                 lblPriceIncVat.Name = "lblPriceIncVat_" + i;
-                totalIncVat += Math.Round(1.2 * (price * lengthLst[i] * qtyLst[i]), 2);
                 lblPriceIncVat.Text = $"£{Math.Round(1.2 * (price * lengthLst[i] * qtyLst[i]), 2)}";
                 lblPriceIncVat.Font = font;
                 i++;
                 y += 60;
                 this.Controls.Add(lblPriceIncVat);
             }
-            totalYcoord = y;
-            LoadTotal();
-        }
 
-        private void LoadTotal()
-        {
             Label lblTotal = new Label();
             lblTotal.ForeColor = SystemColors.ControlText;
             lblTotal.BackColor = SystemColors.Control;
@@ -241,34 +293,64 @@ namespace Coursework
             lblTotal.Size = new Size(64, 13);
             lblTotal.Name = "lblTotal";
             lblTotal.Font = font2;
-            lblTotal.Location = new Point(62, totalYcoord);
+            lblTotal.Location = new Point(62, y);
             lblTotal.Visible = true;
             lblTotal.Text = $"Total:";
             this.Controls.Add(lblTotal);
 
-            Label lblTotalNoVat = new Label();
             lblTotalNoVat.ForeColor = SystemColors.ControlText;
             lblTotalNoVat.BackColor = SystemColors.Control;
             lblTotalNoVat.AutoSize = true;
             lblTotalNoVat.Size = new Size(64, 13);
             lblTotalNoVat.Name = "lblTotalNoVat";
             lblTotalNoVat.Font = font;
-            lblTotalNoVat.Location = new Point(500, totalYcoord);
+            lblTotalNoVat.Location = new Point(500, y);
             lblTotalNoVat.Visible = true;
-            lblTotalNoVat.Text = $"£{Math.Round(totalNoVat, 2)}";
+            lblTotalNoVat.Text = "";
             this.Controls.Add(lblTotalNoVat);
 
-            Label lblTotalIncVat = new Label();
             lblTotalIncVat.ForeColor = SystemColors.ControlText;
             lblTotalIncVat.BackColor = SystemColors.Control;
             lblTotalIncVat.AutoSize = true;
             lblTotalIncVat.Size = new Size(64, 13);
             lblTotalIncVat.Name = "lblTotalIncVat";
-            lblTotalIncVat.Font = font;
-            lblTotalIncVat.Location = new Point(650, totalYcoord);
+            lblTotalIncVat.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Underline);
+            lblTotalIncVat.Location = new Point(650, y);
             lblTotalIncVat.Visible = true;
-            lblTotalIncVat.Text = $"£{Math.Round(totalIncVat, 2)}";
+            lblTotalIncVat.Text = "";
             this.Controls.Add(lblTotalIncVat);
+
+            UploadTotals();
+            y += 50;
+
+            Button btnCheckout = new Button();
+            btnCheckout.Size = new Size(75, 21);
+            btnCheckout.Location = new Point(640, y);
+            btnCheckout.Visible = true;
+            btnCheckout.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold);
+            btnCheckout.Text = "Checkout";
+            btnCheckout.Name = "btnCheckout";
+            btnCheckout.UseVisualStyleBackColor = true;
+            btnCheckout.Click += btnCheckout_Click;
+            this.Controls.Add(btnCheckout);
+        }
+
+        private void btnCheckout_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void UploadTotals()
+        {
+            double total = 0;
+            int i = 0;
+            foreach (var singlePrice in priceLst)
+            {
+                total += singlePrice * lengthLst[i] * qtyLst[i];
+                i++;
+            }
+            lblTotalNoVat.Text = $"£{Math.Round(total, 2)}";
+            lblTotalIncVat.Text = $"£{Math.Round(1.2 * total, 2)}";
         }
 
         private void qtyPicker_ValueChanged(object sender, EventArgs e)
@@ -298,6 +380,7 @@ namespace Coursework
                     break;
                 }
             }
+            UploadTotals();
         }
 
         private void frmCart_Load(object sender, EventArgs e)

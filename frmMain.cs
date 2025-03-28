@@ -545,6 +545,13 @@ namespace Coursework
                 dbConnector.DoDML(cmdStr);
                 dbConnector.Close();
                 MessageBox.Show($"Successfully added to cart. You can edit the contents of your cart anytime.", "Product added to cart");
+                if (frmCartOpen == true)
+                {
+                    frmCart.Close();
+                    frmCart = new frmCart();
+                    frmCart.Show();
+                    frmCart.LoadDetails(userID);
+                }
             }
             else
             {
