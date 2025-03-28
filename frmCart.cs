@@ -29,6 +29,7 @@ namespace Coursework
 
 
         Font font = new Font("Microsoft Sans Serif", 8.25f);
+        Font font2 = new Font("Microsoft Sans Serif", 14.25f, FontStyle.Bold);
 
         private void frmCart_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -67,7 +68,7 @@ namespace Coursework
                     heightMultiplier += 1;
                 }
             }
-            this.Size = new Size(820, 50 + 60 * heightMultiplier);
+            this.Size = new Size(820, 100 + 60 * heightMultiplier);
             LoadControls();
             dbConnector.Close();
         }
@@ -143,7 +144,7 @@ namespace Coursework
                 qtyPicker.Value = Convert.ToInt32(qty);
                 qtyPicker.Minimum = 1;
                 qtyPicker.Name = "qtyPicker_" + i;
-                qtyPicker.Tag = cartIDLst[i].ToString();
+                qtyPicker.Tag = i;
                 qtyPicker.ValueChanged += qtyPicker_ValueChanged;
                 this.Controls.Add(qtyPicker);
                 i++;
@@ -173,14 +174,17 @@ namespace Coursework
                     lblLength.Text = "Custom l" + lblLength.Text;
                 }
                 lblLength.Font = font;
-                lblLength.Tag = cartIDLst[i];
+                lblLength.Tag = i;
                 i++;
                 y += 60;
                 this.Controls.Add(lblLength);
             }
             LoadPrices();
-            
         }
+
+        int totalYcoord;
+        double totalNoVat = 0;
+        double totalIncVat = 0;
 
         private void LoadPrices()
         {
@@ -197,23 +201,126 @@ namespace Coursework
                 lblPriceNoVat.Size = new Size(64, 13);
                 lblPriceNoVat.Location = new Point(x, y);
                 lblPriceNoVat.Name = "lblPriceNoVat_" + i;
-                lblPriceNoVat.Text = $"£{Math.Round(price * lengthLst[i], 2)}";
+                totalNoVat += Math.Round(price * lengthLst[i] * qtyLst[i], 2);
+                lblPriceNoVat.Text = $"£{Math.Round(price * lengthLst[i] * qtyLst[i], 2)}";
                 lblPriceNoVat.Font = font;
                 i++;
                 y += 60;
                 this.Controls.Add(lblPriceNoVat);
             }
+            i = 0;
+            x = 650;
+            y = 69;
+            foreach (var price in priceLst)
+            {
+                Label lblPriceIncVat = new Label();
+                lblPriceIncVat.Visible = true;
+                lblPriceIncVat.ForeColor = SystemColors.ControlText;
+                lblPriceIncVat.BackColor = SystemColors.Control;
+                lblPriceIncVat.AutoSize = true;
+                lblPriceIncVat.Size = new Size(64, 13);
+                lblPriceIncVat.Location = new Point(x, y);
+                lblPriceIncVat.Name = "lblPriceIncVat_" + i;
+                totalIncVat += Math.Round(1.2 * (price * lengthLst[i] * qtyLst[i]), 2);
+                lblPriceIncVat.Text = $"£{Math.Round(1.2 * (price * lengthLst[i] * qtyLst[i]), 2)}";
+                lblPriceIncVat.Font = font;
+                i++;
+                y += 60;
+                this.Controls.Add(lblPriceIncVat);
+            }
+            totalYcoord = y;
+            LoadTotal();
+        }
+
+        private void LoadTotal()
+        {
+            Label lblTotal = new Label();
+            lblTotal.ForeColor = SystemColors.ControlText;
+            lblTotal.BackColor = SystemColors.Control;
+            lblTotal.AutoSize = true;
+            lblTotal.Size = new Size(64, 13);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Font = font2;
+            lblTotal.Location = new Point(62, totalYcoord);
+            lblTotal.Visible = true;
+            lblTotal.Text = $"Total:";
+            this.Controls.Add(lblTotal);
+
+            Label lblTotalNoVat = new Label();
+            lblTotalNoVat.ForeColor = SystemColors.ControlText;
+            lblTotalNoVat.BackColor = SystemColors.Control;
+            lblTotalNoVat.AutoSize = true;
+            lblTotalNoVat.Size = new Size(64, 13);
+            lblTotalNoVat.Name = "lblTotalNoVat";
+            lblTotalNoVat.Font = font;
+            lblTotalNoVat.Location = new Point(500, totalYcoord);
+            lblTotalNoVat.Visible = true;
+            lblTotalNoVat.Text = $"£{Math.Round(totalNoVat, 2)}";
+            this.Controls.Add(lblTotalNoVat);
+
+            Label lblTotalIncVat = new Label();
+            lblTotalIncVat.ForeColor = SystemColors.ControlText;
+            lblTotalIncVat.BackColor = SystemColors.Control;
+            lblTotalIncVat.AutoSize = true;
+            lblTotalIncVat.Size = new Size(64, 13);
+            lblTotalIncVat.Name = "lblTotalIncVat";
+            lblTotalIncVat.Font = font;
+            lblTotalIncVat.Location = new Point(650, totalYcoord);
+            lblTotalIncVat.Visible = true;
+            lblTotalIncVat.Text = $"£{Math.Round(totalIncVat, 2)}";
+            this.Controls.Add(lblTotalIncVat);
         }
 
         private void qtyPicker_ValueChanged(object sender, EventArgs e)
         {
             clsDBConnector dbConnector = new clsDBConnector();
-            string cmdStr = $"UPDATE tblCart SET Quantity = '{(sender as NumericUpDown).Value}' WHERE CartID = {(sender as NumericUpDown).Tag}";
+            int i = Convert.ToInt32((sender as NumericUpDown).Tag);
+            string cmdStr = $"UPDATE tblCart SET Quantity = '{(sender as NumericUpDown).Value}' WHERE CartID = {cartIDLst[i]}";
             dbConnector.Connect();
             dbConnector.DoDML(cmdStr);
             dbConnector.Close();
-            qtyLst[Convert.ToInt32((sender as NumericUpDown).Name[10].ToString())] = (int)(sender as NumericUpDown).Value;
-            //UPDATING PRICE
+            qtyLst[i] = (int)(sender as NumericUpDown).Value;
+
+            foreach (Control c in this.Controls)
+            {
+                if (c is Label lblPriceNoVat && lblPriceNoVat.Name == "lblPriceNoVat_" + i)
+                {
+                    lblPriceNoVat.Text = $"£{Math.Round(priceLst[i] * lengthLst[i] * qtyLst[i], 2)}";
+                    break;
+                }
+            }
+
+            foreach (Control c in this.Controls)
+            {
+                if (c is Label lblPriceIncVat && lblPriceIncVat.Name == "lblPriceIncVat_" + i)
+                {
+                    lblPriceIncVat.Text = $"£{Math.Round(1.2 * (priceLst[i] * lengthLst[i] * qtyLst[i]), 2)}";
+                    break;
+                }
+            }
+        }
+
+        private void frmCart_Load(object sender, EventArgs e)
+        {
+            Label lblTotalNoVat = new Label();
+            lblTotalNoVat.Visible = false;
+            lblTotalNoVat.ForeColor = SystemColors.ControlText;
+            lblTotalNoVat.BackColor = SystemColors.Control;
+            lblTotalNoVat.AutoSize = true;
+            lblTotalNoVat.Size = new Size(64, 13);
+            lblTotalNoVat.Name = "lblTotalNoVat";
+            lblTotalNoVat.Font = font;
+            this.Controls.Add(lblTotalNoVat);
+
+            Label lblTotalExVat = new Label();
+            lblTotalExVat.Visible = false;
+            lblTotalExVat.ForeColor = SystemColors.ControlText;
+            lblTotalExVat.BackColor = SystemColors.Control;
+            lblTotalExVat.AutoSize = true;
+            lblTotalExVat.Size = new Size(64, 13);
+            lblTotalExVat.Name = "lblTotalExVat";
+            lblTotalExVat.Font = font;
+            this.Controls.Add(lblTotalExVat);
         }
     }
 }

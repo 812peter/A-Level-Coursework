@@ -34,6 +34,7 @@
             this.lblLength = new System.Windows.Forms.Label();
             this.lblproduct = new System.Windows.Forms.Label();
             this.lblPriceExVAT = new System.Windows.Forms.Label();
+            this.lblPriceIncVAT = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblCart
@@ -86,11 +87,22 @@
             this.lblPriceExVAT.TabIndex = 31;
             this.lblPriceExVAT.Text = "Price (ex VAT)";
             // 
+            // lblPriceIncVAT
+            // 
+            this.lblPriceIncVAT.AutoSize = true;
+            this.lblPriceIncVAT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPriceIncVAT.Location = new System.Drawing.Point(650, 40);
+            this.lblPriceIncVAT.Name = "lblPriceIncVAT";
+            this.lblPriceIncVAT.Size = new System.Drawing.Size(93, 13);
+            this.lblPriceIncVAT.TabIndex = 32;
+            this.lblPriceIncVAT.Text = "Price (inc VAT)";
+            // 
             // frmCart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(804, 441);
+            this.Controls.Add(this.lblPriceIncVAT);
             this.Controls.Add(this.lblPriceExVAT);
             this.Controls.Add(this.lblLength);
             this.Controls.Add(this.lblQty);
@@ -102,6 +114,7 @@
             this.Name = "frmCart";
             this.Text = "Reinforcements - Cart";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmCart_FormClosed);
+            this.Load += new System.EventHandler(this.frmCart_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -114,5 +127,6 @@
         private System.Windows.Forms.Label lblLength;
         private System.Windows.Forms.Label lblproduct;
         private System.Windows.Forms.Label lblPriceExVAT;
+        private System.Windows.Forms.Label lblPriceIncVAT;
     }
 }

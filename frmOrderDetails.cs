@@ -222,7 +222,7 @@ namespace Coursework
             y += 20;
             e.Graphics.DrawString("========================================================", myFont3, Brushes.Black, -2, y);
             y += 30;
-            x = e.MarginBounds.X - 60;
+            x = e.MarginBounds.X - 50;
             e.Graphics.DrawString($"SUBTOTAL", myFont3, Brushes.Black, x, y);
             y += 15;
             e.Graphics.DrawString($"VAT", myFont3, Brushes.Black, x, y);
