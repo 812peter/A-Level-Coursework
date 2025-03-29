@@ -37,34 +37,6 @@ namespace Coursework
                 }
             }
 
-            //private bool CheckIfManager()
-            //{
-            //    StreamReader currentFile = new StreamReader("user details.txt");
-            //    string email = currentFile.ReadLine();
-            //    currentFile.Close();
-            //    clsDBConnector dbConnector = new clsDBConnector();
-            //    OleDbDataReader dr;
-            //    string boolDB = "";
-            //    dbConnector.Connect();
-            //    string sqlStr = "SELECT Manager" +
-            //             " FROM tblUser" +
-            //             $" WHERE Email = '{email}'";
-            //    dr = dbConnector.DoSQL(sqlStr);
-            //    while (dr.Read())
-            //    {
-            //        boolDB = dr[0].ToString();
-            //    }
-            //    dbConnector.Close();
-            //    if (boolDB == "True")
-            //    {
-            //        return true;
-            //    }
-            //    else
-            //    {
-            //        return false;
-            //    }
-            //}
-
             private void SignInForm_FormClosed(object sender, FormClosedEventArgs e)
             {
                 frmMain mainForm = new frmMain();

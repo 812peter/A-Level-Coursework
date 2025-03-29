@@ -45,6 +45,7 @@ namespace Coursework
         private int productInStock;
         private string productID;
         private string userID;
+        private bool manager = false;
 
         public frmMain()
         {
@@ -53,11 +54,13 @@ namespace Coursework
 
         private void Main_Load(object sender, EventArgs e)
         {
-            if (true)
-            {
-                //tabControl1.TabPages.Remove(tabPage1); some pages are hidden from customers
-            }
             DisplayData(false);
+            if (!manager)
+            {
+                tabControl1.TabPages.Remove(tabPage1);
+                tabControl1.TabPages.Remove(tabPage2);
+                tabControl1.TabPages.Remove(tabPage4);
+            }
             VisibleProductLbls(false);
             LoadDynamicBtns();
             dateStart.Value = GetOrderDate("MIN");
@@ -209,11 +212,15 @@ namespace Coursework
         {
             StreamReader currentFile = new StreamReader("temp.txt");
             dbConnector.Connect();
-            sqlStr = $"SELECT UserID FROM tblUser WHERE Email = '{currentFile.ReadLine()}'";
+            sqlStr = $"SELECT UserID, Manager FROM tblUser WHERE Email = '{currentFile.ReadLine()}'";
             currentFile.Close();
             dr = dbConnector.DoSQL(sqlStr);
             dr.Read();
             userID = dr[0].ToString();
+            if (dr[1].ToString() == "True")
+            {
+                manager = true;
+            }
 
             selectedOrderID = "";
             sqlStr = "SELECT OrderID, UserID, DateOfOrder, TotalPaid, Completed, DateOfCompletion, AddressID FROM tblOrder ORDER BY Completed DESC";

@@ -36,6 +36,9 @@ namespace Coursework
 
         bool emptyCart = false;
         string currentUserID;
+        public bool frmCheckoutOpen = false;
+
+        private frmCheckout frmCheckout = null;
 
         private void frmCart_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -202,12 +205,13 @@ namespace Coursework
             }
 
             i = 0;
-            x = 750;
+            x = 765;
             y = 66;
             foreach (var item in productNameLst) 
             {
                 PictureBox trash = new PictureBox();
                 trash.Visible = true;
+                trash.Cursor = Cursors.Hand;
                 trash.SizeMode = PictureBoxSizeMode.StretchImage;
                 trash.Image = Image.FromFile("trash.png");
                 trash.Size = new Size(15, 15);
@@ -236,8 +240,8 @@ namespace Coursework
                 dbConnector.Connect();
                 dbConnector.DoDML(cmdStr);
                 dbConnector.Close();
-                this.Close();  // Close the current form
-                frmCart frmCart = new frmCart();  // Create a new instance
+                this.Close();
+                frmCart frmCart = new frmCart();
                 frmCart.Show();
                 (Application.OpenForms["frmMain"] as frmMain).frmCartOpen = true;
                 frmCart.LoadDetails(currentUserID);
@@ -293,7 +297,7 @@ namespace Coursework
             lblTotal.Size = new Size(64, 13);
             lblTotal.Name = "lblTotal";
             lblTotal.Font = font2;
-            lblTotal.Location = new Point(62, y);
+            lblTotal.Location = new Point(270, y - 7);
             lblTotal.Visible = true;
             lblTotal.Text = $"Total:";
             this.Controls.Add(lblTotal);
@@ -337,7 +341,17 @@ namespace Coursework
 
         private void btnCheckout_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if (!frmCheckoutOpen)
+            {
+                frmCheckoutOpen = true;
+                frmCheckout = new frmCheckout();
+                frmCheckout.Show();
+            }
+            else
+            {
+                frmCheckout.BringToFront();
+                frmCheckout.WindowState = FormWindowState.Normal;
+            }
         }
 
         private void UploadTotals()
