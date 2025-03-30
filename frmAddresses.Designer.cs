@@ -178,6 +178,7 @@
             this.cmbCustomerID.Size = new System.Drawing.Size(219, 21);
             this.cmbCustomerID.TabIndex = 36;
             this.cmbCustomerID.SelectedIndexChanged += new System.EventHandler(this.cmbCustomerID_SelectedIndexChanged);
+            this.cmbCustomerID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmbCustomerID_KeyPress);
             this.cmbCustomerID.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cmbCustomerID_MouseClick);
             // 
             // btnDelete

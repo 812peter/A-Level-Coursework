@@ -48,9 +48,9 @@ namespace Coursework
             subtotal = Convert.ToDouble(dr[2]) / 1.2;
             total = Convert.ToDouble(dr[2]);
             VAT = total - subtotal;
-            lblTotalPaidNoVAT.Text += "£" + subtotal.ToString();
-            lblVAT.Text += "£" + VAT.ToString();
-            lblTotalPaid.Text += "£" + total.ToString();
+            lblTotalPaidNoVAT.Text += "£" + Math.Round(subtotal, 2).ToString();
+            lblVAT.Text += "£" + Math.Round(VAT, 2).ToString();
+            lblTotalPaid.Text += "£" + Math.Round(total, 2).ToString();
             if (dr[3].ToString() == "True")
             {
                 chkCompleted.Checked = true;
@@ -230,11 +230,11 @@ namespace Coursework
             e.Graphics.DrawString($"TOTAL", myFont2, Brushes.Black, x, y);
             y -= 30;
             x = e.MarginBounds.X + 158;
-            e.Graphics.DrawString($"£{subtotal}", myFont3, Brushes.Black, x, y);
+            e.Graphics.DrawString($"£{Math.Round(subtotal, 2)}", myFont3, Brushes.Black, x, y);
             y += 15;
-            e.Graphics.DrawString($"£{VAT}", myFont3, Brushes.Black, x, y);
+            e.Graphics.DrawString($"£{Math.Round(VAT, 2)}", myFont3, Brushes.Black, x, y);
             y += 15;
-            e.Graphics.DrawString($"£{total}", myFont2, Brushes.Black, x, y);
+            e.Graphics.DrawString($"£{Math.Round(total, 2)}", myFont2, Brushes.Black, x, y);
             y += 50;
             e.Graphics.DrawLine(new Pen(Color.Black, 3), new Point(40, y), new Point(40, y + 30));
             e.Graphics.DrawLine(new Pen(Color.Black, 3), new Point(310, y), new Point(310, y + 30));

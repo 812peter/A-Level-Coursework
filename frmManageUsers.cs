@@ -128,7 +128,7 @@ namespace Coursework
             OleDbDataReader dr;
             string sqlStr;
             dbConnector.Connect();
-            sqlStr = "SELECT UserID, (Surname & " + "', '" + "& FirstName) as username FROM tblUser";
+            sqlStr = "SELECT UserID, (Surname & " + "', '" + "& FirstName) as username FROM tblUser ORDER BY UserID DESC";
             dr = dbConnector.DoSQL(sqlStr);
             while (dr.Read())
             {
@@ -268,6 +268,11 @@ namespace Coursework
             {
                 (Application.OpenForms["frmMain"] as frmMain).frmMUOpen = false;
             }
+        }
+
+        private void cmbCustomerID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

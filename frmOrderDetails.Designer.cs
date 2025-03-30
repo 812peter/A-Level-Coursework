@@ -161,7 +161,7 @@ namespace Coursework
             // columnHeader4
             // 
             this.columnHeader4.Text = "Material";
-            this.columnHeader4.Width = 130;
+            this.columnHeader4.Width = 116;
             // 
             // columnHeader5
             // 
@@ -169,8 +169,8 @@ namespace Coursework
             // 
             // columnHeader6
             // 
-            this.columnHeader6.Text = "Price";
-            this.columnHeader6.Width = 68;
+            this.columnHeader6.Text = "Price (ex VAT)";
+            this.columnHeader6.Width = 80;
             // 
             // lblCustomerDetails
             // 
@@ -255,8 +255,8 @@ namespace Coursework
             this.printPreviewDialog1.ClientSize = new System.Drawing.Size(600, 600);
             this.printPreviewDialog1.Enabled = true;
             this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
-            this.printPreviewDialog1.Text = "Reinforcements - Print Preview";
             this.printPreviewDialog1.Name = "printPreviewDialog1";
+            this.printPreviewDialog1.Text = "Reinforcements - Print Preview";
             this.printPreviewDialog1.Visible = false;
             // 
             // frmOrderDetails

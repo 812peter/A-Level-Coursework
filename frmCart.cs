@@ -27,6 +27,7 @@ namespace Coursework
         List<string> cartIDLst = new List<string>();
         List<int> stockLst = new List<int>();
         List<double> priceLst = new List<double>();
+        List<int> productIDLst = new List<int>();
 
         Label lblTotalNoVat = new Label();
         Label lblTotalIncVat = new Label();
@@ -55,7 +56,7 @@ namespace Coursework
             OleDbDataReader dr;
             string sqlStr;
             dbConnector.Connect();
-            sqlStr = $"SELECT ProductName, Quantity, DiameterInMM, Material, tblCart.LengthInM, CartID, AmountInStock, PricePerMeter FROM tblCart, tblProduct " +
+            sqlStr = $"SELECT ProductName, Quantity, DiameterInMM, Material, tblCart.LengthInM, CartID, AmountInStock, PricePerMeter, tblCart.ProductID FROM tblCart, tblProduct " +
                      $"WHERE UserID = {userID} AND tblCart.ProductID = tblProduct.ProductID ORDER BY Quantity DESC";
             dr = dbConnector.DoSQL(sqlStr);
             int heightMultiplier = 1;
@@ -69,6 +70,7 @@ namespace Coursework
                 cartIDLst.Add(dr[5].ToString());
                 stockLst.Add(Convert.ToInt32(dr[6]));
                 priceLst.Add(Convert.ToDouble(dr[7]));
+                productIDLst.Add(Convert.ToInt32(dr[8]));
                 heightMultiplier += 1;
             }
             if (heightMultiplier == 1)
@@ -207,7 +209,7 @@ namespace Coursework
             i = 0;
             x = 765;
             y = 66;
-            foreach (var item in productNameLst) 
+            foreach (var item in productNameLst)
             {
                 PictureBox trash = new PictureBox();
                 trash.Visible = true;
@@ -346,6 +348,7 @@ namespace Coursework
                 frmCheckoutOpen = true;
                 frmCheckout = new frmCheckout();
                 frmCheckout.Show();
+                frmCheckout.LoadDetails(currentUserID, total);
             }
             else
             {
@@ -354,9 +357,10 @@ namespace Coursework
             }
         }
 
+        double total = 0;
+
         private void UploadTotals()
         {
-            double total = 0;
             int i = 0;
             foreach (var singlePrice in priceLst)
             {
@@ -418,6 +422,34 @@ namespace Coursework
             lblTotalExVat.Name = "lblTotalExVat";
             lblTotalExVat.Font = font;
             this.Controls.Add(lblTotalExVat);
+        }
+
+        internal void OrderCompleted(string addressID)
+        {
+            clsDBConnector dbConnector = new clsDBConnector();
+            OleDbDataReader dr;
+            string cmdStr = $"DELETE FROM tblCart WHERE UserID = {currentUserID}";
+            dbConnector.Connect();
+            dbConnector.DoDML(cmdStr);
+
+            cmdStr = $"INSERT INTO tblOrder (UserID, DateOfOrder, TotalPaid, AddressID) " +
+                     $"VALUES ('{currentUserID}', '{DateTime.Now.ToString("dd/MM/yyyy")}', '{Math.Round(1.2 * total, 2)}', '{addressID}')";
+            dbConnector.DoDML(cmdStr);
+
+            string sqlStr = $"SELECT MAX(OrderID) FROM tblOrder";
+            dr = dbConnector.DoSQL(sqlStr);
+            dr.Read();
+            string orderID = dr[0].ToString();
+
+            int i = 0;
+            foreach (var productID in productIDLst)
+            {
+                cmdStr = $"INSERT INTO tblProductOrder (OrderID, ProductID, Quantity, LengthInM) " +
+                         $"VALUES ('{orderID}', '{productID}', '{qtyLst[i]}', '{lengthLst[i]}')";
+                dbConnector.DoDML(cmdStr);
+                i++;
+            }
+            dbConnector.Close();
         }
     }
 }

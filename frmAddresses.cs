@@ -322,5 +322,10 @@ namespace Coursework
                 (Application.OpenForms["frmAccount"] as frmAccount).frmAddrOpen = false;
             }
         }
+
+        private void cmbCustomerID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }
