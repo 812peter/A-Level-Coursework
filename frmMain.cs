@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Button = System.Windows.Forms.Button;
 using System.IO;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Coursework
 {
@@ -41,6 +42,7 @@ namespace Coursework
         private string header;
         private string startDate;
         private string endDate;
+        private DateTime selectedMonth = DateTime.Now;
 
         private int productInStock;
         private string productID;
@@ -63,8 +65,54 @@ namespace Coursework
             }
             VisibleProductLbls(false);
             LoadDynamicBtns();
+            LoadChart();
             dateStart.Value = GetOrderDate("MIN");
             dateEnd.Value = GetOrderDate("MAX");
+        }
+
+        private void LoadChart()
+        {
+            int daysInMonth = DateTime.DaysInMonth(selectedMonth.Year, selectedMonth.Month);
+            Dictionary<int, double> salesData = new Dictionary<int, double>();
+            for (int i = 1; i <= daysInMonth; i++)
+            {
+                salesData[i] = 0;
+            }
+            chartSales.Series.Clear();
+            chartSales.Series.Add("Sales");
+            chartSales.Series["Sales"].Color = Color.Red;
+            chartSales.ChartAreas[0].AxisX.Title = "Day";
+            chartSales.ChartAreas[0].AxisY.Title = "Total Sales / £";
+            chartSales.BorderWidth = 2;
+            if ((int)selectedMonth.Month < 10)
+            {
+                lblDate.Text = $"Selected: 0{selectedMonth.Month}/{selectedMonth.Year}";
+                chartSales.Series["Sales"].ToolTip = $"#VALX/0{selectedMonth.Month}/{selectedMonth.Year}: £#VALY";
+            }
+            else
+            {
+                lblDate.Text = $"Selected: {selectedMonth.Month}/{selectedMonth.Year}";
+                chartSales.Series["Sales"].ToolTip = $"#VALX/{selectedMonth.Month}/{selectedMonth.Year}: £#VALY";
+            }
+
+            dbConnector.Connect();
+            sqlStr = "SELECT DAY(DateOfOrder), SUM(TotalPaid) " +
+                     "FROM tblOrder " +
+                     $"WHERE YEAR(DateOfOrder) = '{selectedMonth.Year}' AND MONTH(DateOfOrder) = '{selectedMonth.Month}' " +
+                     "GROUP BY DAY(DateOfOrder) ORDER BY DAY(DateOfOrder)";
+            dr = dbConnector.DoSQL(sqlStr);
+            while (dr.Read())
+            {
+                int orderDay = Convert.ToInt32(dr[0]);
+                double totalPaid = Convert.ToDouble(dr[1]);
+
+                salesData[orderDay] = totalPaid;
+            }
+            dbConnector.Close();
+            foreach (var entry in salesData)
+            {
+                chartSales.Series["Sales"].Points.AddXY(entry.Key, entry.Value);
+            }
         }
 
         private void VisibleProductLbls(bool v)
@@ -564,6 +612,18 @@ namespace Coursework
             {
                 MessageBox.Show("Invalid values for length/quantity or both.", "Invalid values");
             }
+        }
+
+        private void btnNextMonth_Click(object sender, EventArgs e)
+        {
+            selectedMonth = selectedMonth.AddMonths(1);
+            LoadChart();
+        }
+
+        private void btnPrevMonth_Click(object sender, EventArgs e)
+        {
+            selectedMonth = selectedMonth.AddMonths(-1);
+            LoadChart();
         }
     }
 }

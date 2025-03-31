@@ -449,6 +449,18 @@ namespace Coursework
                 dbConnector.DoDML(cmdStr);
                 i++;
             }
+            i = 0;
+            int piecesPerBar = (int)(12 / lengthLst[i]);
+            if (piecesPerBar == 0)
+            {
+                piecesPerBar = 1;
+            }
+            foreach (var productID in productIDLst)
+            {
+                cmdStr = $"UPDATE tblProduct SET AmountInStock = AmountInStock - ({Math.Ceiling((double)qtyLst[i] / piecesPerBar)}) WHERE ProductID = {productID}";
+                dbConnector.DoDML(cmdStr);
+                i++;
+            }
             dbConnector.Close();
         }
     }
