@@ -258,46 +258,55 @@ namespace Coursework
 
         public void DisplayData(bool v)
         {
-            StreamReader currentFile = new StreamReader("temp.txt");
-            dbConnector.Connect();
-            sqlStr = $"SELECT UserID, Manager FROM tblUser WHERE Email = '{currentFile.ReadLine()}'";
-            currentFile.Close();
-            dr = dbConnector.DoSQL(sqlStr);
-            dr.Read();
-            userID = dr[0].ToString();
-            if (dr[1].ToString() == "True")
+            try
             {
-                manager = true;
-            }
+                StreamReader currentFile = new StreamReader("temp.txt");
+                dbConnector.Connect();
+                sqlStr = $"SELECT UserID, Manager FROM tblUser WHERE Email = '{currentFile.ReadLine()}'";
+                currentFile.Close();
+                dr = dbConnector.DoSQL(sqlStr);
+                dr.Read();
+                userID = dr[0].ToString();
+                if (dr[1].ToString() == "True")
+                {
+                    manager = true;
+                }
 
-            selectedOrderID = "";
-            sqlStr = "SELECT OrderID, UserID, DateOfOrder, TotalPaid, Completed, DateOfCompletion, AddressID FROM tblOrder ORDER BY Completed DESC";
-            dr = dbConnector.DoSQL(sqlStr);
-            lstOrders.Items.Clear();
-            while (dr.Read())
-            {
-                lstOrders.Items.Add(dr[0].ToString());
-                lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[1].ToString());
-                lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(GetDateOnly(dr[2]));
-                lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add("£" + dr[3].ToString());
-                lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(GetBoolEmoji(dr[4].ToString()));
-                lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(GetDateOnly(dr[5]));
-                lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[6].ToString());
-            }
+                selectedOrderID = "";
+                sqlStr = "SELECT OrderID, UserID, DateOfOrder, TotalPaid, Completed, DateOfCompletion, AddressID FROM tblOrder ORDER BY Completed DESC";
+                dr = dbConnector.DoSQL(sqlStr);
+                lstOrders.Items.Clear();
+                while (dr.Read())
+                {
+                    lstOrders.Items.Add(dr[0].ToString());
+                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[1].ToString());
+                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(GetDateOnly(dr[2]));
+                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add("£" + dr[3].ToString());
+                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(GetBoolEmoji(dr[4].ToString()));
+                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(GetDateOnly(dr[5]));
+                    lstOrders.Items[lstOrders.Items.Count - 1].SubItems.Add(dr[6].ToString());
+                }
 
-            sqlStr = $"SELECT UserID, FirstName, Surname, Email, PhoneNumber, CompanyName FROM tblUser WHERE Manager = {v} ORDER BY UserID DESC";
-            dr = dbConnector.DoSQL(sqlStr);
-            lstCustomers.Items.Clear();
-            while (dr.Read())
-            {
-                lstCustomers.Items.Add(dr[0].ToString());
-                lstCustomers.Items[lstCustomers.Items.Count - 1].SubItems.Add(dr[1].ToString());
-                lstCustomers.Items[lstCustomers.Items.Count - 1].SubItems.Add(dr[2].ToString());
-                lstCustomers.Items[lstCustomers.Items.Count - 1].SubItems.Add(dr[3].ToString());
-                lstCustomers.Items[lstCustomers.Items.Count - 1].SubItems.Add(dr[4].ToString());
-                lstCustomers.Items[lstCustomers.Items.Count - 1].SubItems.Add(dr[5].ToString());
+                sqlStr = $"SELECT UserID, FirstName, Surname, Email, PhoneNumber, CompanyName FROM tblUser WHERE Manager = {v} ORDER BY UserID DESC";
+                dr = dbConnector.DoSQL(sqlStr);
+                lstCustomers.Items.Clear();
+                while (dr.Read())
+                {
+                    lstCustomers.Items.Add(dr[0].ToString());
+                    lstCustomers.Items[lstCustomers.Items.Count - 1].SubItems.Add(dr[1].ToString());
+                    lstCustomers.Items[lstCustomers.Items.Count - 1].SubItems.Add(dr[2].ToString());
+                    lstCustomers.Items[lstCustomers.Items.Count - 1].SubItems.Add(dr[3].ToString());
+                    lstCustomers.Items[lstCustomers.Items.Count - 1].SubItems.Add(dr[4].ToString());
+                    lstCustomers.Items[lstCustomers.Items.Count - 1].SubItems.Add(dr[5].ToString());
+                }
+                dbConnector.Close();
             }
-            dbConnector.Close();
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Error occured: " + ex.Message, "Error");
+            }
+            
         }
 
         public string GetDateOnly(object originalDBDate)

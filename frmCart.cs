@@ -94,7 +94,7 @@ namespace Coursework
                 Label lbl = new Label();
                 lbl.Visible = true;
                 lbl.ForeColor = SystemColors.ControlText;
-                lbl.BackColor = SystemColors.Control;
+                lbl.BackColor = SystemColors.Window;
                 lbl.AutoSize = true;
                 lbl.Size = new Size(64, 13);
                 lbl.Location = new Point(x, y);
@@ -141,7 +141,7 @@ namespace Coursework
                 Label lbl = new Label();
                 lbl.Visible = true;
                 lbl.ForeColor = SystemColors.ControlText;
-                lbl.BackColor = SystemColors.Control;
+                lbl.BackColor = SystemColors.Window;
                 lbl.AutoSize = true;
                 lbl.Size = new Size(64, 13);
                 lbl.Location = new Point(x, y);
@@ -185,7 +185,7 @@ namespace Coursework
                 Label lblLength = new Label();
                 lblLength.Visible = true;
                 lblLength.ForeColor = SystemColors.ControlText;
-                lblLength.BackColor = SystemColors.Control;
+                lblLength.BackColor = SystemColors.Window;
                 lblLength.AutoSize = true;
                 lblLength.Size = new Size(64, 13);
                 lblLength.Location = new Point(x, y);
@@ -261,7 +261,7 @@ namespace Coursework
                 Label lblPriceNoVat = new Label();
                 lblPriceNoVat.Visible = true;
                 lblPriceNoVat.ForeColor = SystemColors.ControlText;
-                lblPriceNoVat.BackColor = SystemColors.Control;
+                lblPriceNoVat.BackColor = SystemColors.Window;
                 lblPriceNoVat.AutoSize = true;
                 lblPriceNoVat.Size = new Size(64, 13);
                 lblPriceNoVat.Location = new Point(x, y);
@@ -280,7 +280,7 @@ namespace Coursework
                 Label lblPriceIncVat = new Label();
                 lblPriceIncVat.Visible = true;
                 lblPriceIncVat.ForeColor = SystemColors.ControlText;
-                lblPriceIncVat.BackColor = SystemColors.Control;
+                lblPriceIncVat.BackColor = SystemColors.Window;
                 lblPriceIncVat.AutoSize = true;
                 lblPriceIncVat.Size = new Size(64, 13);
                 lblPriceIncVat.Location = new Point(x, y);
@@ -294,7 +294,7 @@ namespace Coursework
 
             Label lblTotal = new Label();
             lblTotal.ForeColor = SystemColors.ControlText;
-            lblTotal.BackColor = SystemColors.Control;
+            lblTotal.BackColor = SystemColors.Window;
             lblTotal.AutoSize = true;
             lblTotal.Size = new Size(64, 13);
             lblTotal.Name = "lblTotal";
@@ -305,7 +305,7 @@ namespace Coursework
             this.Controls.Add(lblTotal);
 
             lblTotalNoVat.ForeColor = SystemColors.ControlText;
-            lblTotalNoVat.BackColor = SystemColors.Control;
+            lblTotalNoVat.BackColor = SystemColors.Window;
             lblTotalNoVat.AutoSize = true;
             lblTotalNoVat.Size = new Size(64, 13);
             lblTotalNoVat.Name = "lblTotalNoVat";
@@ -316,7 +316,7 @@ namespace Coursework
             this.Controls.Add(lblTotalNoVat);
 
             lblTotalIncVat.ForeColor = SystemColors.ControlText;
-            lblTotalIncVat.BackColor = SystemColors.Control;
+            lblTotalIncVat.BackColor = SystemColors.Window;
             lblTotalIncVat.AutoSize = true;
             lblTotalIncVat.Size = new Size(64, 13);
             lblTotalIncVat.Name = "lblTotalIncVat";
@@ -406,7 +406,7 @@ namespace Coursework
             Label lblTotalNoVat = new Label();
             lblTotalNoVat.Visible = false;
             lblTotalNoVat.ForeColor = SystemColors.ControlText;
-            lblTotalNoVat.BackColor = SystemColors.Control;
+            lblTotalNoVat.BackColor = SystemColors.Window;
             lblTotalNoVat.AutoSize = true;
             lblTotalNoVat.Size = new Size(64, 13);
             lblTotalNoVat.Name = "lblTotalNoVat";
@@ -416,7 +416,7 @@ namespace Coursework
             Label lblTotalExVat = new Label();
             lblTotalExVat.Visible = false;
             lblTotalExVat.ForeColor = SystemColors.ControlText;
-            lblTotalExVat.BackColor = SystemColors.Control;
+            lblTotalExVat.BackColor = SystemColors.Window;
             lblTotalExVat.AutoSize = true;
             lblTotalExVat.Size = new Size(64, 13);
             lblTotalExVat.Name = "lblTotalExVat";
