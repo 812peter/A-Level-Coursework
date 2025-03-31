@@ -77,7 +77,10 @@ namespace Coursework
             this.lblProductName = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.chartSales = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblDate = new System.Windows.Forms.Label();
+            this.btnNextMonth = new System.Windows.Forms.Button();
+            this.btnPrevMonth = new System.Windows.Forms.Button();
             this.lblEnd = new System.Windows.Forms.Label();
             this.lblStart = new System.Windows.Forms.Label();
             this.lblOrderReport = new System.Windows.Forms.Label();
@@ -85,14 +88,11 @@ namespace Coursework
             this.dateEnd = new System.Windows.Forms.DateTimePicker();
             this.dateStart = new System.Windows.Forms.DateTimePicker();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.chartSales = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.picAccount = new System.Windows.Forms.PictureBox();
             this.picCart = new System.Windows.Forms.PictureBox();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
-            this.btnPrevMonth = new System.Windows.Forms.Button();
-            this.btnNextMonth = new System.Windows.Forms.Button();
-            this.lblDate = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -101,8 +101,8 @@ namespace Coursework
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chartSales)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartSales)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picAccount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCart)).BeginInit();
             this.SuspendLayout();
@@ -232,13 +232,14 @@ namespace Coursework
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
+            this.checkBox1.BackColor = System.Drawing.SystemColors.Control;
             this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.checkBox1.Location = new System.Drawing.Point(1178, 3);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(73, 17);
             this.checkBox1.TabIndex = 8;
             this.checkBox1.Text = "Managers";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.UseVisualStyleBackColor = false;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // btnAddresses
@@ -546,24 +547,48 @@ namespace Coursework
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Statistics";
             // 
-            // chartSales
+            // label2
             // 
-            this.chartSales.BackColor = System.Drawing.SystemColors.Window;
-            this.chartSales.BorderlineColor = System.Drawing.Color.Transparent;
-            chartArea1.Name = "ChartArea1";
-            this.chartSales.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartSales.Legends.Add(legend1);
-            this.chartSales.Location = new System.Drawing.Point(213, 36);
-            this.chartSales.Name = "chartSales";
-            this.chartSales.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartSales.Series.Add(series1);
-            this.chartSales.Size = new System.Drawing.Size(961, 414);
-            this.chartSales.TabIndex = 29;
-            this.chartSales.Text = "chart1";
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(286, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(215, 24);
+            this.label2.TabIndex = 33;
+            this.label2.Text = "Total Sales Per Month";
+            // 
+            // lblDate
+            // 
+            this.lblDate.AutoSize = true;
+            this.lblDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDate.Location = new System.Drawing.Point(612, 455);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(18, 13);
+            this.lblDate.TabIndex = 32;
+            this.lblDate.Text = "txt";
+            this.lblDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnNextMonth
+            // 
+            this.btnNextMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnNextMonth.Location = new System.Drawing.Point(944, 450);
+            this.btnNextMonth.Name = "btnNextMonth";
+            this.btnNextMonth.Size = new System.Drawing.Size(75, 23);
+            this.btnNextMonth.TabIndex = 31;
+            this.btnNextMonth.Text = ">";
+            this.btnNextMonth.UseVisualStyleBackColor = true;
+            this.btnNextMonth.Click += new System.EventHandler(this.btnNextMonth_Click);
+            // 
+            // btnPrevMonth
+            // 
+            this.btnPrevMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnPrevMonth.Location = new System.Drawing.Point(291, 450);
+            this.btnPrevMonth.Name = "btnPrevMonth";
+            this.btnPrevMonth.Size = new System.Drawing.Size(75, 23);
+            this.btnPrevMonth.TabIndex = 30;
+            this.btnPrevMonth.Text = "<";
+            this.btnPrevMonth.UseVisualStyleBackColor = true;
+            this.btnPrevMonth.Click += new System.EventHandler(this.btnPrevMonth_Click);
             // 
             // lblEnd
             // 
@@ -639,6 +664,25 @@ namespace Coursework
             this.pictureBox4.TabIndex = 10;
             this.pictureBox4.TabStop = false;
             // 
+            // chartSales
+            // 
+            this.chartSales.BackColor = System.Drawing.SystemColors.Window;
+            this.chartSales.BorderlineColor = System.Drawing.Color.Transparent;
+            chartArea1.Name = "ChartArea1";
+            this.chartSales.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartSales.Legends.Add(legend1);
+            this.chartSales.Location = new System.Drawing.Point(213, 36);
+            this.chartSales.Name = "chartSales";
+            this.chartSales.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartSales.Series.Add(series1);
+            this.chartSales.Size = new System.Drawing.Size(961, 414);
+            this.chartSales.TabIndex = 29;
+            this.chartSales.Text = "chart1";
+            // 
             // picAccount
             // 
             this.picAccount.BackColor = System.Drawing.SystemColors.Control;
@@ -676,49 +720,6 @@ namespace Coursework
             this.printPreviewDialog1.Text = "Reinforcements - Print Preview";
             this.printPreviewDialog1.Visible = false;
             // 
-            // btnPrevMonth
-            // 
-            this.btnPrevMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnPrevMonth.Location = new System.Drawing.Point(291, 450);
-            this.btnPrevMonth.Name = "btnPrevMonth";
-            this.btnPrevMonth.Size = new System.Drawing.Size(75, 23);
-            this.btnPrevMonth.TabIndex = 30;
-            this.btnPrevMonth.Text = "<";
-            this.btnPrevMonth.UseVisualStyleBackColor = true;
-            this.btnPrevMonth.Click += new System.EventHandler(this.btnPrevMonth_Click);
-            // 
-            // btnNextMonth
-            // 
-            this.btnNextMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnNextMonth.Location = new System.Drawing.Point(944, 450);
-            this.btnNextMonth.Name = "btnNextMonth";
-            this.btnNextMonth.Size = new System.Drawing.Size(75, 23);
-            this.btnNextMonth.TabIndex = 31;
-            this.btnNextMonth.Text = ">";
-            this.btnNextMonth.UseVisualStyleBackColor = true;
-            this.btnNextMonth.Click += new System.EventHandler(this.btnNextMonth_Click);
-            // 
-            // lblDate
-            // 
-            this.lblDate.AutoSize = true;
-            this.lblDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDate.Location = new System.Drawing.Point(612, 455);
-            this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(18, 13);
-            this.lblDate.TabIndex = 32;
-            this.lblDate.Text = "txt";
-            this.lblDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(286, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(215, 24);
-            this.label2.TabIndex = 33;
-            this.label2.Text = "Total Sales Per Month";
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -745,8 +746,8 @@ namespace Coursework
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chartSales)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartSales)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picAccount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCart)).EndInit();
             this.ResumeLayout(false);

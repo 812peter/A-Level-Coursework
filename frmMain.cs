@@ -306,7 +306,6 @@ namespace Coursework
 
                 MessageBox.Show("Error occured: " + ex.Message, "Error");
             }
-            
         }
 
         public string GetDateOnly(object originalDBDate)
